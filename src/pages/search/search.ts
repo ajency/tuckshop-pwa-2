@@ -30,6 +30,8 @@ export class SearchPage {
 	private items : any;
 	public auth2: any;
 
+  myInput : string = '';
+
   
 	constructor(public navCtrl: NavController, public zone: NgZone, public navParams: NavParams, private viewCtrl: ViewController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
 	}
@@ -43,10 +45,14 @@ export class SearchPage {
 
 
 	ionViewWillEnter() {
+    console.log('ionViewDidLoad SearchPage');
+
 		this.viewCtrl.showBackButton(false);
 	}
 
 	errorToast() {
+      console.log('errorToast function');
+
 	    let toast = this.toastCtrl.create({
 	      message: 'Something went wrong! Please try again.',
 	      showCloseButton: true,
@@ -62,7 +68,7 @@ export class SearchPage {
 
 
 handleClientLoad() {
-	console.log("handleClientLoad");
+	console.log("handleClientLoad function");
 	  	let that = this;
         gapi.load('client:auth2', function () {
         gapi.client.init({
@@ -115,7 +121,7 @@ callScriptFunction() {
        
  	this.loadingItems = true;
  //      	this.loadError = false;
-      	console.log("callScriptFunction");
+	console.log("callScriptFunction");
 
       
 
@@ -192,36 +198,80 @@ confirmPurchase(item) {
 	}
 
 
-	public callFilter(ev)
-	{
-		this.items = [];
-		console.log(this.items);
-	console.log("inside filter function");
+	// public callFilter(ev)
+	// {
+	// 	this.items = [];
+	// 	console.log(this.items);
+	// console.log("inside filter function");
 
-	   var val = ev.target.value;
+	//    var val = ev.target.value;
+ //     this.loadError = false;
+ //     // console.log(this.item);
+ 
+ //      //if the value is an empty string don't filter the items
+ //      if (val && val.trim() != '') {
+ //      this.items = this.response.filter((i) => {
+ //         return (i.itemName.toLowerCase().indexOf(val.toLowerCase()) > -1);
+ //       });
+
+ //      console.log(this.items);
+
+ //      if(Object.keys(this.items).length ==0){
+
+
+ //      	this.loadError = true;
+ //      }     
+
+
+ //  	}
+
+
+ //  	else{
+ //  		this.items = this.response;
+ //  	}
+
+
+	// }
+
+public callFilter()
+  {
+    this.items = [];
+    console.log(this.items);
+    console.log("inside filter function");
+
      this.loadError = false;
-     // console.log(this.item);
+     console.log(this.myInput);
  
       //if the value is an empty string don't filter the items
-      if (val && val.trim() != '') {
+      if (this.myInput && this.myInput.trim() != '') {
       this.items = this.response.filter((i) => {
-         return (i.itemName.toLowerCase().indexOf(val.toLowerCase()) > -1);
+         return (i.itemName.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1);
        });
+
 
       console.log(this.items);
 
       if(Object.keys(this.items).length ==0){
 
 
-      	this.loadError = true;
+        this.loadError = true;
       }     
 
 
-  	}
-  	else{
-  		this.items = this.response;
-  	}
-	}
+    }
+
+
+    else{
+      this.items = this.response;
+    }
+    this.zone.run(() => {});
+
+  }
+
+
 }
+
+
+
 
 
