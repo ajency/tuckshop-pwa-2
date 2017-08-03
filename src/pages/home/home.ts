@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage,NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 
 import { SearchPage } from '../search/search';
 
@@ -30,6 +30,7 @@ ionViewDidLoad() {
 
 
 	public auth2: any;
+  public disabled = false;
 
 
 

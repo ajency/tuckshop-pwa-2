@@ -18,7 +18,7 @@
 	</h2>
 
 	<div padding>
-		<button  ion-button block (click) = "signIn()"  color="ajency" > Sign In </button>
+		<button  ion-button block (click) = "signIn()" [disabled]="disabled" (click)="disabled=true"  color="ajency" > Sign In </button>
 	</div>
 
 	

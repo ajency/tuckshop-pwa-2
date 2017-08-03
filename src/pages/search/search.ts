@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ModalController, ToastController, PopoverController } from 'ionic-angular';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController } from 'ionic-angular';
+// import { Http } from '@angular/http';
+// import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { BuyPage } from '../buy/buy';
@@ -25,7 +25,7 @@ export class SearchPage {
 
 
 	private loadingItems = true;
-	private loadResults = false;
+	// private loadResults = false;
 	private loadError = false;
 
 	private response: any;
@@ -33,6 +33,7 @@ export class SearchPage {
 	public auth2: any;
 
   myInput : string = '';
+  private image : any;
 
   
 	constructor(private popoverCtrl: PopoverController, public navCtrl: NavController, public zone: NgZone, public navParams: NavParams, private viewCtrl: ViewController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
@@ -125,6 +126,8 @@ callScriptFunction() {
  //      	this.loadError = false;
 	console.log("callScriptFunction");
 
+  console.log(gapi.auth2.getAuthInstance().currentUser.get().w3.Paa);
+  this.image = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa;
       
 
       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
