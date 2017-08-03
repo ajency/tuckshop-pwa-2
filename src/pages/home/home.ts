@@ -68,7 +68,21 @@ ionViewDidLoad() {
           this.navigateToSearch();
 
         } else {
-                  console.log(this);
+       //            console.log(this);
+       // // *  Sign in the user upon button click.
+
+       //  	        gapi.auth2.getAuthInstance().signIn().then( () => {
+       //  	        	console.log("signed in");
+       //  	        	this.navigateToSearch();
+
+       //        });
+
+
+        }
+      }
+
+      signIn(){
+      	            console.log(this);
        // *  Sign in the user upon button click.
 
         	        gapi.auth2.getAuthInstance().signIn().then( () => {
@@ -78,7 +92,7 @@ ionViewDidLoad() {
               });
 
 
-        }
+
       }
 
 
