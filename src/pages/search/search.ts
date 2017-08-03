@@ -1,10 +1,12 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController, ToastController, PopoverController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { BuyPage } from '../buy/buy';
+
+import { SignoutPage } from '../signout/signout';
 
  declare const gapi : any;
 
@@ -33,7 +35,7 @@ export class SearchPage {
   myInput : string = '';
 
   
-	constructor(public navCtrl: NavController, public zone: NgZone, public navParams: NavParams, private viewCtrl: ViewController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+	constructor(private popoverCtrl: PopoverController, public navCtrl: NavController, public zone: NgZone, public navParams: NavParams, private viewCtrl: ViewController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
 	}
 
 	ionViewDidLoad() {
@@ -266,6 +268,18 @@ public callFilter()
     }
     this.zone.run(() => {});
 
+  }
+
+
+
+
+
+  presentPopover(ev) {
+    let popover = this.popoverCtrl.create(SignoutPage, {
+    });
+    popover.present({
+      ev: ev
+    });
   }
 
 

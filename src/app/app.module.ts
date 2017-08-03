@@ -20,12 +20,16 @@ import { SearchPage } from '../pages/search/search';
 
 import { BuyPage } from '../pages/buy/buy';
 
+
+import { SignoutPage } from '../pages/signout/signout';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     SearchPage,
-    BuyPage
+    BuyPage,
+    SignoutPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { BuyPage } from '../pages/buy/buy';
     MyApp,
     HomePage,
     SearchPage,
-    BuyPage
+    BuyPage,
+    SignoutPage
   ],
   providers: [
     StatusBar,

@@ -8,14 +8,20 @@
 <ion-header>
 	<ion-navbar align="center" color="ajency">
 		<ion-title>Tuckshop</ion-title>
-		<ion-buttons start>
+
+		<ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+		<!-- <ion-buttons start>
       <button ion-button  (click) = "emailPopup()">
         <ion-icon name="contact" >
         	
         </ion-icon>
       </button>
     </ion-buttons>
-	</ion-navbar>
+ -->	</ion-navbar>
 </ion-header>
 
 
