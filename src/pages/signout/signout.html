@@ -14,11 +14,18 @@
 </ion-header> -->
 
 
-<ion-content padding class = "no-scroll">
+<!-- <ion-content padding class = "no-scroll">
 <h6>Signed in as
     {{user}}</h6>
 
 
 <button margin-top ion-button color="ajency" (click)="signOut()">Sign out</button>
 
-</ion-content>
+</ion-content> -->
+
+<ion-list>
+  <ion-item>
+  	<h2>{{user}}</h2>
+  </ion-item>
+  <button ion-item (click)="signOut()" class="sign-out">Sign out</button>
+</ion-list>

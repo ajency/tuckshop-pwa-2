@@ -1,14 +1,22 @@
 page-search {
 	.searchbar-ios{
-		background-color: transparent;
+		// background-color: transparent;
+	}
+
+	.avatar-img{
+		border-radius: 50%;
 	}
 
 	ion-item.item{
 		color: color($colors, ajency, contrast);
 		text-transform: capitalize;
+		cursor: pointer;
+		&:hover {
+		  background-color: color($colors, ajency, base);
+		}
 	}
-}
 
-ion-item.item:hover {
-  background-color: slategray;
+	.refresher-pulling-icon, .refresher-refreshing-icon{
+		color: color($colors, ajency, base);
+	}
 }

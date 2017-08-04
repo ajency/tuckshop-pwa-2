@@ -10,40 +10,34 @@
 		<ion-title>Tuckshop</ion-title>
 
 		<ion-buttons end>
-      <button ion-button icon-only (click)="presentPopover($event)">
-        <ion-avatar >
-      <img src={{image}} width="30" height="30">
-    </ion-avatar>
-      </button>
-    </ion-buttons>
-	
-		</ion-navbar>
+	      <button ion-button icon-only (click)="presentPopover($event)">
+	        <ion-avatar item-start>
+		      <img src={{image}} width="30" height="30" class="avatar-img">
+		    </ion-avatar>
+	      </button>
+	    </ion-buttons>
+	</ion-navbar>
 
+	<ion-toolbar no-border-top>
 		<!-- Search Bar-->
-
-
-	<ion-searchbar (ionInput)="callFilter()" [(ngModel)]="myInput"  autocomplete = "on" autocorrect = "on"></ion-searchbar>
-
+		<ion-searchbar (ionInput)="callFilter()" [(ngModel)]="myInput"  autocomplete = "on" autocorrect = "on"></ion-searchbar>
+	</ion-toolbar>
 </ion-header>
 
 
 
 <ion-content>
-	
-<ion-refresher (ionRefresh)="callScriptFunction($event)">
-    <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
+
+	<ion-refresher (ionRefresh)="callScriptFunction($event)">
+	    <ion-refresher-content
+	      pullingText="Pull to refresh"
+	      refreshingText="Refreshing...">
+	    </ion-refresher-content>
+  	</ion-refresher>
 
 	<div *ngIf="loadingItems" text-center class="search-load">
 		<ion-spinner margin color="ajency"></ion-spinner>
 	</div>
-
-
 
 	<ion-list >
 		<ion-item *ngFor="let item of items" (click)="confirmPurchase(item)" class="fadeInUp">
@@ -51,8 +45,6 @@
 			<div item-end><small>Rs.</small>{{item.price}}</div>
 		</ion-item>
 	</ion-list>
-
-
 
 	<div margin text-center *ngIf="loadError">
 		No Results
