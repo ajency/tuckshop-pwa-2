@@ -23,6 +23,9 @@ import { BuyPage } from '../pages/buy/buy';
 
 import { SignoutPage } from '../pages/signout/signout';
 
+import { IonicStorageModule } from '@ionic/storage';
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -35,6 +38,7 @@ import { SignoutPage } from '../pages/signout/signout';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
