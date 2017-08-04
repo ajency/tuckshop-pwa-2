@@ -8,6 +8,9 @@ import { BuyPage } from '../buy/buy';
 
 import { SignoutPage } from '../signout/signout';
 
+import { Storage } from '@ionic/storage';
+
+
  declare const gapi : any;
 
 /**
@@ -24,23 +27,40 @@ import { SignoutPage } from '../signout/signout';
 export class SearchPage {
 
 
-	private loadingItems = true;
+	// private loadingItems = true;
 	// private loadResults = false;
 	private loadError = false;
 
 	private response: any;
 	private items : any;
+  private data : any;
 	public auth2: any;
 
   myInput : string = '';
   private image : any;
 
   
-	constructor(private popoverCtrl: PopoverController, public navCtrl: NavController, public zone: NgZone, public navParams: NavParams, private viewCtrl: ViewController, public modalCtrl: ModalController, public toastCtrl: ToastController) {
+	constructor(private popoverCtrl: PopoverController, 
+              public navCtrl: NavController, 
+              public zone: NgZone, 
+              public navParams: NavParams, 
+              private viewCtrl: ViewController, 
+              public modalCtrl: ModalController, 
+              public toastCtrl: ToastController,
+              public storage: Storage) {
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad SearchPage');
+
+    this.storage.ready().then(() => {
+      console.log("ionic storage is avilable");
+});
+
+    this.storage.get('this.data').then((data) => {
+  console.log(data);
+  this.items = data;
+});
 
 		 this.handleClientLoad();
 
@@ -173,11 +193,13 @@ this.items = resp.response.result;
 this.response = resp.response.result;
 console.log(this.response);
 
+this.storage.set('this.data', this.items);
+
 if(Object.keys(this.response).length ==0)
 	{this.loadError = true
-  this.loadingItems = false;
+  // this.loadingItems = false;
 }
-this.loadingItems = false;
+// this.loadingItems = false;
 this.zone.run(() => {});
 
 }
