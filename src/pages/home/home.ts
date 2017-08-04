@@ -24,7 +24,7 @@ ionViewDidLoad() {
 
 
 	navigateToSearch() {
-    this.navCtrl.push(SearchPage);
+    this.navCtrl.setRoot(SearchPage);
     console.log('Navigating to another module');
   }
 

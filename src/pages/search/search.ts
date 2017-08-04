@@ -100,7 +100,7 @@ handleClientLoad() {
       updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
         	//Do nothing
-        			this.callScriptFunction();
+        			this.callScriptFunction("");
 
         } else {
 
@@ -118,12 +118,16 @@ handleClientLoad() {
 //search and display part
 
 	
-callScriptFunction() {
+callScriptFunction(refresher) {
 
  // if(ev.target.value!=undefined && ev.target.value != "") {
-       
- 	this.loadingItems = true;
- //      	this.loadError = false;
+  console.log(refresher);
+  // if(flag){
+  //     refresher.complete();
+  // }  
+
+ 	// this.loadingItems = true;
+	this.loadError = false;
 	console.log("callScriptFunction");
 
   console.log(gapi.auth2.getAuthInstance().currentUser.get().w3.Paa);
@@ -151,7 +155,10 @@ var op = gapi.client.request({
 //logging the results
   op.execute(function(resp ) {
   that.processResponse(resp);
-
+  if (refresher!=""){
+    refresher.complete();
+    console.log("referesh complete");
+  }
     
 });
 

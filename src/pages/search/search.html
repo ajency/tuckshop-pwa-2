@@ -18,15 +18,26 @@
     </ion-buttons>
 	
 		</ion-navbar>
+
+		<!-- Search Bar-->
+
+
+	<ion-searchbar (ionInput)="callFilter()" [(ngModel)]="myInput"  autocomplete = "on" autocorrect = "on"></ion-searchbar>
+
 </ion-header>
 
 
 
 <ion-content>
-	<!-- Search Bar-->
-	<ion-searchbar (ionInput)="callFilter()" [(ngModel)]="myInput"  autocomplete = "on" autocorrect = "on">
- ></ion-searchbar>
-
+	
+<ion-refresher (ionRefresh)="callScriptFunction($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
 	<div *ngIf="loadingItems" text-center class="search-load">
 		<ion-spinner margin color="ajency"></ion-spinner>

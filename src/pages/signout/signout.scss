@@ -11,3 +11,19 @@ ion-popover-view.fit ion-content {
   position: relative;
 }
 
+
+.no-scroll{::-webkit-scrollbar{
+display:none;
+}
+}
+
+.username{
+.toolbar-background{
+		background-color: color($colors, light, base);
+	}
+	.toolbar-title{
+		color: color($colors, dark, contrast);
+	}
+
+	
+}
