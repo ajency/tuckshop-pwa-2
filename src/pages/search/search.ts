@@ -27,7 +27,7 @@ import { Storage } from '@ionic/storage';
 export class SearchPage {
 
 
-	// private loadingItems = true;
+	private loadingItems : any;
 	// private loadResults = false;
 	private loadError = false;
 
@@ -56,10 +56,15 @@ export class SearchPage {
     this.storage.ready().then(() => {
       console.log("ionic storage is avilable");
 });
+    // if(!this.storage.get('this.data'))
+    //   this.loadingItems = true;
+
 
     this.storage.get('this.data').then((data) => {
   console.log(data);
   this.items = data;
+  if(!data)
+      this.loadingItems = true;
 });
 
 		 this.handleClientLoad();
@@ -199,7 +204,7 @@ if(Object.keys(this.response).length ==0)
 	{this.loadError = true
   // this.loadingItems = false;
 }
-// this.loadingItems = false;
+this.loadingItems = false;
 this.zone.run(() => {});
 
 }
