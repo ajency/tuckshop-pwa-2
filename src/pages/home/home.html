@@ -1,26 +1,26 @@
 
 <ion-header>
 	<ion-navbar align="center">
-		<ion-title>Tuckshop</ion-title>
+		<ion-title>Welcome to Tuckshop</ion-title>
 	</ion-navbar>
 </ion-header>
 
 
 <ion-content align = "center" padding>
 
-	
-
-	<ion-img width="400" height="400" src="/assets/icon/tuckshop.jpg"></ion-img>
-	<div></div>
-
-	<h2 text-center class="welcome">
+	<h2 text-center ion-text class="welcome" color="dark">
 		Grab some Tuck!
 	</h2>
 
+
+	<ion-img width="280" height="280" src="/assets/icon/tuckshop.jpg"></ion-img>
+	<div></div>
+
+
 	<div padding>
-		<button  ion-button block (click) = "signIn()" [disabled]="disabled" (click)="disabled=true"  color="ajency" > Sign In </button>
+		<button  ion-button block (click) = "signIn()" [disabled]="disabled" (click)="disabled=true"  color="ajency" class="login-btn" > Sign In </button>
 	</div>
 
-	
+
 
 </ion-content>
