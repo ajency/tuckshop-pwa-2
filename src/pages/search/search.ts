@@ -51,7 +51,7 @@ export class SearchPage {
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad SearchPage');
+		console.log('ionViewDidLoad SearchPage check');
 
     this.storage.ready().then(() => {
       console.log("ionic storage is avilable");
@@ -73,7 +73,7 @@ export class SearchPage {
 
 
 	ionViewWillEnter() {
-    console.log('ionViewDidLoad SearchPage');
+    console.log('ionViewWillEnter SearchPage');
 
 		this.viewCtrl.showBackButton(false);
 	}
