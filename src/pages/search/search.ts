@@ -27,7 +27,7 @@ import { Storage } from '@ionic/storage';
 export class SearchPage {
 
 
-	private loadingItems : any;
+	private loadingItems = true;
 	// private loadResults = false;
 	private loadError = false;
 
