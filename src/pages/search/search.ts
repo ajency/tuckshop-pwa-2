@@ -53,19 +53,19 @@ export class SearchPage {
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad SearchPage');
 
-    this.storage.ready().then(() => {
-      console.log("ionic storage is avilable");
-});
-    // if(!this.storage.get('this.data'))
-    //   this.loadingItems = true;
+//     this.storage.ready().then(() => {
+//       console.log("ionic storage is avilable");
+// });
+//     // if(!this.storage.get('this.data'))
+//     //   this.loadingItems = true;
 
 
-    this.storage.get('this.data').then((data) => {
-  console.log(data);
-  this.items = data;
-  if(!data)
-      this.loadingItems = true;
-});
+//     this.storage.get('this.data').then((data) => {
+//   console.log(data);
+//   this.items = data;
+//   if(!data)
+//       this.loadingItems = true;
+// });
 
 		 this.handleClientLoad();
 
