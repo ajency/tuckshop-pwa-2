@@ -1,11 +1,11 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, IonicPage } from 'ionic-angular';
 
 import { SearchPage } from '../search/search';
 
 declare const gapi : any;
 
-
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -24,7 +24,7 @@ ionViewDidLoad() {
 
 
 	navigateToSearch() {
-    this.navCtrl.setRoot(SearchPage);
+    this.navCtrl.setRoot('SearchPage');
     console.log('Navigating to another module');
   }
 
@@ -45,7 +45,7 @@ ionViewDidLoad() {
         scope: 'https://www.googleapis.com/auth/spreadsheets'
         }).then( () => {
 
-       
+
           // gapi.auth2.getAuthInstance().isSignedIn.listen(that.updateSigninStatus);
 
           console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
@@ -56,7 +56,7 @@ ionViewDidLoad() {
           // signoutButton.onclick = handleSignoutClick;
         });
         });
-        
+
       }
 
 

@@ -13,15 +13,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 
-import { HomePage } from '../pages/home/home';
+// import { HomePage } from '../pages/home/home';
 
-import { SearchPage } from '../pages/search/search';
+// import { SearchPage } from '../pages/search/search';
 
+// import { BuyPage } from '../pages/buy/buy';
 
-import { BuyPage } from '../pages/buy/buy';
-
-
-import { SignoutPage } from '../pages/signout/signout';
+// import { SignoutPage } from '../pages/signout/signout';
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -29,10 +27,10 @@ import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    SearchPage,
-    BuyPage,
-    SignoutPage
+    // HomePage,
+    // SearchPage,
+    // BuyPage,
+    // SignoutPage
   ],
   imports: [
     BrowserModule,
@@ -43,10 +41,10 @@ import { IonicStorageModule } from '@ionic/storage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    SearchPage,
-    BuyPage,
-    SignoutPage
+    // HomePage,
+    // SearchPage,
+    // BuyPage,
+    // SignoutPage
   ],
   providers: [
     StatusBar,
