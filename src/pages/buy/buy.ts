@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ToastController, IonicPage } from 'ionic-angular';
 
 declare const gapi : any;
 /**
@@ -8,7 +8,7 @@ declare const gapi : any;
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
+@IonicPage()
 @Component({
   selector: 'page-buy',
   templateUrl: 'buy.html',
@@ -52,7 +52,7 @@ handleClientLoad() {
           console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
           // var user =  gapi.auth2.getAuthInstance().currentUser.get().BasicProfile.getEmail();
       // console.log(user);
-      
+
 
           // this.test(true);
           // that.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
@@ -72,7 +72,7 @@ onBuy(ev) {
 
       // let that = this;
 
-     
+
       var user =  gapi.auth2.getAuthInstance().currentUser.get().w3.U3;
       console.log(user);
        // Create execution request.
@@ -93,12 +93,12 @@ var op = gapi.client.request({
   op.execute(function(resp ) {
   // that.processResponse(resp);
 
-    
+
 });
 
 this.viewCtrl.dismiss();
 this.confirmationToast();
-  
+
 }
 
 
