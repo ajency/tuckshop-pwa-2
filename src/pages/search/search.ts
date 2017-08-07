@@ -199,7 +199,9 @@ this.items = resp.response.result;
 this.response = resp.response.result;
 console.log(this.response);
 
-this.storage.set('this.data', this.items);
+this.storage.set('this.data', this.items).then( () => {
+  console.log("storage set function");
+});
 
 if(Object.keys(this.response).length ==0)
 	{this.loadError = true
