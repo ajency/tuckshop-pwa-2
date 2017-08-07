@@ -38,6 +38,7 @@ export class SearchPage {
 
   myInput : string = '';
   private image : any;
+  public check = true;
 
 
 	constructor(private popoverCtrl: PopoverController,
@@ -55,10 +56,10 @@ export class SearchPage {
 
     this.storage.ready().then(() => {
       console.log("ionic storage is avilable");
-});
+}).catch( ()=> {this.check = false;} );
     // if(!this.storage.get('this.data'))
     //   this.loadingItems = true;
-
+console.log(this.check, "checking storage function");
 
     this.storage.get('this.data').then((data) => {
   console.log(data);
