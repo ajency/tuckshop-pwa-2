@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage } from 'ionic-angular';
 // import { Http } from '@angular/http';
 // import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -19,8 +19,8 @@ import { Storage } from '@ionic/storage';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
- @Component({
+@IonicPage()
+@Component({
   selector: 'page-search',
   templateUrl: 'search.html',
 })
@@ -39,13 +39,13 @@ export class SearchPage {
   myInput : string = '';
   private image : any;
 
-  
-	constructor(private popoverCtrl: PopoverController, 
-              public navCtrl: NavController, 
-              public zone: NgZone, 
-              public navParams: NavParams, 
-              private viewCtrl: ViewController, 
-              public modalCtrl: ModalController, 
+
+	constructor(private popoverCtrl: PopoverController,
+              public navCtrl: NavController,
+              public zone: NgZone,
+              public navParams: NavParams,
+              private viewCtrl: ViewController,
+              public modalCtrl: ModalController,
               public toastCtrl: ToastController,
               public storage: Storage) {
 	}
@@ -92,7 +92,7 @@ export class SearchPage {
 
 
 
-// Authentication of user to search 
+// Authentication of user to search
 
 
 handleClientLoad() {
@@ -113,8 +113,8 @@ handleClientLoad() {
           // this.test(true);
           that.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
 
-           
-     
+
+
           // authorizeButton.onclick = handleAuthClick;
           // signoutButton.onclick = handleSignoutClick;
         });
@@ -135,21 +135,21 @@ handleClientLoad() {
 	                // this.navCtrl.push('SearchPage');
         }
       }
-	
+
 
 
 
 
 //search and display part
 
-	
+
 callScriptFunction(refresher) {
 
  // if(ev.target.value!=undefined && ev.target.value != "") {
   console.log(refresher);
   // if(flag){
   //     refresher.complete();
-  // }  
+  // }
 
  	// this.loadingItems = true;
 	this.loadError = false;
@@ -157,7 +157,7 @@ callScriptFunction(refresher) {
 
   console.log(gapi.auth2.getAuthInstance().currentUser.get().w3.Paa);
   this.image = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa;
-      
+
 
       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
 
@@ -184,7 +184,7 @@ var op = gapi.client.request({
     refresher.complete();
     console.log("referesh complete");
   }
-    
+
 });
 
 // }
@@ -216,7 +216,7 @@ confirmPurchase(item) {
     console.log("inside confirmPurchase");
 		let product = [];
 		product = item;
-		let modal = this.modalCtrl.create(BuyPage,{item: product});
+		let modal = this.modalCtrl.create('BuyPage',{item: product});
 		console.log(item.itemName);
 		modal.present();
 	}
@@ -246,7 +246,7 @@ confirmPurchase(item) {
 	//    var val = ev.target.value;
  //     this.loadError = false;
  //     // console.log(this.item);
- 
+
  //      //if the value is an empty string don't filter the items
  //      if (val && val.trim() != '') {
  //      this.items = this.response.filter((i) => {
@@ -259,7 +259,7 @@ confirmPurchase(item) {
 
 
  //      	this.loadError = true;
- //      }     
+ //      }
 
 
  //  	}
@@ -280,7 +280,7 @@ public callFilter()
 
      this.loadError = false;
      console.log(this.myInput);
- 
+
       //if the value is an empty string don't filter the items
       if (this.myInput && this.myInput.trim() != '') {
       this.items = this.response.filter((i) => {
@@ -294,7 +294,7 @@ public callFilter()
 
 
         this.loadError = true;
-      }     
+      }
 
 
     }
@@ -312,7 +312,7 @@ public callFilter()
 
 
   presentPopover(ev) {
-    let popover = this.popoverCtrl.create(SignoutPage, {
+    let popover = this.popoverCtrl.create('SignoutPage', {
     });
     popover.present({
       ev: ev

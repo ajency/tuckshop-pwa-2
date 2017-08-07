@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,ViewController } from 'ionic-angular';
+import { NavController, NavParams,ViewController, IonicPage } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
@@ -11,6 +11,7 @@ declare const gapi : any;
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+@IonicPage()
 @Component({
   selector: 'page-signout',
   templateUrl: 'signout.html',
@@ -37,10 +38,10 @@ export class SignoutPage {
         scope: 'https://www.googleapis.com/auth/spreadsheets'
         }).then(function () {
 
-   
+
 
           console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
-  
+
         });
         });
 
@@ -53,7 +54,7 @@ export class SignoutPage {
   signOut(){
   	this.viewCtrl.dismiss();
   	 gapi.auth2.getAuthInstance().signOut().then( ()=> {
-  	 	this.navCtrl.push(HomePage);
+  	 	this.navCtrl.push('HomePage');
 
   	 });
 
