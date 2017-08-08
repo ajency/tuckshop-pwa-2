@@ -27,7 +27,7 @@ import { Storage } from '@ionic/storage';
 export class SearchPage {
 
 
-	private loadingItems = true;
+	private loadingItems: any;
 	// private loadResults = false;
 	private loadError = false;
 
@@ -52,7 +52,7 @@ export class SearchPage {
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad SearchPage check111');
+		console.log('ionViewDidLoad SearchPage check1');
 
     this.storage.ready().then(() => {
       console.log("ionic storage is avilable");
@@ -74,7 +74,7 @@ console.log(this.check, "checking storage function");
 
 
 	ionViewWillEnter() {
-    console.log('ionViewWillEnter SearchPage check11');
+    console.log('ionViewWillEnter SearchPage check');
 
 		this.viewCtrl.showBackButton(false);
 	}
@@ -219,11 +219,9 @@ confirmPurchase(item) {
     console.log("inside confirmPurchase");
 		let product = [];
 		product = item;
-    let itemCode = item.itemCode;
-	 this.navCtrl.push('BuyPage',{item: product,
-                                itemCode: itemCode});
+		let modal = this.modalCtrl.create('BuyPage',{item: product});
 		console.log(item.itemName);
-		// modal.present();
+		modal.present();
 	}
 
 
