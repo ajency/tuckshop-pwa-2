@@ -198,11 +198,11 @@ var op = gapi.client.request({
 
 processResponse(resp: any) {
 
-// this.items = resp.response.result;
+this.items1 = resp.response.result;
 this.response = resp.response.result;
 console.log(this.response);
 
-this.storage.set('this.data', this.items).then( () => {
+this.storage.set('this.data', this.items1).then( () => {
   console.log("storage set function");
 });
 
@@ -280,7 +280,7 @@ confirmPurchase(item) {
 
 public callFilter()
   {
-    this.items = this.items1;
+    // this.items = this.items1;
 
     console.log(this.items);
     console.log("inside filter function");
@@ -290,7 +290,7 @@ public callFilter()
 
       //if the value is an empty string don't filter the items
       if (this.myInput && this.myInput.trim() != '') {
-      this.items = this.items.filter((i) => {
+      this.items = this.items1.filter((i) => {
          return (i.itemName.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1);
        });
 
