@@ -52,7 +52,7 @@ export class SearchPage {
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad SearchPage check1');
+		console.log('ionViewDidLoad SearchPage check111');
 
     this.storage.ready().then(() => {
       console.log("ionic storage is avilable");
@@ -74,7 +74,7 @@ console.log(this.check, "checking storage function");
 
 
 	ionViewWillEnter() {
-    console.log('ionViewWillEnter SearchPage check');
+    console.log('ionViewWillEnter SearchPage check11');
 
 		this.viewCtrl.showBackButton(false);
 	}
@@ -219,9 +219,11 @@ confirmPurchase(item) {
     console.log("inside confirmPurchase");
 		let product = [];
 		product = item;
-		let modal = this.modalCtrl.create('BuyPage',{item: product});
+    let itemCode = item.itemCode;
+	 this.navCtrl.push('BuyPage',{item: product,
+                                itemCode: itemCode});
 		console.log(item.itemName);
-		modal.present();
+		// modal.present();
 	}
 
 

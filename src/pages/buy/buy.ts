@@ -8,7 +8,9 @@ declare const gapi : any;
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+@IonicPage({
+  segment : 'buy/:itemCode'})
+
 @Component({
   selector: 'page-buy',
   templateUrl: 'buy.html',
@@ -17,12 +19,16 @@ export class BuyPage {
 
 	private item = [];
   public auth2 : any;
+  private itemCode;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private toastCtrl: ToastController) {
   	this.item = this.navParams.get('item');
+    this.itemCode = this.navParams.get('itemCode');
+   
   }
 
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad BuyPage');
     this.handleClientLoad();
   }
@@ -36,8 +42,8 @@ export class BuyPage {
 
 
 handleClientLoad() {
-
-      // let that = this;
+  console.log("handleClientLoad function");
+      let that = this;
         gapi.load('client:auth2', function () {
         gapi.client.init({
            client_id: '676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com',
@@ -47,15 +53,14 @@ handleClientLoad() {
 
           // Listen for sign-in state changes.
 
-                    // gapi.auth2.getAuthInstance().isSignedIn.listen(that.updateSigninStatus);
+                    gapi.auth2.getAuthInstance().isSignedIn.listen(that.updateSigninStatus);
 
           console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
-          // var user =  gapi.auth2.getAuthInstance().currentUser.get().BasicProfile.getEmail();
-      // console.log(user);
-
-
           // this.test(true);
-          // that.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          that.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+
+
           // authorizeButton.onclick = handleAuthClick;
           // signoutButton.onclick = handleSignoutClick;
         });
@@ -63,10 +68,26 @@ handleClientLoad() {
 
       }
 
+      updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          //Do nothing
+              // this.callScriptFunction("");
+
+        } else {
+
+       // *  Sign in the user upon button click.
+
+                  gapi.auth2.getAuthInstance().signIn();
+                  // this.navCtrl.push('SearchPage');
+        }
+      }
+
+
 
 
 
 onBuy(ev) {
+
       console.log("onBuy", ev);
       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
 
