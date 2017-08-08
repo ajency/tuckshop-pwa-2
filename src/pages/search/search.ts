@@ -32,7 +32,9 @@ export class SearchPage {
 	private loadError = false;
 
 	private response: any;
-	private items : any;
+  private items : any;
+  private items1 : any;
+
   private data : any;
 	public auth2: any;
 
@@ -64,6 +66,7 @@ console.log(this.check, "checking storage function");
     this.storage.get('this.data').then((data) => {
   console.log(data);
   this.items = data;
+  this.items1 =data;
   if(!data)
       this.loadingItems = true;
 });
@@ -195,7 +198,7 @@ var op = gapi.client.request({
 
 processResponse(resp: any) {
 
-this.items = resp.response.result;
+// this.items = resp.response.result;
 this.response = resp.response.result;
 console.log(this.response);
 
@@ -277,7 +280,8 @@ confirmPurchase(item) {
 
 public callFilter()
   {
-    this.items = [];
+    this.items = this.items1;
+
     console.log(this.items);
     console.log("inside filter function");
 
@@ -286,7 +290,7 @@ public callFilter()
 
       //if the value is an empty string don't filter the items
       if (this.myInput && this.myInput.trim() != '') {
-      this.items = this.response.filter((i) => {
+      this.items = this.items.filter((i) => {
          return (i.itemName.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1);
        });
 
@@ -304,7 +308,8 @@ public callFilter()
 
 
     else{
-      this.items = this.response;
+      this.items = this.items1;
+
     }
     this.zone.run(() => {});
 
