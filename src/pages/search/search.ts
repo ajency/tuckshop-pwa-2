@@ -20,7 +20,10 @@ import { PlatformLocation, Location } from '@angular/common';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+@IonicPage({
+  name : 'SearchPage',
+  segment : 'search/:code' 
+})
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',
@@ -56,12 +59,15 @@ export class SearchPage {
               public storage: Storage,
               l : PlatformLocation,
               location : Location) {
-      this.loc = l;
-      // console.log(window.location);
-      this.code = window.location.href;
-      console.log(this.code);
-      this.code = this.code.substr(31,36);
-      console.log(this.code);
+      // this.loc = l;
+      // // console.log(window.location);
+      // this.code = window.location.href;
+      // console.log(this.code);
+      // this.code = this.code.substr(31,36);
+      // console.log(this.code);
+    this.code = this.navParams.get('code');
+    console.log(this.code);
+    this.loc = l;
 
 	}
 
