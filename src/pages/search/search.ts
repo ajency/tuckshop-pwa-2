@@ -79,12 +79,13 @@ export class SearchPage {
 }).catch( ()=> {this.check = false;} );
     // if(!this.storage.get('this.data'))
     //   this.loadingItems = true;
-  console.log(this.check, "checking storage function");
+  // console.log(this.check, "checking storage function");
 
   this.storage.get('this.data').then((data) => {
-  console.log(data);
+  
   this.items = data;
   this.items1 =data;
+  console.log("check items", this.items);
   if(!data)
       this.loadingItems = true;
 
@@ -244,6 +245,9 @@ processResponse(resp: any) {
 
 this.items1 = resp.response.result;
 this.response = resp.response.result;
+if(this.items == null){
+this.items = resp.response.result;
+}
 console.log(this.response);
 
 this.storage.set('this.data', this.items1).then( () => {
