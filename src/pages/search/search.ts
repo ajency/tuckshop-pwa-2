@@ -9,6 +9,7 @@ import { BuyPage } from '../buy/buy';
 import { SignoutPage } from '../signout/signout';
 
 import { Storage } from '@ionic/storage';
+import { PlatformLocation, Location } from '@angular/common';
 
 
  declare const gapi : any;
@@ -41,7 +42,9 @@ export class SearchPage {
   myInput : string = '';
   private image : any;
   public check = true;
-
+  private code : any;
+  private loc : any;
+  private itemfound : boolean;
 
 	constructor(private popoverCtrl: PopoverController,
               public navCtrl: NavController,
@@ -50,7 +53,16 @@ export class SearchPage {
               private viewCtrl: ViewController,
               public modalCtrl: ModalController,
               public toastCtrl: ToastController,
-              public storage: Storage) {
+              public storage: Storage,
+              l : PlatformLocation,
+              location : Location) {
+      this.loc = l;
+      // console.log(window.location);
+      this.code = window.location.href;
+      console.log(this.code);
+      this.code = this.code.substr(31,36);
+      console.log(this.code);
+
 	}
 
 	ionViewDidLoad() {
@@ -61,14 +73,40 @@ export class SearchPage {
 }).catch( ()=> {this.check = false;} );
     // if(!this.storage.get('this.data'))
     //   this.loadingItems = true;
-console.log(this.check, "checking storage function");
+  console.log(this.check, "checking storage function");
 
-    this.storage.get('this.data').then((data) => {
+  this.storage.get('this.data').then((data) => {
   console.log(data);
   this.items = data;
   this.items1 =data;
   if(!data)
       this.loadingItems = true;
+
+    if(this.code != ""){
+    for (let i of this.items) {
+   // console.log(i.itemCode); // "4", "5", "6"
+   if(i.itemCode==this.code)
+   {
+    console.log("item found");
+    this.confirmPurchase(i);
+    this.itemfound = true;
+   }
+
+  }
+
+  if(!this.itemfound)
+  {
+    let toast = this.toastCtrl.create({
+    message: '             Item not found',
+    duration: 3000,
+    position: 'bottom'
+  });
+
+
+  toast.present();
+  }
+  }
+
 });
 
 		 this.handleClientLoad();
@@ -225,6 +263,8 @@ confirmPurchase(item) {
 		let modal = this.modalCtrl.create('BuyPage',{item: product});
 		console.log(item.itemName);
 		modal.present();
+    var stateObj = item;
+    this.loc.pushState(stateObj, "BuyPage", "/#/search/" + item.itemCode);
 	}
 
 
