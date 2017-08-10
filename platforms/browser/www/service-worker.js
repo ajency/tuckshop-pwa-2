@@ -23,6 +23,15 @@ self.toolbox.precache(
   ]
 );
 
+// self.addEventListener('push', function(event) {
+// 	event.waitUntil(
+// 		self.registration.showNotification('Test notification', {
+// 			body: 'hello',
+// 		})
+// 		);
+// 	});
+
+
 // dynamically cache any other local assets
 self.toolbox.router.any('/*', self.toolbox.cacheFirst);
 
