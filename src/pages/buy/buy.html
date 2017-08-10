@@ -21,10 +21,27 @@
 			  <small>Rs.</small>{{item.price}}
 			</div>
 		</ion-item>
+
+		<ion-item no-padding>
+ 		    <ion-label>Quantity</ion-label>
+ 		    <ion-select [(ngModel)]="quantity">
+ 		      <ion-option value="1" selected="true">1</ion-option>
+ 		      <ion-option value="2">2</ion-option>
+ 		      <ion-option value="3">3</ion-option>
+ 		      <ion-option value="4">4</ion-option>
+ 		      <ion-option value="5">5</ion-option>
+ 		    </ion-select>
+ 		  </ion-item>
+	
 	</ion-list>
-	<p>
-		{{item.description}}
-	</p>
+
+	
+
+		<!-- <div item-end> Quantity :
+
+    <ion-input type="number" placeholder="count" [(ngModel)]="count" min = 1></ion-input>
+ 
+     </div> -->	
 </ion-content>
 
 <ion-footer>

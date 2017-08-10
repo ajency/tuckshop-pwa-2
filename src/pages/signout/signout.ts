@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,ViewController, IonicPage } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
+// import { HomePage } from '../home/home';
 
 declare const gapi : any;
 

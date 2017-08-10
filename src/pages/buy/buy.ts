@@ -17,6 +17,7 @@ export class BuyPage {
 
 	private item = [];
   public auth2 : any;
+  private quantity : number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private toastCtrl: ToastController) {
   	this.item = this.navParams.get('item');

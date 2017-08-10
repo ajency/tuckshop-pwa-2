@@ -7,6 +7,15 @@ page-buy {
 	}
 }
 
+@media only screen and (min-height: 768px) and (min-width: 768px),
+only screen and (min-height: 600px) and (min-width: 768px){
+ 	.modal-wrapper {
+ 		left: calc(50% - (500px/2));
+ 		top: calc(50% - (300px/2));
+ 		width: 500px;
+ 		height: 300px;
+ 	}
+ }
 .scroll{
 ::-webkit-scrollbar{
 display:none;
