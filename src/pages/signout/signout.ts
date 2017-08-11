@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams,ViewController, IonicPage } from 'ionic-angular';
 
 // import { HomePage } from '../home/home';
+import { PlatformLocation, Location } from '@angular/common';
 
 declare const gapi : any;
 
@@ -54,8 +55,7 @@ export class SignoutPage {
   signOut(){
   	this.viewCtrl.dismiss();
   	 gapi.auth2.getAuthInstance().signOut().then( ()=> {
-  	 	this.navCtrl.push('HomePage');
-
+  	 	this.navCtrl.push('HomePage');   
   	 });
 
   }

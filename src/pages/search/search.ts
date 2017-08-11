@@ -91,29 +91,30 @@ export class SearchPage {
                             console.log("item found");
                             this.confirmPurchase(i);
                             this.itemfound = true;
+                            break;
                      }
 
                 }
 
-           // If the item is not found craete a toast saying item not found     
-          if(!this.itemfound)
-              {
-                let toast = this.toastCtrl.create({
-                        message: 'Item not found',
-                        duration: 3000,
-                        position: 'bottom'
-                    });
+                if(!this.itemfound){
+                  console.log('item not found in local storage');
+                  this.handleClientLoad();
+                  this.searchingdb();
 
+                  
+                }
 
-                    toast.present();
-              }
+           // If the item is not found create a toast saying item not found 
         }
 
       });
 
+      if(this.code == ""){
+        console.log('item code is null', this.code);
 		 this.handleClientLoad();  // Function to authenticate user
-
-	}
+      }
+	
+  }
 
 
 	ionViewWillEnter() {
@@ -134,6 +135,29 @@ export class SearchPage {
 	    toast.present();
 	}
 
+  itemnotfoundToast(){
+    let toast = this.toastCtrl.create({
+        message: 'Item not found',
+        duration: 3000,
+        position: 'bottom'
+      });
+
+
+    toast.present();
+
+  }
+
+  searchingdb(){
+    let toast = this.toastCtrl.create({
+        message: 'Item not found on local storage...querying the database',
+        duration: 4000,
+        position: 'middle'
+      });
+
+
+    toast.present();
+
+  }
 
 
 // Authentication of user to search
@@ -198,13 +222,26 @@ callScriptFunction(refresher) {
 
       let that = this;
 
+      var request;
        // Create execution request.
-    var request = {
+       if(that.code == "")
+       {
+        console.log('youll get all results' );
+      request = {
           'function': 'search',
           'parameters': ""
     // 'devMode': true   // Optional.
       };
+  }
+  else{
+      console.log('only one result');
+    
+     request = {
+          'function': 'search',
+          'parameters': that.code
+      };
 
+  }
       // Make the request.
     var op = gapi.client.request({
         'root': 'https://script.googleapis.com',
@@ -241,14 +278,22 @@ processResponse(resp: any) {
   console.log(this.response);
 
   //  Function to store the data locally i.e. in cache
-  this.storage.set('this.data', this.items1).then( () => {
+  if(Object.keys(this.response).length ==1){
+    this.confirmPurchase(this.response);
+  }
+
+  else
+    {this.storage.set('this.data', this.items1).then( () => {
         console.log("storage set function");
       });
-
+    }
 
   if(Object.keys(this.response).length ==0){
     // If there is no response set loadError to true
     this.loadError = true
+        this.itemnotfoundToast();
+
+
     }
 
 
@@ -331,6 +376,63 @@ public callFilter()
       ev: ev
     });
   }
+
+
+
+//   callScriptFunction2() {
+
+
+//   // this.loadError = false;
+//   console.log("callScriptFunction2");
+
+//   // Get the profile image of the user
+//   // this.image = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa; 
+
+
+//       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
+
+//       let that = this;
+
+//        // Create execution request.
+//     var request = {
+//           'function': 'search',
+//           'parameters': this.code
+//     // 'devMode': true   // Optional.
+//       };
+
+//       // Make the request.
+//     var op = gapi.client.request({
+//         'root': 'https://script.googleapis.com',
+//         'path': 'v1/scripts/' + scriptId + ':run',
+//         'method': 'POST',
+//         'body': request
+//       });
+
+//     //logging the results
+//       op.execute(function(resp ) {
+//       that.processResponse2(resp);
+     
+
+//       });
+
+//   }
+
+//   processResponse2(resp: any) {
+
+//  // this.response = resp.response.result;
+//   console.log('special item is', resp.response);
+
+//   if(resp.response == undefined)
+//   {
+//     this.itemnotfoundToast();
+//   }
+//   else{
+//   this.confirmPurchase(resp.response.result)
+//   }
+//   this.zone.run(() => {});
+
+// }
+
 
 
 }

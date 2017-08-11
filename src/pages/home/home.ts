@@ -1,7 +1,8 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ToastController, IonicPage } from 'ionic-angular';
+import { NavController, ToastController, IonicPage, ViewController } from 'ionic-angular';
 
 // import { SearchPage } from '../search/search';
+import { PlatformLocation, Location } from '@angular/common';
 
 declare const gapi : any;
 
@@ -12,17 +13,27 @@ declare const gapi : any;
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public zone: NgZone, public toastCtrl: ToastController) {
+  private loc: any;
 
+  constructor(private viewCtrl: ViewController, private l : PlatformLocation ,public navCtrl: NavController, public zone: NgZone, public toastCtrl: ToastController) {
+    this.loc = l;
   }
 
 ionViewDidLoad() {
 		console.log('ionViewDidLoad HomePage');
 
+      var stateObj = [];
+    this.loc.pushState(stateObj, "HomePage", "/#/home");
     //Once the view loads call handle client function to authenticate the user
 		  this.handleClientLoad();
 
 	}
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter HomePage check');
+
+    this.viewCtrl.showBackButton(false);
+  }
 
 
 	navigateToSearch() {

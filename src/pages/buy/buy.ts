@@ -68,7 +68,7 @@ handleClientLoad() {
 
 
 onBuy(ev) {
-      console.log("onBuy", ev);
+      console.log("onBuy", ev, this.quantity);
       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
 
       // let that = this;
@@ -79,7 +79,7 @@ onBuy(ev) {
        // Create execution request.
 var request = {
     'function': 'log',
-    'parameters': [ev,user]
+    'parameters': [ev,user,this.quantity]
     // 'devMode': true   // Optional.
 };
 // Make the request.
