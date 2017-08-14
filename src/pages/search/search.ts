@@ -100,6 +100,7 @@ export class SearchPage {
                   console.log('item not found in local storage');
                   this.handleClientLoad();
                   this.searchingdb();
+                  this.loadingItems = true;
 
                   
                 }
@@ -149,7 +150,7 @@ export class SearchPage {
 
   searchingdb(){
     let toast = this.toastCtrl.create({
-        message: 'Item not found on local storage..requesting the api..',
+        message: 'Item not found on local storage...fetching from the server...Please wait..',
         duration: 4000,
         position: 'bottom'
       });
@@ -283,6 +284,7 @@ processResponse(resp: any) {
   //  Function to store the data locally i.e. in cache
   if(Object.keys(this.response).length ==1){
     this.confirmPurchase(this.response[0]);
+    this.loadingItems = false;
   }
 
   if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0)
