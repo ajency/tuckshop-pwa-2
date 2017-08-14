@@ -24,23 +24,13 @@
 <meta name="google-signin-scope" content="https://www.googleapis.com/auth/spreadsheets">
 
    <!-- un-comment this code to enable service worker -->
- <!--  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then( (registration) => {console.log('service worker installed');
-          return registration.pushManager.getSubscription().then( (subscription) {
-            console.log('registration');
-            if (subscription) {
-                return subscription;
-              }
-             return registration.pushManager.subscribe({ userVisibleOnly: true });
-              });
-
-      }).then(function(subscription) {
-          endpoint = subscription.endpoint;
-        
-    }
-  </script> -->
+ <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('service worker installed'))
+      .catch(err => console.log('Error', err));
+  }
+</script>
 
   <link href="build/main.css" rel="stylesheet">
 
