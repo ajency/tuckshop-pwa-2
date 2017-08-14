@@ -42,6 +42,8 @@ handleClientLoad() {
         gapi.load('client:auth2', function () {
         gapi.client.init({
            client_id: '676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com',
+           // client_id: '164623832984-ivug8glc6tgtu0sgjbm51oigp27u0033.apps.googleusercontent.com',
+
         cookiepolicy: 'single_host_origin',
         scope: 'https://www.googleapis.com/auth/spreadsheets'
         }).then(function () {
@@ -70,6 +72,7 @@ handleClientLoad() {
 onBuy(ev) {
       console.log("onBuy", ev, this.quantity);
       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
+      // var scriptId = "MspHiDZOV00Yjjl8SzYTDSSh_GrEu24Vl";
 
       // let that = this;
 

@@ -149,9 +149,9 @@ export class SearchPage {
 
   searchingdb(){
     let toast = this.toastCtrl.create({
-        message: 'Item not found on local storage...querying the database',
+        message: 'Item not found on local storage..requesting the api..',
         duration: 4000,
-        position: 'middle'
+        position: 'bottom'
       });
 
 
@@ -169,6 +169,8 @@ handleClientLoad() {
         gapi.load('client:auth2', function () {
         gapi.client.init({
            client_id: '676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com',
+              // client_id: '164623832984-ivug8glc6tgtu0sgjbm51oigp27u0033.apps.googleusercontent.com',
+
         cookiepolicy: 'single_host_origin',
         scope: 'https://www.googleapis.com/auth/spreadsheets'
         }).then(function () {
@@ -219,6 +221,7 @@ callScriptFunction(refresher) {
 
 
       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
+      // var scriptId = "MspHiDZOV00Yjjl8SzYTDSSh_GrEu24Vl";
 
       let that = this;
 
@@ -279,10 +282,10 @@ processResponse(resp: any) {
 
   //  Function to store the data locally i.e. in cache
   if(Object.keys(this.response).length ==1){
-    this.confirmPurchase(this.response);
+    this.confirmPurchase(this.response[0]);
   }
 
-  else
+  if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0)
     {this.storage.set('this.data', this.items1).then( () => {
         console.log("storage set function");
       });
@@ -306,7 +309,7 @@ processResponse(resp: any) {
 
 
 confirmPurchase(item) {
-    console.log("inside confirmPurchase");
+    console.log("inside confirmPurchase", item);
 		let product = [];
 		product = item;
 		let modal = this.modalCtrl.create('BuyPage',{item: product});
@@ -314,8 +317,9 @@ confirmPurchase(item) {
 		modal.present();
 
     // change the URL based on the item clicked
-    var stateObj = item;
+    var stateObj = [];
     this.loc.pushState(stateObj, "BuyPage", "/#/search/" + item.itemCode);
+    this.zone.run(() => {});
 	}
 
 
