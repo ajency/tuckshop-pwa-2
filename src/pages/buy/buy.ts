@@ -21,6 +21,7 @@ export class BuyPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private toastCtrl: ToastController) {
   	this.item = this.navParams.get('item');
+    this.quantity = 1;
   }
 
   ionViewDidLoad() {
