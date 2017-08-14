@@ -27,14 +27,14 @@
 <meta name="google-signin-scope" content="https://www.googleapis.com/auth/spreadsheets">
 
    <!-- un-comment this code to enable service worker -->
- <!-- <script>
+ <script>
   if ('serviceWorker' in navigator) {
     console.log('Registering service worker');
     navigator.serviceWorker.register('service-worker.js')
       .then(() => console.log('service worker installed'))
       .catch(err => console.log('Error', err));
   }
-</script> -->
+</script>
 
   <link href="build/main.css" rel="stylesheet">
 
@@ -53,8 +53,6 @@
 
   <!-- The main bundle js is generated during the build process -->
   <script src="build/main.js"></script>
-
-  <script src="service-worker.js" defer></script>
 
 </body>
 </html>
