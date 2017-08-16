@@ -84,7 +84,10 @@ export class SearchPage {
 
         // If the url contains the item code i.e. if it is not empty check for the item code 
         // in the locally stored data
+
         if(this.code != ""){
+
+          if(this.items!=null){
             for (let i of this.items) {
                if(i.itemCode==this.code)
                      {
@@ -95,6 +98,7 @@ export class SearchPage {
                      }
 
                 }
+               } 
 
                 if(!this.itemfound){
                   console.log('item not found in local storage');
@@ -178,7 +182,7 @@ handleClientLoad() {
 
           // Listen for sign-in state changes.
 
-  				          gapi.auth2.getAuthInstance().isSignedIn.listen(that.updateSigninStatus);
+  				          // gapi.auth2.getAuthInstance().isSignedIn.listen(that.updateSigninStatus);
 
           console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
           // this.test(true);
@@ -200,7 +204,9 @@ handleClientLoad() {
 
        // *  Sign in the user .
 
-		    	        gapi.auth2.getAuthInstance().signIn();
+		    	        gapi.auth2.getAuthInstance().signIn().then( () =>{
+                    this.callScriptFunction("");
+                  })
         }
       }
 
