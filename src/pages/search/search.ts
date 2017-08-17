@@ -243,13 +243,24 @@ callScriptFunction(refresher) {
     // 'devMode': true   // Optional.
       };
   }
-  else{
+  else if(refresher == ""){
       console.log('only one result');
     
      request = {
           'function': 'search',
           'parameters': that.code
       };
+
+  }
+  else{
+    console.log('youll get all resultsss' );
+      request = {
+          'function': 'search',
+          'parameters': ""
+    // 'devMode': true   // Optional.
+      };
+
+
 
   }
       // Make the request.
@@ -277,9 +288,9 @@ callScriptFunction(refresher) {
 processResponse(resp: any) {
 
   //  store the respose in items1
-  this.items1 = resp.response.result;
+  
   this.response = resp.response.result;
-
+ 
   //  If data is not present in local storage store repsonse in items 
     if(this.items == null){
       this.items = resp.response.result;
@@ -293,8 +304,13 @@ processResponse(resp: any) {
     this.loadingItems = false;
   }
 
+
+  // To avoid only one item or no item to be stored in items1 and local storage
   if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0)
-    {this.storage.set('this.data', this.items1).then( () => {
+    {
+      this.items1 = resp.response.result;
+
+      this.storage.set('this.data', this.items1).then( () => {
         console.log("storage set function");
       });
     }
