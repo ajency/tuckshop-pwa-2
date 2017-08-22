@@ -315,9 +315,13 @@ processResponse(resp: any) {
       });
     }
 
-  if(Object.keys(this.response).length ==0 && Object.keys(this.response).length !=0){
+  if(Object.keys(this.response).length ==0){
     // If there is no response set loadError to true
-    this.loadError = true
+
+        if(Object.keys(this.response).length !=0){
+          this.loadError = true;
+        }
+        
         this.itemnotfoundToast();
 
 
