@@ -315,7 +315,7 @@ processResponse(resp: any) {
       });
     }
 
-  if(Object.keys(this.response).length ==0){
+  if(Object.keys(this.response).length ==0 && Object.keys(this.response).length !=0){
     // If there is no response set loadError to true
     this.loadError = true
         this.itemnotfoundToast();
@@ -361,7 +361,7 @@ public callFilter()
     // this.items = this.items1;
 
     console.log(this.items);
-    console.log(this.items);
+    console.log(this.items1);
 
     console.log("inside filter function");
 
