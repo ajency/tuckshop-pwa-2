@@ -361,6 +361,8 @@ public callFilter()
     // this.items = this.items1;
 
     console.log(this.items);
+    console.log(this.items);
+
     console.log("inside filter function");
 
      this.loadError = false;

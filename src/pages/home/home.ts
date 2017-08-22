@@ -38,7 +38,7 @@ ionViewDidLoad() {
 
 	navigateToSearch() {
     // Navigate to the search page and send a empty parameter to search page
-    this.navCtrl.setRoot('SearchPage', {code : ''});
+    this.navCtrl.push('SearchPage', {code : ''});
     console.log('Navigating to another module');
   }
 
