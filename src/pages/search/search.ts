@@ -272,28 +272,46 @@ callScriptFunction(refresher) {
       });
 
     //logging the results
-      op.execute(function(resp ) {
-      that.processResponse(resp);
+      op.then(function(response ) {
+      console.log(response);
+      that.processResponse(response);
+
       if (refresher!=""){
           refresher.complete();
           console.log("referesh complete");
         }
+        },function(reason){
+            if (refresher!=""){
+          refresher.complete();
+          console.log(reason);
+        }
+        that.requestFailedToast();
+
 
       });
 
   }
 
+requestFailedToast() {
+  let toast = this.toastCtrl.create({
+    message: 'Request failed!   Please check your internet connection',
+    position: 'bottom',
+    showCloseButton : true
+  });
 
+
+  toast.present();
+}
 
 processResponse(resp: any) {
 
   //  store the respose in items1
   
-  this.response = resp.response.result;
+  this.response = resp.result.response.result;
  
   //  If data is not present in local storage store repsonse in items 
     if(this.items == null){
-      this.items = resp.response.result;
+      this.items = resp.result.response.result;
       }
 
   console.log(this.response);
@@ -308,7 +326,7 @@ processResponse(resp: any) {
   // To avoid only one item or no item to be stored in items1 and local storage
   if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0)
     {
-      this.items1 = resp.response.result;
+      this.items1 = resp.result.response.result;;
 
       this.storage.set('this.data', this.items1).then( () => {
         console.log("storage set function");

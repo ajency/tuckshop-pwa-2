@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, ToastController, IonicPage } from 'ionic-angular';
-
 declare const gapi : any;
 /**
  * Generated class for the BuyPage page.
@@ -75,8 +74,8 @@ onBuy(ev) {
       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
       // var scriptId = "MspHiDZOV00Yjjl8SzYTDSSh_GrEu24Vl";
 
-      // let that = this;
-
+       let that = this;
+        that.viewCtrl.dismiss();
 
       var user =  gapi.auth2.getAuthInstance().currentUser.get().w3.U3;
       console.log(user);
@@ -94,15 +93,23 @@ var op = gapi.client.request({
     'body': request
 });
 
-//logging the results
-  op.execute(function(resp ) {
-  // that.processResponse(resp);
 
+
+console.log(op);
+//logging the results
+  op.then(function(response) {
+console.log('request succeessful'); 
+console.log(response);
+that.confirmationToast();
+ // that.processResponse(resp);
+},function(reason){
+
+console.log('request failed', reason);
+that.requestFailedToast();
 
 });
 
-this.viewCtrl.dismiss();
-this.confirmationToast();
+
 
 }
 
@@ -114,6 +121,17 @@ confirmationToast() {
     message: 'Order placed successfully',
     duration: 3000,
     position: 'bottom'
+  });
+
+
+  toast.present();
+}
+
+requestFailedToast() {
+  let toast = this.toastCtrl.create({
+    message: 'Order failed!   Please check your internet connection',
+    position: 'bottom',
+    showCloseButton : true
   });
 
 
