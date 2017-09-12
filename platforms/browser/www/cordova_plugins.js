@@ -60,14 +60,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-http/www/cordovaHTTP.js",
-        "id": "cordova-plugin-http.CordovaHttpPlugin",
-        "pluginId": "cordova-plugin-http",
-        "clobbers": [
-            "CordovaHttpPlugin"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "id": "cordova-plugin-file.DirectoryEntry",
         "pluginId": "cordova-plugin-file",
@@ -245,6 +237,14 @@ module.exports = [
         "merges": [
             "window.FileSystem"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-http/www/cordovaHTTP.js",
+        "id": "cordova-plugin-http.CordovaHttpPlugin",
+        "pluginId": "cordova-plugin-http",
+        "clobbers": [
+            "CordovaHttpPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -257,9 +257,9 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.1",
     "ionic-plugin-keyboard": "2.2.1",
     "cordova-sqlite-storage": "2.0.4",
-    "cordova-plugin-http": "1.2.0",
     "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-file": "4.3.3"
+    "cordova-plugin-file": "4.3.3",
+    "cordova-plugin-http": "1.2.0"
 }
 // BOTTOM OF METADATA
 });
