@@ -140,7 +140,7 @@ requestFailedToast() {
 
  waitingToast() {
   let toast = this.toastCtrl.create({
-    message: 'Please wait!! Order is being placed........',
+    message: 'Please wait...',
     duration: 5000,
     position: 'bottom',
   });
