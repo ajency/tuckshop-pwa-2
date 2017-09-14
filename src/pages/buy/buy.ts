@@ -94,16 +94,18 @@ var op = gapi.client.request({
 });
 
 
-that.waitingToast();
+let toast = that.waitingToast();
 console.log(op);
 //logging the results
 op.then(function(response) {
+toast.dismiss();
 console.log('request succeessful'); 
 console.log(response);
 that.confirmationToast();
  // that.processResponse(resp);
 },function(reason){
 
+toast.dismiss();
 console.log('request failed', reason);
 that.requestFailedToast();
 
@@ -117,6 +119,7 @@ that.requestFailedToast();
 
 
 confirmationToast() {
+
   let toast = this.toastCtrl.create({
     message: 'Order placed successfully!!',
     duration: 3000,
@@ -141,12 +144,14 @@ requestFailedToast() {
  waitingToast() {
   let toast = this.toastCtrl.create({
     message: 'Please wait...',
-    duration: 5000,
+    duration: 15000,
     position: 'bottom',
   });
 
 
   toast.present();
+  return toast;
+
 }
 
 }
