@@ -19,4 +19,26 @@ page-search {
 	.refresher-pulling-icon, .refresher-refreshing-icon{
 		color: color($colors, ajency, base);
 	}
+	.searchbar-input-container .searchbar-input{
+		height: 70px;
+	}
+	.searchbar-md .searchbar-search-icon{
+		top:25px;
+	}
+
+	.flex-container {
+	  display: flex;
+	  flex-wrap: nowrap;
+	  background-color: #f5d3d300;
+	  justify-content: space-around;
+	}
+
+	.flex-container > div {
+	  background-color: #f1f1f1;
+	  width: auto;
+	  margin: 10px;
+	  text-align: center;
+	  /*line-height: 75px;*/
+	  font-size: 30px;
+	}
 }

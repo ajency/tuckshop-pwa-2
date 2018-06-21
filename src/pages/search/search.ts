@@ -46,6 +46,7 @@ export class SearchPage {
   private code : any;
   private loc : any;
   private itemfound : boolean;
+  types = [];
 
 	constructor(private popoverCtrl: PopoverController,
               public navCtrl: NavController,
@@ -74,8 +75,13 @@ export class SearchPage {
 
       // Get the data from the local storage and store it in items and items1
       this.storage.get('this.data').then((data) => {
-  
+        
         this.items = data;
+        
+        if(data){
+          this.findTypes(data);
+        }
+      
         this.items1 =data;
         console.log("check items", this.items);
 
@@ -310,11 +316,11 @@ processResponse(resp: any) {
   this.response = resp.result.response.result;
  
   //  If data is not present in local storage store repsonse in items 
-    if(this.items == null){
       this.items = resp.result.response.result;
-      }
+      
 
   console.log(this.response);
+  this.findTypes(this.response);
 
   //  Function to store the data locally i.e. in cache
   if(Object.keys(this.response).length ==1){
@@ -419,8 +425,6 @@ public callFilter()
 
 
 
-
-
   presentPopover(ev) {
     let popover = this.popoverCtrl.create('SignoutPage', {
     });
@@ -429,61 +433,29 @@ public callFilter()
     });
   }
 
+  findTypes(data){
+    console.log("inside findTypes function");
+    var flags = [], output = ["All"];
+    for(let i=0;i<data.length;i++){
+      if( flags[data[i].type]) continue;
+      flags[data[i].type]=true;
+      output.push(data[i].type);
+    }
+    this.types = output;
+    console.log("types ===>", this.types)
+  }
 
-
-//   callScriptFunction2() {
-
-
-//   // this.loadError = false;
-//   console.log("callScriptFunction2");
-
-//   // Get the profile image of the user
-//   // this.image = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa; 
-
-
-//       var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
-
-//       let that = this;
-
-//        // Create execution request.
-//     var request = {
-//           'function': 'search',
-//           'parameters': this.code
-//     // 'devMode': true   // Optional.
-//       };
-
-//       // Make the request.
-//     var op = gapi.client.request({
-//         'root': 'https://script.googleapis.com',
-//         'path': 'v1/scripts/' + scriptId + ':run',
-//         'method': 'POST',
-//         'body': request
-//       });
-
-//     //logging the results
-//       op.execute(function(resp ) {
-//       that.processResponse2(resp);
-     
-
-//       });
-
-//   }
-
-//   processResponse2(resp: any) {
-
-//  // this.response = resp.response.result;
-//   console.log('special item is', resp.response);
-
-//   if(resp.response == undefined)
-//   {
-//     this.itemnotfoundToast();
-//   }
-//   else{
-//   this.confirmPurchase(resp.response.result)
-//   }
-//   this.zone.run(() => {});
-
-// }
+  filterItems(type){
+    console.log("inside filterItems function", type);
+    if(type == 'All'){
+      this.items = this.items1;
+    }
+    else{
+      this.items = this.items1.filter((item)=>{
+        return item.type == type;
+      })
+    }    
+  }
 
 
 

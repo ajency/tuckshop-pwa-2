@@ -39,6 +39,9 @@
 		<ion-spinner margin color="ajency"></ion-spinner>
 	</div>
 
+	<div class="flex-container">
+	  <div *ngFor="let type of types" style="cursor: pointer" (click)="filterItems(type)" >{{type}}</div>
+	</div>
 	<ion-list >
 		<ion-item *ngFor="let item of items" (click)="confirmPurchase(item)" class="fadeInUp">
 			{{ item.itemName }}
