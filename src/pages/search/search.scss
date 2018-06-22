@@ -29,16 +29,31 @@ page-search {
 	.flex-container {
 	  display: flex;
 	  flex-wrap: nowrap;
-	  background-color: #f5d3d300;
+	  background-color: #dedede;
 	  justify-content: space-around;
 	}
 
-	.flex-container > div {
-	  background-color: #f1f1f1;
+	.flex-container > button {
+	  /*background-color: #f4f4f4;*/
 	  width: auto;
 	  margin: 10px;
 	  text-align: center;
 	  /*line-height: 75px;*/
 	  font-size: 30px;
+	}
+
+		/* Style the buttons */
+	.btn {
+	  border: none;
+	  outline: none;
+	  padding: 10px 16px;
+	  background-color: #f1f1f1;
+	  cursor: pointer;
+	}
+
+	/* Style the active class (and buttons on mouse-over) */
+	.active, .btn:hover {
+	  background-color: #666;
+	  /*color: white;*/
 	}
 }

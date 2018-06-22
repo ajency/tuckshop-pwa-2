@@ -250,15 +250,16 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-console": "1.0.5",
-    "cordova-plugin-device": "1.1.4",
-    "cordova-plugin-splashscreen": "4.0.3",
-    "cordova-plugin-statusbar": "2.2.2",
-    "cordova-plugin-whitelist": "1.3.1",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-device": "1.1.7",
+    "cordova-plugin-splashscreen": "4.1.0",
+    "cordova-plugin-ionic-webview": "1.1.19",
+    "cordova-plugin-ionic-keyboard": "2.0.5",
+    "cordova-plugin-console": "1.1.0",
+    "cordova-plugin-statusbar": "2.4.2",
     "ionic-plugin-keyboard": "2.2.1",
-    "cordova-sqlite-storage": "2.0.4",
-    "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-file": "4.3.3",
+    "cordova-sqlite-storage": "2.3.2",
+    "cordova-plugin-file": "6.0.1",
     "cordova-plugin-http": "1.2.0"
 }
 // BOTTOM OF METADATA

@@ -80,6 +80,9 @@ export class SearchPage {
         
         if(data){
           this.findTypes(data);
+          setTimeout(()=>{
+            document.getElementById('All').classList.add('active');
+          },100)
         }
       
         this.items1 =data;
@@ -315,8 +318,13 @@ processResponse(resp: any) {
   
   this.response = resp.result.response.result;
  
-  //  If data is not present in local storage store repsonse in items 
+  //  If data is not present in local storage store repsonse in items
+  if(!this.items){
       this.items = resp.result.response.result;
+      setTimeout(()=>{
+            document.getElementById('All').classList.add('active');
+      },100)
+  } 
       
 
   console.log(this.response);
@@ -397,6 +405,11 @@ public callFilter()
      console.log(this.myInput);
 
       //if the value is an empty string don't filter the items
+      for(let i=0;i<this.types.length;i++){
+        document.getElementById(this.types[i]).classList.remove("active");
+      }
+      document.getElementById('All').classList.add('active');
+
       if (this.myInput && this.myInput.trim() != '') {
       this.items = this.items1.filter((i) => {
          return (i.itemName.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1);
@@ -446,7 +459,11 @@ public callFilter()
   }
 
   filterItems(type){
-    console.log("inside filterItems function", type);
+    console.log("inside filterItems function", type);    
+    for(let i=0;i<this.types.length;i++){
+      document.getElementById(this.types[i]).classList.remove("active");
+    }
+    document.getElementById(type).classList.add("active");
     if(type == 'All'){
       this.items = this.items1;
     }
