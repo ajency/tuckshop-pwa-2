@@ -1,6 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 // import { BuyPage } from '../buy/buy';
 
@@ -57,7 +58,8 @@ export class SearchPage {
               public toastCtrl: ToastController,
               public storage: Storage,
               l : PlatformLocation,
-              location : Location) {
+              location : Location,
+              public appservice : AppServiceProvider) {
 
     this.code = this.navParams.get('code');
     console.log(this.code);
@@ -182,7 +184,7 @@ handleClientLoad() {
 	  	let that = this;
         gapi.load('client:auth2', function () {
         gapi.client.init({
-           client_id: '676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com',
+           client_id: that.appservice.client_id,
               // client_id: '164623832984-ivug8glc6tgtu0sgjbm51oigp27u0033.apps.googleusercontent.com',
 
         cookiepolicy: 'single_host_origin',
@@ -234,9 +236,10 @@ callScriptFunction(refresher) {
 
   // Get the profile image of the user
   this.image = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa; 
+  console.log(this.image);
 
 
-      var scriptId = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
+      var scriptId = this.appservice.script_id;
       // var scriptId = "MspHiDZOV00Yjjl8SzYTDSSh_GrEu24Vl";
 
       let that = this;

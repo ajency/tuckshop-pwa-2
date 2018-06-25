@@ -22,6 +22,7 @@ import { MyApp } from './app.component';
 // import { SignoutPage } from '../pages/signout/signout';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { AppServiceProvider } from '../providers/app-service/app-service';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AppServiceProvider
   ]
 })
 export class AppModule {}

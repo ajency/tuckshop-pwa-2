@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,ViewController, IonicPage } from 'ionic-angular';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 // import { HomePage } from '../home/home';
 import { PlatformLocation, Location } from '@angular/common';
@@ -19,7 +20,10 @@ declare const gapi : any;
 })
 export class SignoutPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              private viewCtrl: ViewController,
+              public appservice : AppServiceProvider) {
   }
 
   private user : any;
@@ -31,10 +35,10 @@ export class SignoutPage {
 
   handleClientLoad() {
 
-      // let that = this;
+      let that = this;
         gapi.load('client:auth2', function () {
         gapi.client.init({
-           client_id: '676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com',
+           client_id: that.appservice.client_id,
               // client_id: '164623832984-ivug8glc6tgtu0sgjbm51oigp27u0033.apps.googleusercontent.com',
 
         cookiepolicy: 'single_host_origin',

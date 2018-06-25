@@ -1,5 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { NavController, ToastController, IonicPage, ViewController } from 'ionic-angular';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 // import { SearchPage } from '../search/search';
 import { PlatformLocation, Location } from '@angular/common';
@@ -15,7 +16,12 @@ export class HomePage {
 
   private loc: any;
 
-  constructor(private viewCtrl: ViewController, private l : PlatformLocation ,public navCtrl: NavController, public zone: NgZone, public toastCtrl: ToastController) {
+  constructor(private viewCtrl: ViewController, 
+              private l : PlatformLocation ,
+              public navCtrl: NavController, 
+              public zone: NgZone, 
+              public toastCtrl: ToastController,
+              public appservice : AppServiceProvider) {
     this.loc = l;
   }
 
@@ -55,7 +61,7 @@ ionViewDidLoad() {
       gapi.load('client:auth2',()=> {
     	console.log(this);
       gapi.client.init({
-         client_id: '676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com',
+         client_id: that.appservice.client_id,
          // client_id: '164623832984-ivug8glc6tgtu0sgjbm51oigp27u0033.apps.googleusercontent.com',
 
          cookiepolicy: 'single_host_origin',
