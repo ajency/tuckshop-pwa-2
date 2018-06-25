@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,ViewController, IonicPage } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
-import { PlatformLocation, Location } from '@angular/common';
 
 @IonicPage()
 @Component({

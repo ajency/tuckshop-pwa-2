@@ -174,7 +174,6 @@ callScriptFunction(refresher) {
   this.image = this.appservice.user_profile_pic
   console.log(this.image);
 
-  let scriptId = this.appservice.script_id;
   let that = this;
   var request;
   // Create execution request.

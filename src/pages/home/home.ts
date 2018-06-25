@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { NavController, ToastController, IonicPage, ViewController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
-import { PlatformLocation, Location } from '@angular/common';
+import { PlatformLocation } from '@angular/common';
 
 @IonicPage({
   name : 'home',
