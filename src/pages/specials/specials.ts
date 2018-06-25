@@ -25,4 +25,9 @@ export class SpecialsPage {
     console.log('ionViewDidLoad SpecialsPage');
   }
 
+  ngOnInit(){
+  	console.log("Inside ngOnInit SpecialsPage");
+  	
+  }
+
 }
