@@ -74,7 +74,6 @@ export class AppServiceProvider {
 	        });
 		  });
     });
-
 	}
 
   signIn() : Promise<any>{

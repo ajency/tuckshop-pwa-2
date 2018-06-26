@@ -13,5 +13,30 @@
 
 
 <ion-content padding>
+	<div *ngIf="specials">
+		<div *ngIf="morning_special && morning_special.length != 0">
+			<div>
+				{{morning_special[0].item}} <br>
+				{{morning_special[0].date_of_order}}
+			</div>
+			<div *ngFor="let user of morning_special; let i = index">
+				<!-- {{user.avatar}}<br> -->
+				 <ion-avatar item-start (click)="closeOrder(user,'morning',i)">
+				      <img src={{user.avatar}} width="30" height="30" class="avatar-img">
+			    </ion-avatar>
+			</div>
+		</div>
 
+		<div *ngIf="evening_special && evening_special.length != 0">
+			<div>
+				{{evening_special[0].item}} <br>
+				{{evening_special[0].date_of_order}}
+			</div>
+			<div *ngFor="let user of evening_special; let i = index">
+				<ion-avatar item-start (click)="closeOrder(user, 'evening', i)">
+				      <img src={{user.avatar}} width="30" height="30" class="avatar-img">
+			    </ion-avatar>
+			</div>
+		</div>
+	</div>
 </ion-content>
