@@ -20,11 +20,11 @@ declare const gapi : any;
 @Injectable()
 export class AppServiceProvider {
 
-	// client_id = "676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com"
-	client_id = "424476852000-562ov6kfvkoljht8gnocsaiiv0s1o2k3.apps.googleusercontent.com"
+	client_id = "676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com"
+	// client_id = "424476852000-562ov6kfvkoljht8gnocsaiiv0s1o2k3.apps.googleusercontent.com" // tuckshop copy test
 
-	// script_id = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
-	script_id = "MjTVF50mrNfjX0_kvuCTT1aAvZzphd5k5";
+	script_id = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
+	// script_id = "MjTVF50mrNfjX0_kvuCTT1aAvZzphd5k5"; // tuckshop copy test
 	public auth2: any;
 	user_profile_pic : any;
 	bearer_token : any;
