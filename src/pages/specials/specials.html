@@ -13,29 +13,49 @@
 
 
 <ion-content padding>
-	<div *ngIf="specials">
-		<div *ngIf="morning_special && morning_special.length != 0">
-			<div>
-				{{morning_special[0].item}} <br>
-				{{morning_special[0].date_of_order}}
+	<div *ngIf="specials" class="specials">
+		<div *ngIf="morning_special && morning_special.length != 0" class="specials__holder">
+			<div class="specials__heading">
+				<b>{{morning_special[0].item}}</b>
+				<span>{{morning_special[0].date_of_order}}</span>
 			</div>
-			<div *ngFor="let user of morning_special; let i = index">
-				<!-- {{user.avatar}}<br> -->
-				 <ion-avatar item-start (click)="closeOrder(user,'morning',i)">
-				      <img src={{user.avatar}} width="30" height="30" class="avatar-img">
-			    </ion-avatar>
+			<div class="specials__lists">
+				<ion-list *ngFor="let user of morning_special; let i = index">
+					<!-- {{user.avatar}}<br> -->
+					 <ion-avatar item-start (click)="closeOrder(user,'morning',i)">
+					      <img src={{user.avatar}} width="70" class="avatar-img">
+					      <ion-icon name="checkmark" class="checkmark"></ion-icon>
+					      <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filter">
+						    <defs>
+						        <filter id="svgfilter" x="0%" y="0%" width="100%" height="100%">
+						            <feColorMatrix result="original" id="svgcolormatrix" type="matrix" values="-0.8 0.1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0.04"></feColorMatrix>
+						        </filter>
+						    </defs>
+						</svg>
+				    </ion-avatar>
+				</ion-list>
 			</div>
 		</div>
 
-		<div *ngIf="evening_special && evening_special.length != 0">
-			<div>
-				{{evening_special[0].item}} <br>
-				{{evening_special[0].date_of_order}}
+		<div *ngIf="evening_special && evening_special.length != 0" class="specials__holder">
+			<div class="specials__heading">
+				<b>{{morning_special[0].item}}</b>
+				<span>{{morning_special[0].date_of_order}}</span>
 			</div>
-			<div *ngFor="let user of evening_special; let i = index">
-				<ion-avatar item-start (click)="closeOrder(user, 'evening', i)">
-				      <img src={{user.avatar}} width="30" height="30" class="avatar-img">
-			    </ion-avatar>
+			<div class="specials__lists">
+				<ion-list *ngFor="let user of evening_special; let i = index">
+					<ion-avatar item-start (click)="closeOrder(user, 'evening', i)">
+						<img src={{user.avatar}} width="70" class="avatar-img">
+						<ion-icon name="checkmark" class="checkmark"></ion-icon>
+						<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filter">
+						    <defs>
+						        <filter id="svgfilter" x="0%" y="0%" width="100%" height="100%">
+						            <feColorMatrix result="original" id="svgcolormatrix" type="matrix" values="-0.8 0.1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0.04"></feColorMatrix>
+						        </filter>
+						    </defs>
+						</svg>
+					</ion-avatar>
+				</ion-list>
 			</div>
 		</div>
 	</div>
