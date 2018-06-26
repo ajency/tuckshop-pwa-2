@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 /**
  * Generated class for the SpecialsPage page.
@@ -84,12 +84,18 @@ export class SpecialsPage {
       let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`;
       this.appservice.request(url,'post',body,{},false,'promise').then((res)=>{
           console.log("response from search api ==>", res);
-          if(time == 'morning'){
-            this.morning_special[index].order_status = 'closed'
+          if(res.response.result === true){
+            if(time == 'morning'){
+              this.morning_special[index].order_status = 'closed'
+            }
+            else{
+              this.evening_special[index].order_status = 'closed'
+            }
           }
           else{
-            this.evening_special[index].order_status = 'closed'
+            let toast = this.appservice.presentToast("Something unexpected happened",'error',5000,false,'bottom',''); 
           }
+          
       })
       .catch((error)=>{
           console.log("error from search api", error);

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
+import { ToastController } from 'ionic-angular';
+
 import 'rxjs/add/operator/map';
 
 import 'rxjs/add/observable/of';
@@ -30,7 +32,8 @@ export class AppServiceProvider {
 	user_name : any;
 	handleError : any;
 
-  constructor(public http: Http) {
+  constructor(public http: Http,
+					  	public toastCtrl: ToastController) {
     console.log('Hello AppServiceProvider Provider');
     this.handleError = (error: any): Promise<any> => {
         console.warn('error in request fetch',error)
@@ -159,6 +162,41 @@ export class AppServiceProvider {
   	 		reject(false);
   	 	});
   	})
+  }
+
+  public presentToast(message: string, type: string = 'success', duration: number = 3000, keepOpen: boolean = false, position: string = 'bottom',closeText: string = 'Got it'): any{
+
+      let toastClass = '';
+      if(type === 'success'){
+        toastClass = 'toast-success online';
+      }
+      else if(type === 'warn'){
+        toastClass = 'toast-warn offline';
+      }
+      else if(type === 'error'){
+        toastClass = 'toast-fail'
+      }
+
+      let toastOptions:any = {
+        message: message,
+        cssClass: toastClass,
+        position: position
+      }
+
+      if(keepOpen){
+        toastOptions.showCloseButton = true;
+        toastOptions.closeButtonText = closeText;
+        toastOptions.dismissOnPageChange = false;
+      }else{
+        toastOptions.duration = duration;
+      }
+
+      let toast = this.toastCtrl.create(toastOptions);
+
+      toast.present();
+      console.log("toasst presented")
+
+      return toast;
   }
 
 }
