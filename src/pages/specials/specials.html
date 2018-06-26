@@ -39,8 +39,8 @@
 
 		<div *ngIf="evening_special && evening_special.length != 0" class="specials__holder">
 			<div class="specials__heading">
-				<b>{{morning_special[0].item}}</b>
-				<span>{{morning_special[0].date_of_order}}</span>
+				<b>{{evening_special[0].item}}</b>
+				<span>{{evening_special[0].date_of_order}}</span>
 			</div>
 			<div class="specials__lists">
 				<ion-list *ngFor="let user of evening_special; let i = index">
