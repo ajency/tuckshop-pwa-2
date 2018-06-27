@@ -1,1 +1,378 @@
-webpackJsonp([2],{182:function(l,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var u=t(0),e=(t(58),t(82)),o=function(){function l(l,n,t){this.navCtrl=l,this.navParams=n,this.appservice=t,this.morning_special=[],this.evening_special=[]}return l.prototype.ionViewDidLoad=function(){console.log("ionViewDidLoad SpecialsPage")},l.prototype.ngOnInit=function(){var n=this;console.log("Inside ngOnInit SpecialsPage"),this.appservice.handleClientLoad().then(function(l){n.callSpecialOrdersApi()}).catch(function(l){n.navCtrl.push("home")})},l.prototype.callSpecialOrdersApi=function(){var n=this;console.log("Inside special order api call function");this.appservice.request("https://content-script.googleapis.com/v1/scripts/"+this.appservice.script_id+":run","post",{function:"getSpecialsOrder",parameters:""},{},!1,"promise").then(function(l){console.log("response from search api ==>",l),n.specials=l.response.result,n.sortSpecials()}).catch(function(l){console.log("error from search api",l)})},l.prototype.sortSpecials=function(){for(var l=this.specials[0].item,n=0;n<this.specials.length;n++)this.specials[n].item==l?this.morning_special.push(this.specials[n]):this.evening_special.push(this.specials[n])},l.prototype.closeOrder=function(l,n,t){var u=this;"open"==l.order_status&&(console.log("Close oreder for ==>",l,n,t),this.appservice.request("https://content-script.googleapis.com/v1/scripts/"+this.appservice.script_id+":run","post",{function:"close_order",parameters:[l.email,l.item,l.date_of_order]},{},!1,"promise").then(function(l){if(console.log("response from search api ==>",l),!0===l.response.result)"morning"==n?u.morning_special[t].order_status="closed":u.evening_special[t].order_status="closed";else u.appservice.presentToast("Something unexpected happened","error",5e3,!1,"bottom","")}).catch(function(l){console.log("error from search api",l)}))},l}(),i=function(){return function(){}}(),a=t(14),s=t(21),r=t(84),c=t(125),_=t(126),p=t(127),d=t(128),g=t(129),h=t(130),f=t(131),m=t(59),v=t(1),b=t(4),k=t(6),F=t(9),w=t(87),y=t(30),x=t(85),C=t(3),O=t(183),P=t(39),M=t(8),S=t(20),I=t(184),L=t(83),j=t(40),B=t(185),D=t(29),N=t(42),z=t(10),A=u._3({encapsulation:2,styles:[],data:{}});function E(l){return u._25(0,[(l()(),u._5(0,null,null,25,"ion-list",[],null,null,null,null,null)),u._4(16384,null,0,m.a,[v.a,u.k,u.F,b.a,k.i,F.a],null,null),(l()(),u._24(null,["\n\t\t\t\t\t"])),(l()(),u._24(null,["\n\t\t\t\t\t "])),(l()(),u._5(0,null,null,20,"ion-avatar",[["item-start",""]],null,[[null,"click"]],function(l,n,t){var u=!0;"click"===n&&(u=!1!==l.component.closeOrder(l.context.$implicit,"morning",l.context.index)&&u);return u},null,null)),u._4(278528,null,0,a.f,[u.s,u.t,u.k,u.F],{ngClass:[0,"ngClass"]},null),u._20(["active"]),u._4(16384,null,0,w.a,[],null,null),(l()(),u._24(null,["\n\t\t\t\t\t      "])),(l()(),u._5(0,null,null,0,"img",[["class","avatar-img"],["width","70"]],[[8,"src",4]],null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t      "])),(l()(),u._5(0,null,null,1,"ion-icon",[["class","checkmark"],["name","checkmark"],["role","img"]],[[2,"hide",null]],null,null,null,null)),u._4(147456,null,0,y.a,[v.a,u.k,u.F],{name:[0,"name"]},null),(l()(),u._24(null,["\n\t\t\t\t\t      "])),(l()(),u._5(0,null,null,9,":svg:svg",[["class","svg-filter"],["height","0"],["version","1.1"],["width","0"],["xmlns","http://www.w3.org/2000/svg"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t    "])),(l()(),u._5(0,null,null,6,":svg:defs",[],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t        "])),(l()(),u._5(0,null,null,3,":svg:filter",[["height","100%"],["id","svgfilter"],["width","100%"],["x","0%"],["y","0%"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t            "])),(l()(),u._5(0,null,null,0,":svg:feColorMatrix",[["id","svgcolormatrix"],["result","original"],["type","matrix"],["values","-0.8 0.1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0.04"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t        "])),(l()(),u._24(null,["\n\t\t\t\t\t\t    "])),(l()(),u._24(null,["\n\t\t\t\t\t\t"])),(l()(),u._24(null,["\n\t\t\t\t    "])),(l()(),u._24(null,["\n\t\t\t\t"]))],function(l,n){l(n,5,0,l(n,6,0,"closed"==n.context.$implicit.order_status));l(n,12,0,"checkmark")},function(l,n){l(n,9,0,u._9(1,"",n.context.$implicit.avatar,"")),l(n,11,0,u._18(n,12)._hidden)})}function T(l){return u._25(0,[(l()(),u._5(0,null,null,16,"div",[["class","specials__holder"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._5(0,null,null,7,"div",[["class","specials__heading"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t"])),(l()(),u._5(0,null,null,1,"b",[],null,null,null,null,null)),(l()(),u._24(null,["",""])),(l()(),u._24(null,["\n\t\t\t\t"])),(l()(),u._5(0,null,null,1,"span",[],null,null,null,null,null)),(l()(),u._24(null,["",""])),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._5(0,null,null,4,"div",[["class","specials__lists"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t"])),(l()(),u._1(16777216,null,null,1,null,E)),u._4(802816,null,0,a.g,[u.P,u.M,u.s],{ngForOf:[0,"ngForOf"]},null),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._24(null,["\n\t\t"]))],function(l,n){l(n,14,0,n.component.morning_special)},function(l,n){var t=n.component;l(n,5,0,t.morning_special[0].item),l(n,8,0,t.morning_special[0].date_of_order)})}function $(l){return u._25(0,[(l()(),u._5(0,null,null,24,"ion-list",[],null,null,null,null,null)),u._4(16384,null,0,m.a,[v.a,u.k,u.F,b.a,k.i,F.a],null,null),(l()(),u._24(null,["\n\t\t\t\t\t"])),(l()(),u._5(0,null,null,20,"ion-avatar",[["item-start",""]],null,[[null,"click"]],function(l,n,t){var u=!0;"click"===n&&(u=!1!==l.component.closeOrder(l.context.$implicit,"evening",l.context.index)&&u);return u},null,null)),u._4(278528,null,0,a.f,[u.s,u.t,u.k,u.F],{ngClass:[0,"ngClass"]},null),u._20(["active"]),u._4(16384,null,0,w.a,[],null,null),(l()(),u._24(null,["\n\t\t\t\t\t\t"])),(l()(),u._5(0,null,null,0,"img",[["class","avatar-img"],["width","70"]],[[8,"src",4]],null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t"])),(l()(),u._5(0,null,null,1,"ion-icon",[["class","checkmark"],["name","checkmark"],["role","img"]],[[2,"hide",null]],null,null,null,null)),u._4(147456,null,0,y.a,[v.a,u.k,u.F],{name:[0,"name"]},null),(l()(),u._24(null,["\n\t\t\t\t\t\t"])),(l()(),u._5(0,null,null,9,":svg:svg",[["class","svg-filter"],["height","0"],["version","1.1"],["width","0"],["xmlns","http://www.w3.org/2000/svg"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t    "])),(l()(),u._5(0,null,null,6,":svg:defs",[],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t        "])),(l()(),u._5(0,null,null,3,":svg:filter",[["height","100%"],["id","svgfilter"],["width","100%"],["x","0%"],["y","0%"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t            "])),(l()(),u._5(0,null,null,0,":svg:feColorMatrix",[["id","svgcolormatrix"],["result","original"],["type","matrix"],["values","-0.8 0.1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0.04"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t\t\t        "])),(l()(),u._24(null,["\n\t\t\t\t\t\t    "])),(l()(),u._24(null,["\n\t\t\t\t\t\t"])),(l()(),u._24(null,["\n\t\t\t\t\t"])),(l()(),u._24(null,["\n\t\t\t\t"]))],function(l,n){l(n,4,0,l(n,5,0,"closed"==n.context.$implicit.order_status));l(n,11,0,"checkmark")},function(l,n){l(n,8,0,u._9(1,"",n.context.$implicit.avatar,"")),l(n,10,0,u._18(n,11)._hidden)})}function R(l){return u._25(0,[(l()(),u._5(0,null,null,16,"div",[["class","specials__holder"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._5(0,null,null,7,"div",[["class","specials__heading"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t"])),(l()(),u._5(0,null,null,1,"b",[],null,null,null,null,null)),(l()(),u._24(null,["",""])),(l()(),u._24(null,["\n\t\t\t\t"])),(l()(),u._5(0,null,null,1,"span",[],null,null,null,null,null)),(l()(),u._24(null,["",""])),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._5(0,null,null,4,"div",[["class","specials__lists"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t\t\t"])),(l()(),u._1(16777216,null,null,1,null,$)),u._4(802816,null,0,a.g,[u.P,u.M,u.s],{ngForOf:[0,"ngForOf"]},null),(l()(),u._24(null,["\n\t\t\t"])),(l()(),u._24(null,["\n\t\t"]))],function(l,n){l(n,14,0,n.component.evening_special)},function(l,n){var t=n.component;l(n,5,0,t.evening_special[0].item),l(n,8,0,t.evening_special[0].date_of_order)})}function q(l){return u._25(0,[(l()(),u._5(0,null,null,7,"div",[["class","specials"]],null,null,null,null,null)),(l()(),u._24(null,["\n\t\t"])),(l()(),u._1(16777216,null,null,1,null,T)),u._4(16384,null,0,a.h,[u.P,u.M],{ngIf:[0,"ngIf"]},null),(l()(),u._24(null,["\n\n\t\t"])),(l()(),u._1(16777216,null,null,1,null,R)),u._4(16384,null,0,a.h,[u.P,u.M],{ngIf:[0,"ngIf"]},null),(l()(),u._24(null,["\n\t"]))],function(l,n){var t=n.component;l(n,3,0,t.morning_special&&0!=t.morning_special.length),l(n,6,0,t.evening_special&&0!=t.evening_special.length)},null)}function K(l){return u._25(0,[(l()(),u._24(null,["\n\n"])),(l()(),u._5(0,null,null,10,"ion-header",[],null,null,null,null,null)),u._4(16384,null,0,x.a,[v.a,u.k,u.F,[2,C.a]],null,null),(l()(),u._24(null,["\n\t"])),(l()(),u._5(0,null,null,6,"ion-navbar",[["align","center"],["class","toolbar"],["color","ajency"]],[[8,"hidden",0],[2,"statusbar-padding",null]],null,null,O.b,O.a)),u._4(49152,null,0,P.a,[M.a,[2,C.a],[2,S.a],v.a,u.k,u.F],{color:[0,"color"]},null),(l()(),u._24(3,["\n\t\t"])),(l()(),u._5(0,null,3,2,"ion-title",[],null,null,null,I.b,I.a)),u._4(49152,null,0,L.a,[v.a,u.k,u.F,[2,j.a],[2,P.a]],null,null),(l()(),u._24(0,["Tuckshop"])),(l()(),u._24(3,["\n\t"])),(l()(),u._24(null,["\n"])),(l()(),u._24(null,["\n\n\n"])),(l()(),u._5(0,null,null,5,"ion-content",[["padding",""]],[[2,"statusbar-padding",null],[2,"has-refresher",null]],null,null,B.b,B.a)),u._4(4374528,null,0,D.a,[v.a,b.a,F.a,u.k,u.F,M.a,N.a,u.z,[2,C.a],[2,S.a]],null,null),(l()(),u._24(1,["\n\t"])),(l()(),u._1(16777216,null,1,1,null,q)),u._4(16384,null,0,a.h,[u.P,u.M],{ngIf:[0,"ngIf"]},null),(l()(),u._24(1,["\n"])),(l()(),u._24(null,["\n"]))],function(l,n){var t=n.component;l(n,5,0,"ajency"),l(n,17,0,t.specials)},function(l,n){l(n,4,0,u._18(n,5)._hidden,u._18(n,5)._sbPadding),l(n,13,0,u._18(n,14).statusbarPadding,u._18(n,14)._hasRefresher)})}var V=u._2("page-specials",o,function(l){return u._25(0,[(l()(),u._5(0,null,null,1,"page-specials",[],null,null,null,K,A)),u._4(114688,null,0,o,[S.a,z.a,e.a],null,null)],function(l,n){l(n,1,0)},null)},{},{},[]),Y=t(25);t.d(n,"SpecialsPageModuleNgFactory",function(){return G});var Z,J=this&&this.__extends||(Z=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(l,n){l.__proto__=n}||function(l,n){for(var t in n)n.hasOwnProperty(t)&&(l[t]=n[t])},function(l,n){function t(){this.constructor=l}Z(l,n),l.prototype=null===n?Object.create(n):(t.prototype=n.prototype,new t)}),G=new u.w(function(n){function l(l){return n.call(this,l,[c.a,_.a,p.a,d.a,g.a,h.a,f.a,V],[])||this}return J(l,n),Object.defineProperty(l.prototype,"_NgLocalization_7",{get:function(){return null==this.__NgLocalization_7&&(this.__NgLocalization_7=new a.i(this.parent.get(u.u))),this.__NgLocalization_7},enumerable:!0,configurable:!0}),Object.defineProperty(l.prototype,"_ɵi_8",{get:function(){return null==this.__ɵi_8&&(this.__ɵi_8=new s.k),this.__ɵi_8},enumerable:!0,configurable:!0}),Object.defineProperty(l.prototype,"_FormBuilder_9",{get:function(){return null==this.__FormBuilder_9&&(this.__FormBuilder_9=new s.c),this.__FormBuilder_9},enumerable:!0,configurable:!0}),l.prototype.createInternal=function(){return this._CommonModule_0=new a.b,this._ɵba_1=new s.j,this._FormsModule_2=new s.d,this._ReactiveFormsModule_3=new s.i,this._IonicModule_4=new r.a,this._IonicPageModule_5=new r.b,this._SpecialsPageModule_6=new i,this._LAZY_LOADED_TOKEN_10=o,this._SpecialsPageModule_6},l.prototype.getInternal=function(l,n){return l===a.b?this._CommonModule_0:l===s.j?this._ɵba_1:l===s.d?this._FormsModule_2:l===s.i?this._ReactiveFormsModule_3:l===r.a?this._IonicModule_4:l===r.b?this._IonicPageModule_5:l===i?this._SpecialsPageModule_6:l===a.j?this._NgLocalization_7:l===s.k?this._ɵi_8:l===s.c?this._FormBuilder_9:l===Y.a?this._LAZY_LOADED_TOKEN_10:n},l.prototype.destroyInternal=function(){},l}(u._0),i)},183:function(l,n,t){"use strict";t.d(n,"a",function(){return d}),n.b=g;var u=t(0),e=t(14),o=t(39),i=t(41),a=t(15),s=t(1),r=t(30),c=t(8),_=t(3),p=t(20),d=u._3({encapsulation:2,styles:[],data:{}});function g(l){return u._25(0,[(l()(),u._5(0,null,null,1,"div",[["class","toolbar-background"]],null,null,null,null,null)),u._4(278528,null,0,e.f,[u.s,u.t,u.k,u.F],{klass:[0,"klass"],ngClass:[1,"ngClass"]},null),(l()(),u._5(0,null,null,8,"button",[["class","back-button"],["ion-button","bar-button"]],[[8,"hidden",0]],[[null,"click"]],function(l,n,t){var u=!0;"click"===n&&(u=!1!==l.component.backButtonClick(t)&&u);return u},i.b,i.a)),u._4(278528,null,0,e.f,[u.s,u.t,u.k,u.F],{klass:[0,"klass"],ngClass:[1,"ngClass"]},null),u._4(1097728,null,0,a.a,[[8,"bar-button"],s.a,u.k,u.F],null,null),(l()(),u._5(0,null,0,2,"ion-icon",[["class","back-button-icon"],["role","img"]],[[2,"hide",null]],null,null,null,null)),u._4(278528,null,0,e.f,[u.s,u.t,u.k,u.F],{klass:[0,"klass"],ngClass:[1,"ngClass"]},null),u._4(147456,null,0,r.a,[s.a,u.k,u.F],{name:[0,"name"]},null),(l()(),u._5(0,null,0,2,"span",[["class","back-button-text"]],null,null,null,null,null)),u._4(278528,null,0,e.f,[u.s,u.t,u.k,u.F],{klass:[0,"klass"],ngClass:[1,"ngClass"]},null),(l()(),u._24(null,["",""])),u._17(null,0),u._17(null,1),u._17(null,2),(l()(),u._5(0,null,null,2,"div",[["class","toolbar-content"]],null,null,null,null,null)),u._4(278528,null,0,e.f,[u.s,u.t,u.k,u.F],{klass:[0,"klass"],ngClass:[1,"ngClass"]},null),u._17(null,3)],function(l,n){var t=n.component;l(n,1,0,"toolbar-background","toolbar-background-"+t._mode);l(n,3,0,"back-button","back-button-"+t._mode);l(n,6,0,"back-button-icon","back-button-icon-"+t._mode),l(n,7,0,t._bbIcon);l(n,9,0,"back-button-text","back-button-text-"+t._mode);l(n,15,0,"toolbar-content","toolbar-content-"+t._mode)},function(l,n){var t=n.component;l(n,2,0,t._hideBb),l(n,5,0,u._18(n,7)._hidden),l(n,10,0,t._backText)})}u._2("ion-navbar",o.a,function(l){return u._25(0,[(l()(),u._5(0,null,null,1,"ion-navbar",[["class","toolbar"]],[[8,"hidden",0],[2,"statusbar-padding",null]],null,null,g,d)),u._4(49152,null,0,o.a,[c.a,[2,_.a],[2,p.a],s.a,u.k,u.F],null,null)],null,function(l,n){l(n,0,0,u._18(n,1)._hidden,u._18(n,1)._sbPadding)})},{color:"color",mode:"mode",hideBackButton:"hideBackButton"},{},["[menuToggle],ion-buttons[left]","ion-buttons[start]","ion-buttons[end],ion-buttons[right]","*"])},184:function(l,n,t){"use strict";t.d(n,"a",function(){return r}),n.b=c;var u=t(0),e=t(14),o=t(83),i=t(1),a=t(40),s=t(39),r=u._3({encapsulation:2,styles:[],data:{}});function c(l){return u._25(2,[(l()(),u._5(0,null,null,2,"div",[["class","toolbar-title"]],null,null,null,null,null)),u._4(278528,null,0,e.f,[u.s,u.t,u.k,u.F],{klass:[0,"klass"],ngClass:[1,"ngClass"]},null),u._17(null,0)],function(l,n){l(n,1,0,"toolbar-title","toolbar-title-"+n.component._mode)},null)}u._2("ion-title",o.a,function(l){return u._25(0,[(l()(),u._5(0,null,null,1,"ion-title",[],null,null,null,c,r)),u._4(49152,null,0,o.a,[i.a,u.k,u.F,[2,a.a],[2,s.a]],null,null)],null,null)},{color:"color",mode:"mode"},{},["*"])},185:function(l,n,t){"use strict";t.d(n,"a",function(){return p}),n.b=d;var u=t(0),e=t(29),o=t(1),i=t(4),a=t(9),s=t(8),r=t(42),c=t(3),_=t(20),p=u._3({encapsulation:2,styles:[],data:{}});function d(l){return u._25(2,[u._22(402653184,1,{_fixedContent:0}),u._22(402653184,2,{_scrollContent:0}),(l()(),u._5(0,[[1,0],["fixedContent",1]],null,1,"div",[["class","fixed-content"]],null,null,null,null,null)),u._17(null,0),(l()(),u._5(0,[[2,0],["scrollContent",1]],null,1,"div",[["class","scroll-content"]],null,null,null,null,null)),u._17(null,1),u._17(null,2)],null,null)}u._2("ion-content",e.a,function(l){return u._25(0,[(l()(),u._5(0,null,null,1,"ion-content",[],[[2,"statusbar-padding",null],[2,"has-refresher",null]],null,null,d,p)),u._4(4374528,null,0,e.a,[o.a,i.a,a.a,u.k,u.F,s.a,r.a,u.z,[2,c.a],[2,_.a]],null,null)],null,function(l,n){l(n,0,0,u._18(n,1).statusbarPadding,u._18(n,1)._hasRefresher)})},{color:"color",mode:"mode",fullscreen:"fullscreen",scrollDownOnLoad:"scrollDownOnLoad"},{ionScrollStart:"ionScrollStart",ionScroll:"ionScroll",ionScrollEnd:"ionScrollEnd"},["[ion-fixed],ion-fab","*","ion-refresher"])}});
+webpackJsonp([2],{
+
+/***/ 286:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchPageModule", function() { return SearchPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search__ = __webpack_require__(291);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var SearchPageModule = (function () {
+    function SearchPageModule() {
+    }
+    return SearchPageModule;
+}());
+SearchPageModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_2__search__["a" /* SearchPage */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__search__["a" /* SearchPage */]),
+        ],
+        exports: [
+            __WEBPACK_IMPORTED_MODULE_2__search__["a" /* SearchPage */]
+        ]
+    })
+], SearchPageModule);
+
+//# sourceMappingURL=search.module.js.map
+
+/***/ }),
+
+/***/ 291:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_app_service_app_service__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(40);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var SearchPage = (function () {
+    function SearchPage(popoverCtrl, navCtrl, zone, navParams, viewCtrl, modalCtrl, toastCtrl, storage, l, location, appservice) {
+        this.popoverCtrl = popoverCtrl;
+        this.navCtrl = navCtrl;
+        this.zone = zone;
+        this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
+        this.modalCtrl = modalCtrl;
+        this.toastCtrl = toastCtrl;
+        this.storage = storage;
+        this.appservice = appservice;
+        // private loadResults = false;
+        this.loadError = false;
+        this.myInput = '';
+        this.check = true;
+        this.types = [];
+        this.code = this.navParams.get('code');
+        console.log(this.code);
+        this.loc = l;
+    }
+    SearchPage.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log("ngOnInit search page");
+        this.storage.get('this.data').then(function (data) {
+            _this.items = data;
+            _this.items1 = data;
+            if (data) {
+                _this.findTypes(data);
+                setTimeout(function () {
+                    document.getElementById('All').classList.add('active');
+                }, 100);
+            }
+            else {
+                _this.loadingItems = true;
+            }
+            // If the url contains the item code i.e. if it is not empty check for the item code 
+            // in the locally stored data
+            if (_this.code != "") {
+                if (_this.items != null) {
+                    for (var _i = 0, _a = _this.items; _i < _a.length; _i++) {
+                        var i = _a[_i];
+                        if (i.itemCode == _this.code) {
+                            console.log("item found");
+                            _this.confirmPurchase(i);
+                            _this.itemfound = true;
+                            break;
+                        }
+                    }
+                }
+                if (!_this.itemfound) {
+                    console.log('item not found in local storage');
+                    // this.handleClientLoad();
+                    _this.callScriptFunction("");
+                    _this.searchingdb();
+                    _this.loadingItems = true;
+                }
+                // If the item is not found create a toast saying item not found 
+            }
+        });
+        if (this.code == "") {
+            console.log('item code is null', this.code);
+            // this.handleClientLoad();  // Function to authenticate user
+            this.callScriptFunction("");
+        }
+    };
+    SearchPage.prototype.ionViewCanEnter = function () {
+        var _this = this;
+        console.log("ionViewCanEnter search page");
+        return new Promise(function (resolve, reject) {
+            _this.appservice.handleClientLoad().then(function (res) {
+                console.log("response from handleClientLoad ", res);
+                resolve(true);
+            })
+                .catch(function (error) {
+                reject(false);
+                _this.navCtrl.setRoot('home');
+                console.log("error from handleClientLoad", error);
+            });
+        });
+    };
+    SearchPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad SearchPage check1');
+    };
+    SearchPage.prototype.ionViewWillEnter = function () {
+        console.log('ionViewWillEnter SearchPage check');
+        this.viewCtrl.showBackButton(false);
+    };
+    SearchPage.prototype.errorToast = function () {
+        console.log('errorToast function');
+        var toast = this.toastCtrl.create({
+            message: 'Something went wrong! Please try again.',
+            showCloseButton: true,
+            closeButtonText: "OK",
+            dismissOnPageChange: true
+        });
+        toast.present();
+    };
+    SearchPage.prototype.itemnotfoundToast = function () {
+        var toast = this.toastCtrl.create({
+            message: 'Item not found',
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
+    };
+    SearchPage.prototype.searchingdb = function () {
+        var toast = this.toastCtrl.create({
+            message: 'Item not found on local storage...fetching from the server...Please wait..',
+            duration: 4000,
+            position: 'bottom'
+        });
+        toast.present();
+    };
+    //search and display part
+    SearchPage.prototype.callScriptFunction = function (refresher) {
+        var _this = this;
+        this.loadError = false;
+        console.log("callScriptFunction");
+        // Get the profile image of the user
+        this.image = this.appservice.user_profile_pic;
+        console.log(this.image);
+        var that = this;
+        var request;
+        // Create execution request.
+        if (that.code == "") {
+            console.log('youll get all results');
+            request = {
+                'function': 'search',
+                'parameters': ""
+            };
+        }
+        else if (refresher == "") {
+            console.log('only one result');
+            request = {
+                'function': 'search',
+                'parameters': that.code
+            };
+        }
+        else {
+            console.log('youll get all resultsss');
+            request = {
+                'function': 'search',
+                'parameters': ""
+            };
+        }
+        // Make the request.
+        var url = "https://content-script.googleapis.com/v1/scripts/" + this.appservice.script_id + ":run";
+        this.appservice.request(url, 'post', request, {}, false, 'promise').then(function (res) {
+            console.log("response from search api ==>", res);
+            _this.processResponse(res);
+            if (refresher != "") {
+                refresher.complete();
+                console.log("referesh complete");
+            }
+        })
+            .catch(function (error) {
+            console.log("error from search api", error);
+            if (refresher != "") {
+                refresher.complete();
+            }
+            _this.loadingItems = false;
+            _this.requestFailedToast();
+        });
+    };
+    SearchPage.prototype.requestFailedToast = function () {
+        var toast = this.toastCtrl.create({
+            message: 'Request failed!   Please check your internet connection',
+            position: 'bottom',
+            showCloseButton: true
+        });
+        toast.present();
+    };
+    SearchPage.prototype.processResponse = function (resp) {
+        //  store the respose in items1
+        this.response = resp.response.result;
+        //  If data is not present in local storage store repsonse in items
+        if (!this.items) {
+            this.items = this.response;
+            setTimeout(function () {
+                document.getElementById('All').classList.add('active');
+            }, 100);
+        }
+        this.findTypes(this.response);
+        //  Function to store the data locally i.e. in cache
+        if (Object.keys(this.response).length == 1) {
+            this.confirmPurchase(this.response[0]);
+            this.loadingItems = false;
+        }
+        // To avoid only one item or no item to be stored in items1 and local storage
+        if (Object.keys(this.response).length != 1 && Object.keys(this.response).length != 0) {
+            this.items1 = this.response;
+            this.storage.set('this.data', this.items1).then(function () {
+                console.log("storage set function");
+            });
+        }
+        if (Object.keys(this.response).length == 0) {
+            // If there is no response set loadError to true
+            if (Object.keys(this.response).length != 0) {
+                this.loadError = true;
+            }
+            this.itemnotfoundToast();
+        }
+        this.loadingItems = false;
+        this.zone.run(function () { });
+    };
+    SearchPage.prototype.confirmPurchase = function (item) {
+        console.log("inside confirmPurchase", item);
+        var product = [];
+        product = item;
+        var modal = this.modalCtrl.create('BuyPage', { item: product });
+        console.log(item.itemName);
+        modal.present();
+        // change the URL based on the item clicked
+        var stateObj = [];
+        this.loc.pushState(stateObj, "BuyPage", "/#/search/" + item.itemCode);
+        this.zone.run(function () { });
+    };
+    SearchPage.prototype.onCancel = function () {
+        console.log("cancel button");
+    };
+    SearchPage.prototype.callFilter = function () {
+        var _this = this;
+        // console.log(this.items);
+        // console.log(this.items1);
+        console.log("inside filter function");
+        this.loadError = false;
+        console.log(this.myInput);
+        //if the value is an empty string don't filter the items
+        for (var i = 0; i < this.types.length; i++) {
+            document.getElementById(this.types[i]).classList.remove("active");
+        }
+        document.getElementById('All').classList.add('active');
+        if (this.myInput && this.myInput.trim() != '') {
+            this.items = this.items1.filter(function (i) {
+                return (i.itemName.toLowerCase().indexOf(_this.myInput.toLowerCase()) > -1);
+            });
+            console.log(this.items);
+            if (Object.keys(this.items).length == 0) {
+                this.loadError = true;
+            }
+        }
+        else {
+            this.items = this.items1;
+        }
+        this.zone.run(function () { });
+    };
+    SearchPage.prototype.presentPopover = function (ev) {
+        var popover = this.popoverCtrl.create('SignoutPage', {});
+        popover.present({
+            ev: ev
+        });
+    };
+    SearchPage.prototype.findTypes = function (data) {
+        console.log("inside findTypes function");
+        var flags = [], output = ["All"];
+        for (var i = 0; i < data.length; i++) {
+            if (flags[data[i].type])
+                continue;
+            flags[data[i].type] = true;
+            output.push(data[i].type);
+        }
+        this.types = output;
+        console.log("types ===>", this.types);
+    };
+    SearchPage.prototype.filterItems = function (type) {
+        console.log("inside filterItems function", type);
+        for (var i = 0; i < this.types.length; i++) {
+            document.getElementById(this.types[i]).classList.remove("active");
+        }
+        document.getElementById(type).classList.add("active");
+        if (type == 'All') {
+            this.items = this.items1;
+        }
+        else {
+            this.items = this.items1.filter(function (item) {
+                return item.type == type;
+            });
+        }
+    };
+    return SearchPage;
+}());
+SearchPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPage */])({
+        name: 'SearchPage',
+        segment: 'search/:code'
+    }),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-search',template:/*ion-inline-start:"/Users/aj-sujit/Documents/projects/tuckshop-pwa-2/src/pages/search/search.html"*/'<!--\n  Generated template for the SearchPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n<ion-header>\n	<ion-navbar align="center" color="ajency">\n		<ion-title>Tuckshop</ion-title>\n\n		<ion-buttons end>\n	      <button ion-button icon-only (click)="presentPopover($event)">\n	        <ion-avatar item-start>\n		      <img src={{image}} width="30" height="30" class="avatar-img">\n		    </ion-avatar>\n	      </button>\n	    </ion-buttons>\n	</ion-navbar>\n\n	<ion-toolbar no-border-top>\n		<!-- Search Bar-->\n		<ion-searchbar (ionInput)="callFilter()" [(ngModel)]="myInput"  autocomplete = "on" autocorrect = "on"></ion-searchbar>\n	</ion-toolbar>\n</ion-header>\n\n\n\n<ion-content>\n\n	<ion-refresher (ionRefresh)="callScriptFunction($event)">\n	    <ion-refresher-content\n	      pullingText="Pull to refresh"\n	      refreshingText="Refreshing...">\n	    </ion-refresher-content>\n  	</ion-refresher>\n\n	<div *ngIf="loadingItems" text-center class="search-load">\n		<ion-spinner margin color="ajency"></ion-spinner>\n	</div>\n\n	<div class="tuck-lists">\n	  <button *ngFor="let type of types" ion-button id={{type}} (click)="filterItems(type)" >{{type}}</button>\n	</div>\n	<ion-list >\n		<ion-item *ngFor="let item of items" (click)="confirmPurchase(item)" class="fadeInUp">\n			{{ item.itemName }}\n			<div item-end><small>Rs.</small>{{item.price}}</div>\n		</ion-item>\n	</ion-list>\n\n	<div margin text-center *ngIf="loadError">\n		No Results\n	</div>\n</ion-content>\n'/*ion-inline-end:"/Users/aj-sujit/Documents/projects/tuckshop-pwa-2/src/pages/search/search.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_5__angular_common__["g" /* PlatformLocation */],
+        __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* Location */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_app_service_app_service__["a" /* AppServiceProvider */]])
+], SearchPage);
+
+//# sourceMappingURL=search.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=2.js.map

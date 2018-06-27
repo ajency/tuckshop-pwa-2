@@ -1,1 +1,414 @@
-webpackJsonp([5],{105:function(e,t){function n(e){return Promise.resolve().then(function(){throw new Error("Cannot find module '"+e+"'.")})}n.keys=function(){return[]},(e.exports=n.resolve=n).id=105},115:function(e,t,n){var r={"../pages/buy/buy.module.ngfactory":[178,1],"../pages/home/home.module.ngfactory":[179,3],"../pages/search/search.module.ngfactory":[180,0],"../pages/signout/signout.module.ngfactory":[181,4],"../pages/specials/specials.module.ngfactory":[182,2]};function _(e){var t=r[e];return t?n.e(t[1]).then(function(){return n(t[0])}):Promise.reject(new Error("Cannot find module '"+e+"'."))}_.keys=function(){return Object.keys(r)},_.id=115,e.exports=_},133:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(17),_=n(0),o=n(71),i=(n(58),n(56)),s=n(57),a=function(){return function(e,t,n){this.rootPage="home",e.ready().then(function(){t.styleDefault(),n.hide()})}}(),l=n(96),u=n(82),h=function(){return function(){}}(),c=n(14),p=n(123),f=n(9),g=n(34),d=n(8),y=n(6),b=n(75),m=n(21),P=n(84),S=n(77),C=n(76),w=n(16),O=n(51),A=n(42),E=n(63),R=n(65),j=n(79),M=n(61),I=n(24),v=n(125),D=n(126),T=n(127),L=n(128),k=n(129),H=n(130),F=n(131),N=n(177),B=n(52),z=n(3),G=n(20),U=n(1),X=n(4),K=n(13),V=n(38),q=_._3({encapsulation:2,styles:[],data:{}});function Z(e){return _._25(0,[(e()(),_._5(0,null,null,2,"ion-nav",[],null,null,null,N.b,N.a)),_._4(4374528,null,0,B.a,[[2,z.a],[2,G.a],d.a,U.a,X.a,_.k,_.z,_.F,_.j,y.i,I.a,[2,K.a],f.a,_.l],{root:[0,"root"]},null),_._21(6144,null,V.a,null,[B.a]),(e()(),_._24(null,["\n"]))],function(e,t){e(t,1,0,t.component.rootPage)},null)}var x,J=_._2("ng-component",a,function(e){return _._25(0,[(e()(),_._5(0,null,null,1,"ng-component",[],null,null,null,Z,q)),_._4(49152,null,0,a,[X.a,s.a,i.a],null,null)],null,null)},{},{},[]),Q=n(47),W=n(97),Y=n(78),$=n(25),ee=n(80),te=n(33),ne=this&&this.__extends||(x=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t}||function(e,t){for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n])},function(e,t){function n(){this.constructor=e}x(e,t),e.prototype=null===t?Object.create(t):(n.prototype=t.prototype,new n)}),re=function(t){function e(e){return t.call(this,e,[v.a,D.a,T.a,L.a,k.a,H.a,F.a,J],[T.a])||this}return ne(e,t),Object.defineProperty(e.prototype,"_LOCALE_ID_27",{get:function(){return null==this.__LOCALE_ID_27&&(this.__LOCALE_ID_27=_._16(this.parent.get(_.u,null))),this.__LOCALE_ID_27},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_NgLocalization_28",{get:function(){return null==this.__NgLocalization_28&&(this.__NgLocalization_28=new c.i(this._LOCALE_ID_27)),this.__NgLocalization_28},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_APP_ID_29",{get:function(){return null==this.__APP_ID_29&&(this.__APP_ID_29=_._7()),this.__APP_ID_29},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_IterableDiffers_30",{get:function(){return null==this.__IterableDiffers_30&&(this.__IterableDiffers_30=_._13()),this.__IterableDiffers_30},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_KeyValueDiffers_31",{get:function(){return null==this.__KeyValueDiffers_31&&(this.__KeyValueDiffers_31=_._15()),this.__KeyValueDiffers_31},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_DomSanitizer_32",{get:function(){return null==this.__DomSanitizer_32&&(this.__DomSanitizer_32=new r.s(this.parent.get(r.b))),this.__DomSanitizer_32},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Sanitizer_33",{get:function(){return null==this.__Sanitizer_33&&(this.__Sanitizer_33=this._DomSanitizer_32),this.__Sanitizer_33},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_HAMMER_GESTURE_CONFIG_34",{get:function(){return null==this.__HAMMER_GESTURE_CONFIG_34&&(this.__HAMMER_GESTURE_CONFIG_34=new S.a),this.__HAMMER_GESTURE_CONFIG_34},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_EVENT_MANAGER_PLUGINS_35",{get:function(){return null==this.__EVENT_MANAGER_PLUGINS_35&&(this.__EVENT_MANAGER_PLUGINS_35=[new r.l(this.parent.get(r.b)),new r.p(this.parent.get(r.b)),new r.o(this.parent.get(r.b),this._HAMMER_GESTURE_CONFIG_34)]),this.__EVENT_MANAGER_PLUGINS_35},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_EventManager_36",{get:function(){return null==this.__EventManager_36&&(this.__EventManager_36=new r.e(this._EVENT_MANAGER_PLUGINS_35,this.parent.get(_.z))),this.__EventManager_36},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_ɵDomSharedStylesHost_37",{get:function(){return null==this.__ɵDomSharedStylesHost_37&&(this.__ɵDomSharedStylesHost_37=new r.n(this.parent.get(r.b))),this.__ɵDomSharedStylesHost_37},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_ɵDomRendererFactory2_38",{get:function(){return null==this.__ɵDomRendererFactory2_38&&(this.__ɵDomRendererFactory2_38=new r.m(this._EventManager_36,this._ɵDomSharedStylesHost_37)),this.__ɵDomRendererFactory2_38},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_RendererFactory2_39",{get:function(){return null==this.__RendererFactory2_39&&(this.__RendererFactory2_39=this._ɵDomRendererFactory2_38),this.__RendererFactory2_39},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_ɵSharedStylesHost_40",{get:function(){return null==this.__ɵSharedStylesHost_40&&(this.__ɵSharedStylesHost_40=this._ɵDomSharedStylesHost_37),this.__ɵSharedStylesHost_40},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Testability_41",{get:function(){return null==this.__Testability_41&&(this.__Testability_41=new _.N(this.parent.get(_.z))),this.__Testability_41},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Meta_42",{get:function(){return null==this.__Meta_42&&(this.__Meta_42=new r.h(this.parent.get(r.b))),this.__Meta_42},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Title_43",{get:function(){return null==this.__Title_43&&(this.__Title_43=new r.j(this.parent.get(r.b))),this.__Title_43},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_ɵi_44",{get:function(){return null==this.__ɵi_44&&(this.__ɵi_44=new m.k),this.__ɵi_44},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_FormBuilder_45",{get:function(){return null==this.__FormBuilder_45&&(this.__FormBuilder_45=new m.c),this.__FormBuilder_45},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_BrowserXhr_46",{get:function(){return null==this.__BrowserXhr_46&&(this.__BrowserXhr_46=new o.c),this.__BrowserXhr_46},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_ResponseOptions_47",{get:function(){return null==this.__ResponseOptions_47&&(this.__ResponseOptions_47=new o.b),this.__ResponseOptions_47},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_XSRFStrategy_48",{get:function(){return null==this.__XSRFStrategy_48&&(this.__XSRFStrategy_48=o.k()),this.__XSRFStrategy_48},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_XHRBackend_49",{get:function(){return null==this.__XHRBackend_49&&(this.__XHRBackend_49=new o.i(this._BrowserXhr_46,this._ResponseOptions_47,this._XSRFStrategy_48)),this.__XHRBackend_49},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_RequestOptions_50",{get:function(){return null==this.__RequestOptions_50&&(this.__RequestOptions_50=new o.a),this.__RequestOptions_50},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Http_51",{get:function(){return null==this.__Http_51&&(this.__Http_51=o.l(this._XHRBackend_49,this._RequestOptions_50)),this.__Http_51},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Events_56",{get:function(){return null==this.__Events_56&&(this.__Events_56=new C.a),this.__Events_56},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Form_57",{get:function(){return null==this.__Form_57&&(this.__Form_57=new w.a),this.__Form_57},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Haptic_58",{get:function(){return null==this.__Haptic_58&&(this.__Haptic_58=new O.a(this._Platform_4)),this.__Haptic_58},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Keyboard_59",{get:function(){return null==this.__Keyboard_59&&(this.__Keyboard_59=new A.a(this._Config_5,this._Platform_4,this.parent.get(_.z),this._DomController_6)),this.__Keyboard_59},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_LocationStrategy_61",{get:function(){return null==this.__LocationStrategy_61&&(this.__LocationStrategy_61=P.c(this.parent.get(c.p),this._APP_BASE_HREF_53,this._Config_5)),this.__LocationStrategy_61},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Location_62",{get:function(){return null==this.__Location_62&&(this.__Location_62=new c.d(this._LocationStrategy_61)),this.__Location_62},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_UrlSerializer_63",{get:function(){return null==this.__UrlSerializer_63&&(this.__UrlSerializer_63=Q.d(this._App_8,this._DeepLinkConfigToken_10)),this.__UrlSerializer_63},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_DeepLinker_64",{get:function(){return null==this.__DeepLinker_64&&(this.__DeepLinker_64=K.b(this._App_8,this._UrlSerializer_63,this._Location_62,this._ModuleLoader_13,this.componentFactoryResolver)),this.__DeepLinker_64},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_ModalController_65",{get:function(){return null==this.__ModalController_65&&(this.__ModalController_65=new E.a(this._App_8,this._Config_5,this._DeepLinker_64)),this.__ModalController_65},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_PopoverController_67",{get:function(){return null==this.__PopoverController_67&&(this.__PopoverController_67=new R.a(this._App_8,this._Config_5,this._DeepLinker_64)),this.__PopoverController_67},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_TapClick_68",{get:function(){return null==this.__TapClick_68&&(this.__TapClick_68=new j.a(this._Config_5,this._Platform_4,this._DomController_6,this._App_8,this._GestureController_9)),this.__TapClick_68},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_ToastController_69",{get:function(){return null==this.__ToastController_69&&(this.__ToastController_69=new M.a(this._App_8,this._Config_5)),this.__ToastController_69},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_TransitionController_70",{get:function(){return null==this.__TransitionController_70&&(this.__TransitionController_70=new I.a(this._Platform_4,this._Config_5)),this.__TransitionController_70},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_Storage_72",{get:function(){return null==this.__Storage_72&&(this.__Storage_72=W.c(this._StorageConfigToken_71)),this.__Storage_72},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_StatusBar_73",{get:function(){return null==this.__StatusBar_73&&(this.__StatusBar_73=new s.a),this.__StatusBar_73},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_SplashScreen_74",{get:function(){return null==this.__SplashScreen_74&&(this.__SplashScreen_74=new i.a),this.__SplashScreen_74},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"_AppServiceProvider_75",{get:function(){return null==this.__AppServiceProvider_75&&(this.__AppServiceProvider_75=new u.a(this._Http_51,this._ToastController_69)),this.__AppServiceProvider_75},enumerable:!0,configurable:!0}),e.prototype.createInternal=function(){return this._CommonModule_0=new c.b,this._ErrorHandler_1=new p.a,this._ConfigToken_2=null,this._PlatformConfigToken_3=Y.b(),this._Platform_4=X.b(this.parent.get(r.b),this._PlatformConfigToken_3,this.parent.get(_.z)),this._Config_5=U.c(this._ConfigToken_2,this._Platform_4),this._DomController_6=new f.a(this._Platform_4),this._MenuController_7=new g.a,this._App_8=new d.a(this._Config_5,this._Platform_4,this._MenuController_7),this._GestureController_9=new y.i(this._App_8),this._DeepLinkConfigToken_10={links:[{loadChildren:"../pages/buy/buy.module.ngfactory#BuyPageModuleNgFactory",name:"BuyPage",segment:"buy",priority:"low",defaultHistory:[]},{loadChildren:"../pages/home/home.module.ngfactory#HomePageModuleNgFactory",name:"home",segment:"home",priority:"low",defaultHistory:[]},{loadChildren:"../pages/search/search.module.ngfactory#SearchPageModuleNgFactory",name:"SearchPage",segment:"search/:code",priority:"low",defaultHistory:[]},{loadChildren:"../pages/signout/signout.module.ngfactory#BuyPageModuleNgFactory",name:"SignoutPage",segment:"signout",priority:"low",defaultHistory:[]},{loadChildren:"../pages/specials/specials.module.ngfactory#SpecialsPageModuleNgFactory",name:"SpecialsPage",segment:"specials",priority:"low",defaultHistory:[]}]},this._Compiler_11=new _.i,this._NgModuleLoader_12=new b.a(this._Compiler_11),this._ModuleLoader_13=$.c(this._NgModuleLoader_12,this),this._APP_INITIALIZER_14=[_._19,r.r(this.parent.get(r.i,null),this.parent.get(_.y,null)),ee.a(this._Config_5),C.b(this._Platform_4,this._DomController_6),j.b(this._Config_5,this._Platform_4,this._DomController_6,this._App_8,this._GestureController_9),$.d(this._Config_5,this._DeepLinkConfigToken_10,this._ModuleLoader_13,this.parent.get(_.z))],this._ApplicationInitStatus_15=new _.d(this._APP_INITIALIZER_14),this._ɵf_16=new _._6(this.parent.get(_.z),this.parent.get(_.Z),this,this._ErrorHandler_1,this.componentFactoryResolver,this._ApplicationInitStatus_15),this._ApplicationRef_17=this._ɵf_16,this._ApplicationModule_18=new _.e(this._ApplicationRef_17),this._BrowserModule_19=new r.a(this.parent.get(r.a,null)),this._ɵba_20=new m.j,this._FormsModule_21=new m.d,this._ReactiveFormsModule_22=new m.i,this._IonicModule_23=new P.a,this._HttpModule_24=new o.f,this._IonicStorageModule_25=new l.a,this._AppModule_26=new h,this._AppRootToken_52=a,this._APP_BASE_HREF_53="/",this._StorageConfigToken_71=null,this._AppModule_26},e.prototype.getInternal=function(e,t){return e===c.b?this._CommonModule_0:e===_.l?this._ErrorHandler_1:e===U.b?this._ConfigToken_2:e===Y.a?this._PlatformConfigToken_3:e===X.a?this._Platform_4:e===U.a?this._Config_5:e===f.a?this._DomController_6:e===g.a?this._MenuController_7:e===d.a?this._App_8:e===y.i?this._GestureController_9:e===Q.a?this._DeepLinkConfigToken_10:e===_.i?this._Compiler_11:e===b.a?this._NgModuleLoader_12:e===$.b?this._ModuleLoader_13:e===_.c?this._APP_INITIALIZER_14:e===_.d?this._ApplicationInitStatus_15:e===_._6?this._ɵf_16:e===_.f?this._ApplicationRef_17:e===_.e?this._ApplicationModule_18:e===r.a?this._BrowserModule_19:e===m.j?this._ɵba_20:e===m.d?this._FormsModule_21:e===m.i?this._ReactiveFormsModule_22:e===P.a?this._IonicModule_23:e===o.f?this._HttpModule_24:e===l.a?this._IonicStorageModule_25:e===h?this._AppModule_26:e===_.u?this._LOCALE_ID_27:e===c.j?this._NgLocalization_28:e===_.b?this._APP_ID_29:e===_.s?this._IterableDiffers_30:e===_.t?this._KeyValueDiffers_31:e===r.c?this._DomSanitizer_32:e===_.I?this._Sanitizer_33:e===r.f?this._HAMMER_GESTURE_CONFIG_34:e===r.d?this._EVENT_MANAGER_PLUGINS_35:e===r.e?this._EventManager_36:e===r.n?this._ɵDomSharedStylesHost_37:e===r.m?this._ɵDomRendererFactory2_38:e===_.G?this._RendererFactory2_39:e===r.q?this._ɵSharedStylesHost_40:e===_.N?this._Testability_41:e===r.h?this._Meta_42:e===r.j?this._Title_43:e===m.k?this._ɵi_44:e===m.c?this._FormBuilder_45:e===o.c?this._BrowserXhr_46:e===o.h?this._ResponseOptions_47:e===o.j?this._XSRFStrategy_48:e===o.i?this._XHRBackend_49:e===o.g?this._RequestOptions_50:e===o.e?this._Http_51:e===te.a?this._AppRootToken_52:e===c.a?this._APP_BASE_HREF_53:e===C.a?this._Events_56:e===w.a?this._Form_57:e===O.a?this._Haptic_58:e===A.a?this._Keyboard_59:e===c.e?this._LocationStrategy_61:e===c.d?this._Location_62:e===Q.b?this._UrlSerializer_63:e===K.a?this._DeepLinker_64:e===E.a?this._ModalController_65:e===R.a?this._PopoverController_67:e===j.a?this._TapClick_68:e===M.a?this._ToastController_69:e===I.a?this._TransitionController_70:e===W.b?this._StorageConfigToken_71:e===W.a?this._Storage_72:e===s.a?this._StatusBar_73:e===i.a?this._SplashScreen_74:e===u.a?this._AppServiceProvider_75:t},e.prototype.destroyInternal=function(){this._ɵf_16.ngOnDestroy(),this.__ɵDomSharedStylesHost_37&&this._ɵDomSharedStylesHost_37.ngOnDestroy()},e}(_._0),_e=new _.w(re,h);Object(_.T)(),Object(r.k)().bootstrapModuleFactory(_e)},82:function(e,t,n){"use strict";n.d(t,"a",function(){return y});var r,_,o=n(0),c=n(71),i=n(58),s=n(93),a=(n.n(s),n(149)),l=(n.n(a),n(151)),u=(n.n(l),n(153)),h=(n.n(u),n(160)),p=(n.n(h),n(162)),f=(n.n(p),n(164)),g=(n.n(f),this&&this.__decorate||function(e,t,n,r){var _,o=arguments.length,i=o<3?t:null===r?r=Object.getOwnPropertyDescriptor(t,n):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;0<=s;s--)(_=e[s])&&(i=(o<3?_(i):3<o?_(t,n,i):_(t,n))||i);return 3<o&&i&&Object.defineProperty(t,n,i),i}),d=this&&this.__metadata||function(e,t){if("object"==typeof Reflect&&"function"==typeof Reflect.metadata)return Reflect.metadata(e,t)},y=function(){function e(e,t){var n=this;this.http=e,this.toastCtrl=t,this.client_id="676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com",this.script_id="MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L",console.log("Hello AppServiceProvider Provider"),this.handleError=function(e){console.warn("error in request fetch",e),console.log(e.status);var t=n.parseRejectedError(e);return Promise.reject(t)}}return e.prototype.handleClientLoad=function(){console.log("handleClientLoad function");var n=this;return new Promise(function(e,t){gapi.load("client:auth2",function(){gapi.client.init({client_id:n.client_id,cookiepolicy:"single_host_origin",scope:"https://www.googleapis.com/auth/spreadsheets"}).then(function(){console.log(gapi.auth2.getAuthInstance().isSignedIn.get()),gapi.auth2.getAuthInstance().isSignedIn.get()?(console.log("user info =>",gapi.auth2.getAuthInstance().currentUser.get()),n.user_profile_pic=gapi.auth2.getAuthInstance().currentUser.get().w3.Paa,n.bearer_token=gapi.auth2.getAuthInstance().currentUser.get().Zi.access_token,n.user_email=gapi.auth2.getAuthInstance().currentUser.get().w3.U3,n.user_name=gapi.auth2.getAuthInstance().currentUser.get().w3.ig,e(!0)):t(!1)}).catch(function(){console.log("Error in login"),t(!1)})})})},e.prototype.signIn=function(){var r=this;return new Promise(function(t,n){gapi.auth2.getAuthInstance().signIn().then(function(e){console.log("signed in"),console.log("user info",e),r.user_profile_pic=gapi.auth2.getAuthInstance().currentUser.get().w3.Paa,r.bearer_token=gapi.auth2.getAuthInstance().currentUser.get().Zi.access_token,r.user_email=gapi.auth2.getAuthInstance().currentUser.get().w3.U3,r.user_name=gapi.auth2.getAuthInstance().currentUser.get().w3.ig,t(!0)}).catch(function(e){console.log("Error in google sign function",e),n(!1)})})},e.prototype.request=function(e,t,n,r,_,o){void 0===r&&(r={}),void 0===_&&(_=!1),void 0===o&&(o="promise");var i=new c.d({"Content-Type":"application/json",Authorization:"Bearer "+this.bearer_token});console.log(i);var s,a=Object.keys(r);if(a.length)if(_)i=new c.d(r);else for(var l=0,u=a;l<u.length;l++){var h=u[l];i.append(h,r[h])}return"get"==t?s=this.http.get(e,{headers:i}):"post"==t?s=this.http.post(e,n,{headers:i}):"put"==t&&(s=this.http.put(e,n,{headers:i})),"promise"==o?s.toPromise().then(function(e){return e.json()}).catch(this.handleError):s.map(function(e){return e.json()}).catch(this.handleError)},e.prototype.parseRejectedError=function(t){try{return JSON.parse(t._body)}catch(e){return t}},e.prototype.signOut=function(){return new Promise(function(e,t){gapi.auth2.getAuthInstance().signOut().then(function(){e(!0)}).catch(function(e){t(!1)})})},e.prototype.presentToast=function(e,t,n,r,_,o){void 0===t&&(t="success"),void 0===n&&(n=3e3),void 0===r&&(r=!1),void 0===_&&(_="bottom"),void 0===o&&(o="Got it");var i="";"success"===t?i="toast-success online":"warn"===t?i="toast-warn offline":"error"===t&&(i="toast-fail");var s={message:e,cssClass:i,position:_};r?(s.showCloseButton=!0,s.closeButtonText=o,s.dismissOnPageChange=!1):s.duration=n;var a=this.toastCtrl.create(s);return a.present(),console.log("toasst presented"),a},e}();y=g([Object(o.p)(),d("design:paramtypes",["function"==typeof(r=void 0!==c.e&&c.e)&&r||Object,"function"==typeof(_=void 0!==i.a&&i.a)&&_||Object])],y)}},[133]);
+webpackJsonp([5],{
+
+/***/ 108:
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = 108;
+
+/***/ }),
+
+/***/ 151:
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"../pages/buy/buy.module": [
+		284,
+		4
+	],
+	"../pages/home/home.module": [
+		285,
+		3
+	],
+	"../pages/search/search.module": [
+		286,
+		2
+	],
+	"../pages/signout/signout.module": [
+		287,
+		1
+	],
+	"../pages/specials/specials.module": [
+		288,
+		0
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids)
+		return Promise.reject(new Error("Cannot find module '" + req + "'."));
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(ids[0]);
+	});
+};
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = 151;
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
+/***/ 195:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppServiceProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_of__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_observable_of__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_distinctUntilChanged___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_distinctUntilChanged__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_switchMap__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_switchMap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_catch__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_catch__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+var AppServiceProvider = (function () {
+    function AppServiceProvider(http, toastCtrl) {
+        var _this = this;
+        this.http = http;
+        this.toastCtrl = toastCtrl;
+        // client_id = "676621258132-6q9s2j1hc8343jj3nn75k0is4s1nb893.apps.googleusercontent.com"
+        this.client_id = "424476852000-562ov6kfvkoljht8gnocsaiiv0s1o2k3.apps.googleusercontent.com"; // tuckshop copy test
+        // script_id = "MD2K4IAXQvDUx9j9i90DKEK-i8ofEvg_L";
+        this.script_id = "MjTVF50mrNfjX0_kvuCTT1aAvZzphd5k5"; // tuckshop copy test
+        console.log('Hello AppServiceProvider Provider');
+        this.handleError = function (error) {
+            console.warn('error in request fetch', error);
+            console.log(error.status);
+            var prerror = _this.parseRejectedError(error);
+            return Promise.reject(prerror);
+        };
+    }
+    AppServiceProvider.prototype.handleClientLoad = function () {
+        console.log("handleClientLoad function");
+        var that = this;
+        return new Promise(function (resolve, reject) {
+            gapi.load('client:auth2', function () {
+                gapi.client.init({
+                    client_id: that.client_id,
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'https://www.googleapis.com/auth/spreadsheets'
+                }).then(function () {
+                    // Listen for sign-in state changes.
+                    // gapi.auth2.getAuthInstance().isSignedIn.listen(that.updateSigninStatus);
+                    console.log(gapi.auth2.getAuthInstance().isSignedIn.get());
+                    // that.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                        console.log("user info =>", gapi.auth2.getAuthInstance().currentUser.get());
+                        that.user_profile_pic = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa;
+                        that.bearer_token = gapi.auth2.getAuthInstance().currentUser.get().Zi.access_token;
+                        that.user_email = gapi.auth2.getAuthInstance().currentUser.get().w3.U3;
+                        that.user_name = gapi.auth2.getAuthInstance().currentUser.get().w3.ig;
+                        resolve(true);
+                    }
+                    else {
+                        reject(false);
+                    }
+                })
+                    .catch(function () {
+                    console.log("Error in login");
+                    reject(false);
+                });
+            });
+        });
+    };
+    AppServiceProvider.prototype.signIn = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            gapi.auth2.getAuthInstance().signIn().then(function (res) {
+                console.log("signed in");
+                console.log("user info", res);
+                // this.navigateToSearch();
+                _this.user_profile_pic = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa;
+                _this.bearer_token = gapi.auth2.getAuthInstance().currentUser.get().Zi.access_token;
+                _this.user_email = gapi.auth2.getAuthInstance().currentUser.get().w3.U3;
+                _this.user_name = gapi.auth2.getAuthInstance().currentUser.get().w3.ig;
+                resolve(true);
+            })
+                .catch(function (error) {
+                console.log("Error in google sign function", error);
+                reject(false);
+            });
+        });
+    };
+    AppServiceProvider.prototype.request = function (url, type, body, optionalHeaders, overrideheaders, returntype) {
+        if (optionalHeaders === void 0) { optionalHeaders = {}; }
+        if (overrideheaders === void 0) { overrideheaders = false; }
+        if (returntype === void 0) { returntype = 'promise'; }
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + this.bearer_token });
+        console.log(headers);
+        var opHeaderKeys = Object.keys(optionalHeaders);
+        if (opHeaderKeys.length) {
+            if (overrideheaders) {
+                headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */](optionalHeaders);
+            }
+            else {
+                for (var _i = 0, opHeaderKeys_1 = opHeaderKeys; _i < opHeaderKeys_1.length; _i++) {
+                    var key = opHeaderKeys_1[_i];
+                    headers.append(key, optionalHeaders[key]);
+                }
+            }
+        }
+        var httpEvent;
+        if (type == 'get') {
+            httpEvent = this.http.get(url, { headers: headers });
+        }
+        else if (type == 'post') {
+            httpEvent = this.http.post(url, body, { headers: headers });
+        }
+        else if (type == 'put') {
+            httpEvent = this.http.put(url, body, { headers: headers });
+        }
+        if (returntype == 'promise') {
+            return httpEvent
+                .toPromise()
+                .then(function (response) {
+                return response.json();
+            })
+                .catch(this.handleError);
+        }
+        else {
+            return httpEvent
+                .map(function (response) {
+                return response.json();
+            })
+                .catch(this.handleError);
+        }
+    };
+    AppServiceProvider.prototype.parseRejectedError = function (error) {
+        try {
+            return JSON.parse(error._body);
+        }
+        catch (e) {
+            return error;
+        }
+    };
+    AppServiceProvider.prototype.signOut = function () {
+        return new Promise(function (resolve, reject) {
+            gapi.auth2.getAuthInstance().signOut().then(function () {
+                resolve(true);
+            })
+                .catch(function (error) {
+                reject(false);
+            });
+        });
+    };
+    AppServiceProvider.prototype.presentToast = function (message, type, duration, keepOpen, position, closeText) {
+        if (type === void 0) { type = 'success'; }
+        if (duration === void 0) { duration = 3000; }
+        if (keepOpen === void 0) { keepOpen = false; }
+        if (position === void 0) { position = 'bottom'; }
+        if (closeText === void 0) { closeText = 'Got it'; }
+        var toastClass = '';
+        if (type === 'success') {
+            toastClass = 'toast-success online';
+        }
+        else if (type === 'warn') {
+            toastClass = 'toast-warn offline';
+        }
+        else if (type === 'error') {
+            toastClass = 'toast-fail';
+        }
+        var toastOptions = {
+            message: message,
+            cssClass: toastClass,
+            position: position
+        };
+        if (keepOpen) {
+            toastOptions.showCloseButton = true;
+            toastOptions.closeButtonText = closeText;
+            toastOptions.dismissOnPageChange = false;
+        }
+        else {
+            toastOptions.duration = duration;
+        }
+        var toast = this.toastCtrl.create(toastOptions);
+        toast.present();
+        console.log("toasst presented");
+        return toast;
+    };
+    return AppServiceProvider;
+}());
+AppServiceProvider = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* ToastController */]])
+], AppServiceProvider);
+
+//# sourceMappingURL=app-service.js.map
+
+/***/ }),
+
+/***/ 197:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(215);
+
+
+Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 215:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_app_service_app_service__ = __webpack_require__(195);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+// import { HomePage } from '../pages/home/home';
+// import { SearchPage } from '../pages/search/search';
+// import { BuyPage } from '../pages/buy/buy';
+// import { SignoutPage } from '../pages/signout/signout';
+
+
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
+AppModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["L" /* NgModule */])({
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
+        ],
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */], {}, {
+                links: [
+                    { loadChildren: '../pages/buy/buy.module#BuyPageModule', name: 'BuyPage', segment: 'buy', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/home/home.module#HomePageModule', name: 'home', segment: 'home', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/search/search.module#SearchPageModule', name: 'SearchPage', segment: 'search/:code', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/signout/signout.module#BuyPageModule', name: 'SignoutPage', segment: 'signout', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/specials/specials.module#SpecialsPageModule', name: 'SpecialsPage', segment: 'specials', priority: 'low', defaultHistory: [] }
+                ]
+            }),
+            __WEBPACK_IMPORTED_MODULE_0__angular_http__["c" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["a" /* IonicStorageModule */].forRoot()
+        ],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* IonicApp */]],
+        entryComponents: [
+            __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
+        ],
+        providers: [
+            __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */],
+            { provide: __WEBPACK_IMPORTED_MODULE_2__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* IonicErrorHandler */] },
+            __WEBPACK_IMPORTED_MODULE_8__providers_app_service_app_service__["a" /* AppServiceProvider */]
+        ]
+    })
+], AppModule);
+
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ 283:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(191);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+// import { HomePage } from '../pages/home/home';
+var MyApp = (function () {
+    function MyApp(platform, statusBar, splashScreen) {
+        this.rootPage = 'home';
+        platform.ready().then(function () {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            statusBar.styleDefault();
+            splashScreen.hide();
+        });
+    }
+    return MyApp;
+}());
+MyApp = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/aj-sujit/Documents/projects/tuckshop-pwa-2/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/aj-sujit/Documents/projects/tuckshop-pwa-2/src/app/app.html"*/
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+], MyApp);
+
+//# sourceMappingURL=app.component.js.map
+
+/***/ })
+
+},[197]);
+//# sourceMappingURL=main.js.map
