@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
+    "build": "ionic cordova build browser --prod",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve"
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "2.1.3",
-    "ionic": "3.6.0",
+    "ionic": "3.20.0",
     "typescript": "2.3.4"
   },
   "description": "An Ionic project",

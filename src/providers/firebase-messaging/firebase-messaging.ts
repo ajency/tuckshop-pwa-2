@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 
 import { FirebaseApp } from 'angularfire2';
 import { Storage } from '@ionic/storage';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 /*
   Generated class for the FirebaseMessagingProvider provider.
 
@@ -16,7 +16,7 @@ export class FirebaseMessagingProvider {
 
   private messaging;
   private unsubscribeOnTokenRefresh = () => {};
-
+  currentMessage = new BehaviorSubject(null)
   constructor(public http: Http,
   						private storage : Storage,
   						private app : FirebaseApp) {
@@ -26,6 +26,7 @@ export class FirebaseMessagingProvider {
 	    this.messaging.useServiceWorker(registration);
 	    //this.disableNotifications()
 	    this.enableNotifications();
+	    this.receiveMessage();
 		});
   }
 
@@ -49,7 +50,7 @@ export class FirebaseMessagingProvider {
     return this.messaging.getToken().then((currentToken) => {
       if (currentToken) {
         // we've got the token from Firebase, now let's store it in the database
-        console.log(currentToken)
+        console.log("FCM token : ",currentToken)
         return this.storage.set('fcmToken', currentToken);
       } else {
         console.log('No Instance ID token available. Request permission to generate one.');
@@ -62,6 +63,14 @@ export class FirebaseMessagingProvider {
       console.log("Token refreshed");
       this.storage.set('fcmToken','').then(() => { this.updateToken(); });
     });
+  }
+
+  receiveMessage() {
+       this.messaging.onMessage((payload) => {
+        console.log("Message received. ", payload);
+        this.currentMessage.next(payload)
+      });
+
   }
 	    
 
