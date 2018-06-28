@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
-import { ToastController } from 'ionic-angular';
+import { ToastController, LoadingController } from 'ionic-angular';
 
 import 'rxjs/add/operator/map';
 
@@ -31,9 +31,11 @@ export class AppServiceProvider {
 	user_email : any;
 	user_name : any;
 	handleError : any;
+	loader : any;
 
   constructor(public http: Http,
-					  	public toastCtrl: ToastController) {
+			  public toastCtrl: ToastController,
+			  public loadingCtrl: LoadingController) {
     console.log('Hello AppServiceProvider Provider');
     this.handleError = (error: any): Promise<any> => {
         console.warn('error in request fetch',error)
@@ -197,6 +199,19 @@ export class AppServiceProvider {
       console.log("toasst presented")
 
       return toast;
+  }
+
+  presentLoader(){
+  	this.loader =  this.loadingCtrl.create({
+	    content: 'Please wait...'
+	});
+	this.loader.present();
+  }
+
+  dismissLoader(){
+  	if(this.loader){
+  		this.loader.dismiss();
+  	}
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 /**
  * Generated class for the SpecialsPage page.
@@ -21,9 +21,12 @@ export class SpecialsPage {
   specials : any;
   morning_special : Array<any> = [];
   evening_special : Array<any> = [];
+  noSpecialOrders : boolean = false;
+  specialsCallTimeInterval : any;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              public appservice : AppServiceProvider) {
+              public appservice : AppServiceProvider,
+              public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -33,7 +36,12 @@ export class SpecialsPage {
   ngOnInit(){
   	console.log("Inside ngOnInit SpecialsPage");
     this.appservice.handleClientLoad().then((res)=>{
+      this.appservice.presentLoader();
       this.callSpecialOrdersApi();
+      this.specialsCallTimeInterval = setInterval(()=>{
+        this.callSpecialOrdersApi();
+      },60000);
+      
     })
     .catch((error)=>{
       this.navCtrl.push('home');
@@ -41,7 +49,7 @@ export class SpecialsPage {
   	
   }
 
-  callSpecialOrdersApi(){
+  callSpecialOrdersApi(){    
     console.log("Inside special order api call function");
     let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`;
 
@@ -52,12 +60,18 @@ export class SpecialsPage {
 
     this.appservice.request(url,'post',body,{},false,'promise').then((res)=>{
         console.log("response from search api ==>", res);
-        this.specials = res.response.result;
-        this.sortSpecials();
+        if(res.response.result && res.response.result.length){
+          this.specials = res.response.result;
+          this.sortSpecials();
+        }
+        else{
+          this.noSpecialOrders = true;
+        }        
+        this.appservice.dismissLoader();
     })
     .catch((error)=>{
         console.log("error from search api", error);
-        
+        this.appservice.dismissLoader();  
     })
   }
 
