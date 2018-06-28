@@ -93,6 +93,7 @@ export class SpecialsPage {
   closeOrder(user, time, index){
     if(user.order_status == 'open'){
       console.log('Close oreder for ==>', user,time,index);
+      this.appservice.presentLoader();
       let body = {
         function : 'close_order',
         parameters : [user.email, user.item, user.date_of_order]
@@ -112,10 +113,11 @@ export class SpecialsPage {
           else{
             let toast = this.appservice.presentToast("Something unexpected happened",'error',5000,false,'bottom',''); 
           }
-          
+          this.appservice.dismissLoader(); 
       })
       .catch((error)=>{
           console.log("error from search api", error);
+          this.appservice.dismissLoader(); 
       })
     }    
   }

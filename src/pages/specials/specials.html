@@ -22,7 +22,7 @@
 			<div class="specials__lists">
 				<ion-list *ngFor="let user of morning_special; let i = index">
 					<!-- {{user.avatar}}<br> -->
-					 <ion-avatar item-start (click)="closeOrder(user,'morning',i)" [ngClass]="{active : user.order_status == 'closed'}">
+					 <ion-avatar item-start (click)="closeOrder(user,'morning',i)" [ngClass]="{active : user.order_status == 'closed'}" style="cursor: pointer;" [attr.title]="user.order_status == 'open' ? 'Mark item served' : ''">
 					      <img src={{user.avatar}} width="70" class="avatar-img">
 					      <ion-icon name="checkmark" class="checkmark"></ion-icon>
 					      <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filter">
@@ -44,7 +44,7 @@
 			</div>
 			<div class="specials__lists">
 				<ion-list *ngFor="let user of evening_special; let i = index">
-					<ion-avatar item-start (click)="closeOrder(user, 'evening', i)" [ngClass]="{active : user.order_status == 'closed'}">
+					<ion-avatar item-start (click)="closeOrder(user, 'evening', i)" [ngClass]="{active : user.order_status == 'closed'}" style="cursor: pointer;" [attr.title]="user.order_status == 'open' ? 'Mark item served' : ''">
 						<img src={{user.avatar}} width="70" class="avatar-img">
 						<ion-icon name="checkmark" class="checkmark"></ion-icon>
 						<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filter">
