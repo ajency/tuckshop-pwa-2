@@ -62,6 +62,7 @@ export class SpecialsPage {
         console.log("response from search api ==>", res);
         if(res.response.result && res.response.result.length){
           this.specials = res.response.result;
+          this.noSpecialOrders = false;
           this.sortSpecials();
         }
         else{
@@ -77,6 +78,8 @@ export class SpecialsPage {
 
   sortSpecials(){
     let special_morning = this.specials[0].item;
+    this.morning_special = [];
+    this.evening_special = [];
     for(let i=0;i<this.specials.length; i++){
       if(this.specials[i].item == special_morning){
         this.morning_special.push(this.specials[i])
