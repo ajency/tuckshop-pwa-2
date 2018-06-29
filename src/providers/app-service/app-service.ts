@@ -30,6 +30,7 @@ export class AppServiceProvider {
 	bearer_token : any;
 	user_email : any;
 	user_name : any;
+	user_fcm_token : any;
 	handleError : any;
 	loader : any;
 
@@ -66,7 +67,8 @@ export class AppServiceProvider {
 		          	that.user_profile_pic = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa;
 		          	that.bearer_token = gapi.auth2.getAuthInstance().currentUser.get().Zi.access_token;
 		          	that.user_email = gapi.auth2.getAuthInstance().currentUser.get().w3.U3;
-				      	that.user_name = gapi.auth2.getAuthInstance().currentUser.get().w3.ig;
+				    that.user_name = gapi.auth2.getAuthInstance().currentUser.get().w3.ig;
+				    that.storeFcmToken();
 		          	resolve(true);
 		          }
 		          else{
@@ -88,9 +90,10 @@ export class AppServiceProvider {
 				console.log("user info", res);
 				// this.navigateToSearch();
 				this.user_profile_pic = gapi.auth2.getAuthInstance().currentUser.get().w3.Paa;
-      	this.bearer_token = gapi.auth2.getAuthInstance().currentUser.get().Zi.access_token;
-      	this.user_email = gapi.auth2.getAuthInstance().currentUser.get().w3.U3;
-      	this.user_name = gapi.auth2.getAuthInstance().currentUser.get().w3.ig;
+      			this.bearer_token = gapi.auth2.getAuthInstance().currentUser.get().Zi.access_token;
+      			this.user_email = gapi.auth2.getAuthInstance().currentUser.get().w3.U3;
+      			this.user_name = gapi.auth2.getAuthInstance().currentUser.get().w3.ig;
+      			this.storeFcmToken();
 				resolve(true);
 			})
 			.catch((error)=>{
@@ -211,6 +214,27 @@ export class AppServiceProvider {
   dismissLoader(){
   	if(this.loader){
   		this.loader.dismiss();
+  	}
+  }
+
+  storeFcmToken(){
+  	console.log("inside store storeFcmToken function");
+  	if(this.user_fcm_token && this.user_email && this.user_name && this.user_profile_pic){
+  		let url = "http://localhost:5000/tuckshop-9efa0/us-central1/storeToken"
+  		let body = {
+  			name : this.user_name,
+  			email : this.user_email,
+  			fcm_token : this.user_fcm_token,
+  			avatar : this.user_profile_pic
+  		}
+  		let headers = new Headers({'Content-Type': 'application/json'});
+  		console.log("storeFcmToken request ==>", url, body, headers);
+  		this.request(url,'post',body,headers,true,'promise').then((res)=>{
+  			console.log("response from store fcm token api ==>", res);
+  		})
+  		.catch((error)=>{
+  			console.log("error from storeFcmToken api ==>", error);
+  		})
   	}
   }
 

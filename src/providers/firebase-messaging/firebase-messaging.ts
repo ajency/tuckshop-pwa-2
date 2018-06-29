@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-// import 'rxjs/add/operator/map';
-
 import { FirebaseApp } from 'angularfire2';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { AppServiceProvider } from '../../providers/app-service/app-service';
+
 /*
   Generated class for the FirebaseMessagingProvider provider.
 
@@ -19,7 +19,9 @@ export class FirebaseMessagingProvider {
   currentMessage = new BehaviorSubject(null)
   constructor(public http: Http,
   						private storage : Storage,
-  						private app : FirebaseApp) {
+  						private app : FirebaseApp,
+              public appservice : AppServiceProvider,) {
+
     console.log('Hello FirebaseMessagingProvider Provider');
     this.messaging = app.messaging();
     navigator.serviceWorker.register('service-worker.js').then((registration) => {
@@ -51,6 +53,8 @@ export class FirebaseMessagingProvider {
       if (currentToken) {
         // we've got the token from Firebase, now let's store it in the database
         console.log("FCM token : ",currentToken)
+        this.appservice.user_fcm_token = currentToken;
+        this.appservice.storeFcmToken();
         return this.storage.set('fcmToken', currentToken);
       } else {
         console.log('No Instance ID token available. Request permission to generate one.');
