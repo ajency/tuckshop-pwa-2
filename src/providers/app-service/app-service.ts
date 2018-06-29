@@ -220,7 +220,7 @@ export class AppServiceProvider {
   storeFcmToken(){
   	console.log("inside store storeFcmToken function");
   	if(this.user_fcm_token && this.user_email && this.user_name && this.user_profile_pic){
-  		let url = "http://localhost:5000/tuckshop-9efa0/us-central1/storeToken"
+  		let url = "https://us-central1-tuckshop-9efa0.cloudfunctions.net/storeToken"
   		let body = {
   			name : this.user_name,
   			email : this.user_email,
