@@ -60,18 +60,34 @@ export class SpecialsPage {
 
     this.appservice.request(url,'post',body,{},false,'promise').then((res)=>{
         console.log("response from search api ==>", res);
-        if(res.response.result && res.response.result.length){
-          this.specials = res.response.result;
-          this.noSpecialOrders = false;
-          this.sortSpecials();
+        if(res.error){
+          this.appservice.handleClientLoad().then((res)=>{
+            console.log("Token refreshed")
+          })
+          .catch((error)=>{
+            console.log("error in refreshing token");
+          })
         }
         else{
-          this.noSpecialOrders = true;
-        }        
+            if(res.response.result && res.response.result.length){
+            this.specials = res.response.result;
+            this.noSpecialOrders = false;
+            this.sortSpecials();
+          }
+          else{
+            this.noSpecialOrders = true;
+          }   
+        }      
         this.appservice.dismissLoader();
     })
     .catch((error)=>{
         console.log("error from search api", error);
+        this.appservice.handleClientLoad().then((res)=>{
+            console.log("Token refreshed")
+        })
+        .catch((error)=>{
+            console.log("error in refreshing token");
+        })
         this.appservice.dismissLoader();  
     })
   }
