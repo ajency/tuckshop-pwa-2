@@ -59,18 +59,23 @@ export class SearchPage {
     this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
     console.log("ngOnInit search page");
     this.storage.get('this.data').then((data) => {     
-      data.sort(this.sortItems);
 
-      for(let i =0; i<data.length; i++){
-        if(data[i].type == "Special"){
-          let item = data[i];
-          data.splice(i,1);
-          data.unshift(item);
+      if(data){
+        data.sort(this.sortItems);
+
+        for(let i =0; i<data.length; i++){
+          if(data[i].type == "Special"){
+            let item = data[i];
+            data.splice(i,1);
+            data.unshift(item);
+          }
         }
       }
 
-      this.items = data;  
-      this.items1 =data;
+
+      this.items=data;  
+      this.items1=data;
+      
       if(data){
           this.findTypes(data);
           setTimeout(()=>{
