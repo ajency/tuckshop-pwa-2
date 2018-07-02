@@ -11,12 +11,16 @@ import { AppServiceProvider } from '../../providers/app-service/app-service';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular DI.
 */
+declare var Notification: any;
+
 @Injectable()
 export class FirebaseMessagingProvider {
 
   private messaging;
   private unsubscribeOnTokenRefresh = () => {};
   currentMessage = new BehaviorSubject(null)
+  notificationsSubscribed : any;
+
   constructor(public http: Http,
   						private storage : Storage,
   						private app : FirebaseApp,
@@ -27,7 +31,24 @@ export class FirebaseMessagingProvider {
     navigator.serviceWorker.register('service-worker.js').then((registration) => {
 	    this.messaging.useServiceWorker(registration);
 	    //this.disableNotifications()
-	    this.enableNotifications();
+	    // this.enableNotifications();
+      console.log("Check for notification permissions ==>", Notification.permission);
+      if(Notification.permission == 'granted'){
+        this.notificationsSubscribed = true;
+        // var notification = new Notification("Welcome to Tuckshop");
+        // const notificationOptions = {
+        //   icon: '/assets/icon/iconx96.png',
+        //   body: 'Welcome to Tuckshop'
+        // };
+        // var notification = {
+        //   title : "Tuckshop",
+        //   body : "Welcome to Tuckshop"
+        // }
+        // new Notification(notification.title, notificationOptions);
+      }
+      else if(Notification.permission == 'denied' || Notification.permission == 'default'){
+        this.notificationsSubscribed = false;
+      }
 	    this.receiveMessage();
 		});
   }
@@ -36,6 +57,7 @@ export class FirebaseMessagingProvider {
     console.log('Requesting permission...');
     return this.messaging.requestPermission().then(() => {
         console.log('Permission granted');
+        this.notificationsSubscribed = true;
         // token might change - we need to listen for changes to it and update it
         this.setupOnTokenRefresh();
         return this.updateToken();
@@ -43,8 +65,10 @@ export class FirebaseMessagingProvider {
   }
 
   public disableNotifications() {
+    console.log("inside disableNotifications function");
     this.unsubscribeOnTokenRefresh();
-    this.unsubscribeOnTokenRefresh = () => {};
+    this.unsubscribeOnTokenRefresh = () => {console.log("notifications unsubscribed")};
+    this.notificationsSubscribed = false;
     return this.storage.set('fcmToken','').then();
   }
 
@@ -72,6 +96,11 @@ export class FirebaseMessagingProvider {
   receiveMessage() {
        this.messaging.onMessage((payload) => {
         console.log("Message received. ", payload);
+        const notificationOptions = {
+          icon: '/assets/icon/iconx96.png',
+          body: payload.notification.body
+        };
+        new Notification(payload.notification.title, notificationOptions);
         this.currentMessage.next(payload)
       });
 

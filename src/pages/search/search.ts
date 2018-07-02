@@ -1,8 +1,8 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage, AlertController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
-
+import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
 import { Storage } from '@ionic/storage';
 import { PlatformLocation, Location } from '@angular/common';
 
@@ -36,6 +36,7 @@ export class SearchPage {
   private loc : any;
   private itemfound : boolean;
   types = [];
+  notificationsSubscribed : boolean = false;
 
 	constructor(private popoverCtrl: PopoverController,
               public navCtrl: NavController,
@@ -47,14 +48,27 @@ export class SearchPage {
               public storage: Storage,
               l : PlatformLocation,
               location : Location,
-              public appservice : AppServiceProvider) {
+              public appservice : AppServiceProvider,
+              private alertCtrl: AlertController,
+              public firebasemessaging : FirebaseMessagingProvider) {
     this.code = this.navParams.get('code');
     console.log(this.code);
     this.loc = l;
 	}
   ngOnInit(){
+    this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
     console.log("ngOnInit search page");
-    this.storage.get('this.data').then((data) => {        
+    this.storage.get('this.data').then((data) => {     
+      data.sort(this.sortItems);
+
+      for(let i =0; i<data.length; i++){
+        if(data[i].type == "Special"){
+          let item = data[i];
+          data.splice(i,1);
+          data.unshift(item);
+        }
+      }
+
       this.items = data;  
       this.items1 =data;
       if(data){
@@ -238,6 +252,14 @@ processResponse(resp: any) {
 
   //  If data is not present in local storage store repsonse in items
   if(!this.items){
+      this.response.sort(this.sortItems);
+      for(let i =0; i<this.response.length; i++){
+        if(this.response[i].type == "Special"){
+          let item = this.response[i];
+          this.response.splice(i,1);
+          this.response.unshift(item);
+        }
+      }
       this.items = this.response;
       setTimeout(()=>{
             document.getElementById('All').classList.add('active');
@@ -254,6 +276,14 @@ processResponse(resp: any) {
 
   // To avoid only one item or no item to be stored in items1 and local storage
   if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0){
+      this.response.sort(this.sortItems);
+      for(let i =0; i<this.response.length; i++){
+        if(this.response[i].type == "Special"){
+          let item = this.response[i];
+          this.response.splice(i,1);
+          this.response.unshift(item);
+        }
+      }
       this.items1 = this.response;
       this.storage.set('this.data', this.items1).then( () => {
         console.log("storage set function");
@@ -355,6 +385,44 @@ public callFilter(){
       })
     }    
   }
+
+  sortItems(a,b){
+    if(a.type < b.type)
+      return -1
+    if(a.type > b. type)
+      return 1
+
+    return 0;
+  }
+
+
+  notificationsAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Tuckshop would like to send you notifications',
+      message: 'Allow Tuckshop to send notifications',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            this.firebasemessaging.disableNotifications();
+            this.notificationsSubscribed = false;
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.firebasemessaging.enableNotifications();
+            this.notificationsSubscribed = true;
+            console.log('Buy clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
 
 
