@@ -9,18 +9,29 @@ firebase.initializeApp({
 console.log("inside push notifications.js file");
 const messaging = firebase.messaging();
 
-messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('Received background message ', payload);
-  // here you can override some options describing what's in the message; 
-  // however, the actual content will come from the Webtask
-  const notificationOptions = {
-    requireInteraction: true,
-    tag : 'https://tuckshop.ajency.in',
-    data : {
-    	url : 'https://tuckshop.ajency.in'
-    }
-  };
-  return self.registration.showNotification(notificationTitle, notificationOptions);
+// messaging.setBackgroundMessageHandler(function(payload) {
+//   console.log('Received background message ', payload);
+//   // here you can override some options describing what's in the message; 
+//   // however, the actual content will come from the Webtask
+//   const notificationOptions = {
+//     requireInteraction: true,
+//     tag : 'https://tuckshop.ajency.in',
+//     data : {
+//     	url : 'https://tuckshop.ajency.in'
+//     }
+//   };
+//   return self.registration.showNotification(notificationTitle, notificationOptions);
+// });
+
+self.addEventListener('push', function (event) {
+	const notificationOptions = {
+    	requireInteraction: true,
+    	tag : 'https://tuckshop.ajency.in',
+    	data : {
+    		url : 'https://tuckshop.ajency.in'
+    	}
+  	};
+	return self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
 // self.addEventListener('notificationclick', function(event) {  
