@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["assets/icon/favicon.png","e81e95979fbec858d12dd086fb3180c5"],["assets/icon/iconx144.png","3ef3c03ad4dcc998217e0301635207fb"],["assets/icon/iconx192.png","0e1b225d84c0bb4ef1f1f68d346af483"],["assets/icon/iconx256.png","a54235ee5336fe9c980672ceab46f932"],["assets/icon/iconx48.png","de16142e175ac3dbb0ed4b094f29a130"],["assets/icon/iconx72.png","1a8f3467ca83d6de5fb00a85b7cde7a8"],["assets/icon/iconx96.png","991e29a9c19bd1fe487c956bbd3a3523"],["build/0.js","cf8f19055c119b609364bce4007dcbf5"],["build/1.js","8379ad9e3c122086f96f036cf97eb2c1"],["build/2.js","b6a5eff2f5f4cc66a64e85a5bd798d94"],["build/3.js","7a0ce7966eb18e63a55197efc7a85720"],["build/4.js","8a0b81d9ff54eeef1fcb217ea762e34c"],["build/main.css","966957e4a29786dbbb786c35e15baf30"],["build/main.js","9480741cf6cf51a9f3d4a5a57775cafd"],["build/polyfills.js","cdb289d3a60d7aa4b10424dbe2cd76c4"],["build/vendor.js","7701d766e1d13b1a196df6ae562968de"],["manifest.json","bbe6cc60d8c3d85c6f74d8ef84641fcf"]];
+var precacheConfig = [["assets/icon/favicon.png","e81e95979fbec858d12dd086fb3180c5"],["assets/icon/iconx144.png","3ef3c03ad4dcc998217e0301635207fb"],["assets/icon/iconx192.png","0e1b225d84c0bb4ef1f1f68d346af483"],["assets/icon/iconx256.png","a54235ee5336fe9c980672ceab46f932"],["assets/icon/iconx48.png","de16142e175ac3dbb0ed4b094f29a130"],["assets/icon/iconx72.png","1a8f3467ca83d6de5fb00a85b7cde7a8"],["assets/icon/iconx96.png","991e29a9c19bd1fe487c956bbd3a3523"],["build/0.js","083edaacfa8c2ff21d8e104a7b17b3ad"],["build/1.js","5cd7dbf9679ba59b338990234dd8eb0c"],["build/2.js","dbd9ae4e3c535fb049a3fa545bffc800"],["build/3.js","aa8fac16559b7fa690f4f0c381635e65"],["build/4.js","8a0b81d9ff54eeef1fcb217ea762e34c"],["build/main.css","966957e4a29786dbbb786c35e15baf30"],["build/main.js","0222a0f2b06b38f6a4fb2b931528fde4"],["build/polyfills.js","cdb289d3a60d7aa4b10424dbe2cd76c4"],["build/vendor.js","c6a04f393fb6bee2500bd94c315c125e"],["manifest.json","bbe6cc60d8c3d85c6f74d8ef84641fcf"]];
 var cacheName = 'sw-precache-v3-Tuckshop-' + (self.registration ? self.registration.scope : '');
 
 
@@ -290,5 +290,5 @@ toolbox.router.get("assets/**/**.*", toolbox.networkFirst, {"cache":{"name":"ass
 
 
 
-importScripts("push-notification.js");
+importScripts("push-notification3.js");
 

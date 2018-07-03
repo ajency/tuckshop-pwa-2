@@ -1,7 +1,8 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ToastController, IonicPage, ViewController } from 'ionic-angular';
+import { NavController, ToastController, IonicPage, ViewController, AlertController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { PlatformLocation } from '@angular/common';
+import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
 
 @IonicPage({
   name : 'home',
@@ -15,13 +16,16 @@ export class HomePage {
 
   private loc: any;
   public disabled = false; // variable to check if the sign in button is disabled
+  notificationsSubscribed : boolean = false;
 
   constructor(private viewCtrl: ViewController, 
               private l : PlatformLocation ,
               public navCtrl: NavController, 
               public zone: NgZone, 
               public toastCtrl: ToastController,
-              public appservice : AppServiceProvider) {
+              public appservice : AppServiceProvider,
+              public firebasemessaging : FirebaseMessagingProvider,
+              private alertCtrl: AlertController) {
     this.loc = l;
   }
 
@@ -33,6 +37,7 @@ ionViewDidLoad() {
 	}
   ngOnInit(){
     console.log("ngOnInit home page");
+    this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
     this.appservice.handleClientLoad().then((res) =>{
       console.log("response from handleClientLoad function");
       this.navigateToSearch();
@@ -62,6 +67,33 @@ ionViewDidLoad() {
     // Navigate to the search page and send a empty parameter to search page
     this.navCtrl.push('SearchPage', {code : ''});
     console.log('Navigating to another module');
+  }
+
+  notificationsAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Tuckshop would like to send you notifications',
+      message: 'Allow Tuckshop to send notifications',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            this.firebasemessaging.disableNotifications();
+            this.notificationsSubscribed = false;
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.firebasemessaging.enableNotifications();
+            this.notificationsSubscribed = true;
+            console.log('Buy clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 
