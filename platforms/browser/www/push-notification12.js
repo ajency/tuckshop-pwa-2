@@ -20,23 +20,22 @@ messaging.setBackgroundMessageHandler(function(payload) {
     },
     body : payload.data.body
   };
-  return self.registration.showNotification(payload.notification.title, notificationOptions);
+  return self.registration.showNotification(payload.data.title, notificationOptions);
 });
 
-self.addEventListener('push', function (event) {
- console.log("Received a push notification", event , event.data.json());
- var data = event.data.json();
- const notificationOptions = {
-     requireInteraction: true,
-     data : {
-       url : data.data.url
-     },
-     body : data.data.body
-   };
- // var pn = self.registration.showNotification(data.data.title, notificationOptions);
- // return pn;
+// self.addEventListener('push', function (event) {
+//  console.log("Received a push notification", event , event.data.json());
+//  var data = event.data.json();
+//  const notificationOptions = {
+//      requireInteraction: true,
+//      data : {
+//        url : data.data.url
+//      },
+//      body : data.data.body
+//    };
+//   return self.registration.showNotification(data.data.title, notificationOptions);
 
-});
+// });
 
 // self.addEventListener('notificationclick', function(event) {  
 //   // console.log('On notification click: ', event.notification.tag);  
