@@ -71,7 +71,7 @@ export class SpecialsPage {
       }
 
       this.specialOrdersCall = this.appservice.request(url,'post',body,{},false,'observable').subscribe((res)=>{
-          console.log("response from search api ==>", res);
+          console.log("response from get special order api ==>", res);
           if(res.error){
             this.appservice.handleClientLoad().then((res)=>{
               console.log("Token refreshed")
@@ -112,9 +112,15 @@ export class SpecialsPage {
     this.evening_special = [];
     for(let i=0;i<this.specials.length; i++){
       if(this.specials[i].item == special_morning){
+        if(this.specials[i].quantity == "2"){
+          this.morning_special.push(this.specials[i])
+        }
         this.morning_special.push(this.specials[i])
       }
       else{
+        if(this.specials[i].quantity == "2"){
+          this.morning_special.push(this.specials[i])
+        }
         this.evening_special.push(this.specials[i]);
       }
     }
@@ -133,7 +139,7 @@ export class SpecialsPage {
       this.closeOrderInProgress = true;
       let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`;
       this.appservice.request(url,'post',body,{},false,'promise').then((res)=>{
-          console.log("response from search api ==>", res);          
+          console.log("response from close order api ==>", res);          
           if(res.response.result === true){
             if(time == 'morning'){
               this.morning_special[index].order_status = 'closed'
