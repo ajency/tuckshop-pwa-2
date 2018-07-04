@@ -14,6 +14,7 @@ import { Events } from 'ionic-angular';
   for more info on providers and Angular DI.
 */
 declare var Notification: any;
+declare var window : any;
 
 @Injectable()
 export class FirebaseMessagingProvider {
@@ -53,6 +54,7 @@ export class FirebaseMessagingProvider {
         this.notificationsSubscribed = false;
       }
 	    this.receiveMessage();
+      this.handleNotificationClick();
 		});
   }
 
@@ -112,6 +114,12 @@ export class FirebaseMessagingProvider {
         this.currentMessage.next(payload)
       });
 
+  }
+  handleNotificationClick(){
+    Notification.onclick((event)=>{
+      console.log("Notification clicked", event);
+      window.open(event.notification.data.url);
+    })
   }
 	    
 
