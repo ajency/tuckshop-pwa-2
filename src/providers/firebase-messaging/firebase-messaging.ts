@@ -102,9 +102,13 @@ export class FirebaseMessagingProvider {
         console.log("Message received. ", payload);
         const notificationOptions = {
           icon: '/assets/icon/iconx96.png',
-          body: payload.data.body
+          body: payload.data.body,
+          requireInteraction: true,
+          data : {
+            url : payload.data.url
+          }
         };
-        // new Notification(payload.data.title, notificationOptions);
+        new Notification(payload.data.title, notificationOptions);
         this.currentMessage.next(payload)
       });
 
