@@ -8,7 +8,7 @@ module.exports = {
     'build/**.js',
     'manifest.json'
   ],
-  importScripts: ['push-notification6.js'],
+  importScripts: ['push-notification11.js'],
   navigateFallback: 'index.html',
   runtimeCaching: [
     {

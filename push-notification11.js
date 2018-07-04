@@ -33,8 +33,8 @@ self.addEventListener('push', function (event) {
      },
      body : data.data.body
    };
- var pn = self.registration.showNotification(data.data.title, notificationOptions);
- return pn;
+ // var pn = self.registration.showNotification(data.data.title, notificationOptions);
+ // return pn;
 
 });
 
