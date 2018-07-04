@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage, AlertController, Events } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
@@ -50,11 +50,27 @@ export class SearchPage {
               location : Location,
               public appservice : AppServiceProvider,
               private alertCtrl: AlertController,
-              public firebasemessaging : FirebaseMessagingProvider) {
+              public firebasemessaging : FirebaseMessagingProvider,
+              private events: Events,) {
     this.code = this.navParams.get('code');
     console.log(this.code);
     this.loc = l;
+
+    this.notificationUpdate = (data)=>{
+      console.log("inside notification update event");
+      this.notificationsSubscribed = true;
+    }
+
+    this.events.subscribe('notification:subscribed',this.notificationUpdate);
 	}
+
+  private notificationUpdate : Function;
+
+  ionViewWillLeave(){
+    console.log("inside ionViewWillLeave function");
+    this.events.unsubscribe('notification:subscribed',this.notificationUpdate);
+  }
+
   ngOnInit(){
     this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
     console.log("ngOnInit search page");
@@ -419,8 +435,7 @@ public callFilter(){
           text: 'Yes',
           handler: () => {
             this.firebasemessaging.enableNotifications();
-            this.notificationsSubscribed = true;
-            console.log('Buy clicked');
+            console.log('Yes clicked');
           }
         }
       ]

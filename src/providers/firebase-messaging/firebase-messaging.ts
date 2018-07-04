@@ -4,6 +4,8 @@ import { FirebaseApp } from 'angularfire2';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { AppServiceProvider } from '../../providers/app-service/app-service';
+import { Events } from 'ionic-angular';
+
 
 /*
   Generated class for the FirebaseMessagingProvider provider.
@@ -24,7 +26,8 @@ export class FirebaseMessagingProvider {
   constructor(public http: Http,
   						private storage : Storage,
   						private app : FirebaseApp,
-              public appservice : AppServiceProvider,) {
+              public appservice : AppServiceProvider,
+              private events: Events,) {
 
     console.log('Hello FirebaseMessagingProvider Provider');
     this.messaging = app.messaging();
@@ -58,6 +61,7 @@ export class FirebaseMessagingProvider {
     return this.messaging.requestPermission().then(() => {
         console.log('Permission granted');
         this.notificationsSubscribed = true;
+        this.events.publish("notification:subscribed", {notificationsSubscribed : true});
         // token might change - we need to listen for changes to it and update it
         this.setupOnTokenRefresh();
         return this.updateToken();

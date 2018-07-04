@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ToastController, IonicPage, ViewController, AlertController } from 'ionic-angular';
+import { NavController, ToastController, IonicPage, ViewController, AlertController, Events } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { PlatformLocation } from '@angular/common';
 import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
@@ -25,16 +25,32 @@ export class HomePage {
               public toastCtrl: ToastController,
               public appservice : AppServiceProvider,
               public firebasemessaging : FirebaseMessagingProvider,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private events: Events,) {
     this.loc = l;
+
+    this.notificationUpdate = (data)=>{
+      console.log("inside notification update event");
+      this.notificationsSubscribed = true;
+    }
+
+    this.events.subscribe('notification:subscribed',this.notificationUpdate);
   }
 
-ionViewDidLoad() {
+  private notificationUpdate : Function;
+
+  ionViewDidLoad() {
 		console.log('ionViewDidLoad HomePage');
 
     var stateObj = [];
     this.loc.pushState(stateObj, "HomePage", "/#/home");
 	}
+
+  ionViewWillLeave(){
+    console.log("inside ionViewWillLeave function");
+    this.events.unsubscribe('notification:subscribed',this.notificationUpdate);
+  }
+
   ngOnInit(){
     console.log("ngOnInit home page");
     this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
@@ -87,8 +103,7 @@ ionViewDidLoad() {
           text: 'Yes',
           handler: () => {
             this.firebasemessaging.enableNotifications();
-            this.notificationsSubscribed = true;
-            console.log('Buy clicked');
+            console.log('Yes clicked');
           }
         }
       ]
