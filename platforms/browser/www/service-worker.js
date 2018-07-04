@@ -290,5 +290,5 @@ toolbox.router.get("assets/**/**.*", toolbox.networkFirst, {"cache":{"name":"ass
 
 
 
-importScripts("push-notification5.js");
+importScripts("push-notification6.js");
 
