@@ -23,6 +23,8 @@ export class SpecialsPage {
   evening_special : Array<any> = [];
   noSpecialOrders : boolean = false;
   specialsCallTimeInterval : any;
+  specialOrdersCall : any;
+  closeOrderInProgress : boolean = false;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public appservice : AppServiceProvider,
@@ -49,47 +51,59 @@ export class SpecialsPage {
   	
   }
 
-  callSpecialOrdersApi(){    
-    console.log("Inside special order api call function");
-    let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`;
-
-    let body = {
-      function : "getSpecialsOrder",
-      parameters : ""
+  unsubscribeSpecialOrdersCall(){
+    console.log("unsubscribing specials order call");
+    if(this.specialOrdersCall){
+      this.specialOrdersCall.unsubscribe();
     }
+  }
 
-    this.appservice.request(url,'post',body,{},false,'promise').then((res)=>{
-        console.log("response from search api ==>", res);
-        if(res.error){
-          this.appservice.handleClientLoad().then((res)=>{
-            console.log("Token refreshed")
-          })
-          .catch((error)=>{
-            console.log("error in refreshing token");
-          })
-        }
-        else{
-            if(res.response.result && res.response.result.length){
-            this.specials = res.response.result;
-            this.noSpecialOrders = false;
-            this.sortSpecials();
+  callSpecialOrdersApi(){   
+  this.unsubscribeSpecialOrdersCall();
+
+    console.log("Inside special order api call function");
+    if(!this.closeOrderInProgress){
+      let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`;
+
+      let body = {
+        function : "getSpecialsOrder",
+        parameters : ""
+      }
+
+      this.specialOrdersCall = this.appservice.request(url,'post',body,{},false,'observable').subscribe((res)=>{
+          console.log("response from search api ==>", res);
+          if(res.error){
+            this.appservice.handleClientLoad().then((res)=>{
+              console.log("Token refreshed")
+            })
+            .catch((error)=>{
+              console.log("error in refreshing token");
+            })
           }
           else{
-            this.noSpecialOrders = true;
-          }   
-        }      
-        this.appservice.dismissLoader();
-    })
-    .catch((error)=>{
-        console.log("error from search api", error);
-        this.appservice.handleClientLoad().then((res)=>{
-            console.log("Token refreshed")
-        })
-        .catch((error)=>{
-            console.log("error in refreshing token");
-        })
-        this.appservice.dismissLoader();  
-    })
+              if(res.response.result && res.response.result.length){
+              this.specials = res.response.result;
+              this.noSpecialOrders = false;
+              this.sortSpecials();
+            }
+            else{
+              this.noSpecialOrders = true;
+            }   
+          }      
+          this.appservice.dismissLoader();
+      },
+      (error)=>{
+         console.log("error from search api", error);
+          this.appservice.handleClientLoad().then((res)=>{
+              console.log("Token refreshed")
+          })
+          .catch((error)=>{
+              console.log("error in refreshing token");
+          })
+          this.appservice.dismissLoader();  
+      });
+    }
+
   }
 
   sortSpecials(){
@@ -107,17 +121,19 @@ export class SpecialsPage {
   }
 
   closeOrder(user, time, index){
+
     if(user.order_status == 'open'){
+      this.unsubscribeSpecialOrdersCall();
       console.log('Close oreder for ==>', user,time,index);
       this.appservice.presentLoader();
       let body = {
         function : 'close_order',
         parameters : [user.email, user.item, user.date_of_order]
       }
-
+      this.closeOrderInProgress = true;
       let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`;
       this.appservice.request(url,'post',body,{},false,'promise').then((res)=>{
-          console.log("response from search api ==>", res);
+          console.log("response from search api ==>", res);          
           if(res.response.result === true){
             if(time == 'morning'){
               this.morning_special[index].order_status = 'closed'
@@ -129,10 +145,12 @@ export class SpecialsPage {
           else{
             let toast = this.appservice.presentToast("Something unexpected happened",'error',5000,false,'bottom',''); 
           }
+          this.closeOrderInProgress = false;
           this.appservice.dismissLoader(); 
       })
       .catch((error)=>{
           console.log("error from search api", error);
+          this.closeOrderInProgress = false;
           this.appservice.dismissLoader(); 
       })
     }    
