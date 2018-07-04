@@ -15,12 +15,27 @@ messaging.setBackgroundMessageHandler(function(payload) {
   // however, the actual content will come from the Webtask
   const notificationOptions = {
     requireInteraction: true,
-    tag : 'https://tuckshop.ajency.in',
     data : {
-    	url : 'https://tuckshop.ajency.in'
-    }
+      url : payload.data.url
+    },
+    body : payload.data.body
   };
-  return self.registration.showNotification(notificationTitle, notificationOptions);
+  return self.registration.showNotification(payload.notification.title, notificationOptions);
+});
+
+self.addEventListener('push', function (event) {
+ console.log("Received a push notification", event , event.data.json());
+ var data = event.data.json();
+ const notificationOptions = {
+     requireInteraction: true,
+     data : {
+       url : data.data.url
+     },
+     body : data.data.body
+   };
+ var pn = self.registration.showNotification(data.data.title, notificationOptions);
+ return pn;
+
 });
 
 // self.addEventListener('notificationclick', function(event) {  
@@ -52,11 +67,11 @@ messaging.setBackgroundMessageHandler(function(payload) {
 // });
 
 self.addEventListener('notificationclick', function(event) {
-  console.log('[Service Worker] Notification click Received.');
+  console.log('Notification click Received.',event);
 
   event.notification.close();
 
   event.waitUntil(
-    clients.openWindow('https://tuckshop.ajency.in')
+    clients.openWindow(event.notification.data.url)
   );
 });
