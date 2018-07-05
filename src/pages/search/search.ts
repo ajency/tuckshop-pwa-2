@@ -63,6 +63,7 @@ export class SearchPage {
     this.notificationUpdate = (data)=>{
       console.log("inside notification update event");
       this.notificationsSubscribed = true;
+      this.notificationsSubscriptionToast = this.appservice.presentToast("Awesome! You will receive notifications from Tuckshop ",'error',3000,false,'bottom','');
     }
 
     this.notificationReceived = (data)=>{
@@ -476,7 +477,7 @@ public callFilter(){
     }
     else{
       this.firebasemessaging.enableNotifications();
-      this.notificationsSubscriptionToast = this.appservice.presentToast("Awesome! You will receive notifications from Tuckshop ",'error',3000,false,'bottom','');
+      
     }
   }
 
