@@ -33,6 +33,8 @@ export class AppServiceProvider {
 	user_fcm_token : any;
 	handleError : any;
 	loader : any;
+  unsubscribeTopicCall : any;
+  storeFcmTokenCall : any;
 
   constructor(public http: Http,
 			  public toastCtrl: ToastController,
@@ -220,6 +222,7 @@ export class AppServiceProvider {
   storeFcmToken(){
   	console.log("inside store storeFcmToken function");
   	if(this.user_fcm_token && this.user_email && this.user_name && this.user_profile_pic){
+      this.unsubscribeApiCalls()
   		let url = "https://us-central1-tuckshop-9efa0.cloudfunctions.net/storeToken" // live 
       // let url = "http://localhost:5000/tuckshop-9efa0/us-central1/storeToken" // for testing
   		let body = {
@@ -230,16 +233,17 @@ export class AppServiceProvider {
   		}
   		let headers = new Headers({'Content-Type': 'application/json'});
   		console.log("storeFcmToken request ==>", url, body, headers);
-  		this.request(url,'post',body,headers,true,'promise').then((res)=>{
+  		this.storeFcmTokenCall = this.request(url,'post',body,headers,true,'observable').subscribe((res)=>{
   			console.log("response from store fcm token api ==>", res);
-  		})
-  		.catch((error)=>{
+  		},
+      (error)=>{
   			console.log("error from storeFcmToken api ==>", error);
-  		})
+  		});
   	}
   }
 
   unsubscribeTopic(token){
+    this.unsubscribeApiCalls();
     console.log("inside unsubscribeTopic function");
     let url = "https://us-central1-tuckshop-9efa0.cloudfunctions.net/unsubscribeTopic"
     // let url = "http://localhost:5000/tuckshop-9efa0/us-central1/unsubscribeTopic" // for testing
@@ -248,13 +252,23 @@ export class AppServiceProvider {
     }
     let headers = new Headers({'Content-Type': 'application/json'});
     console.log("unsubscribeTopic request ==>", url, body, headers);
-    this.request(url,'post', body, headers, true, 'promise')
-      .then((res)=>{
+    this.unsubscribeTopicCall = this.request(url,'post', body, headers, true, 'observable')
+      .subscribe((res)=>{
        console.log("response from unsubscribeTopic api ==>", res);
-      })
-      .catch((error)=>{
+      },
+      (error)=>{
         console.log("Error from unsubscribeTopic api ==>",error);
-      })
+      });
+  }
+
+  unsubscribeApiCalls(){
+    console.log("inside unsubscribe api calls functions")
+    if(this.unsubscribeTopicCall){
+      this.unsubscribeTopicCall.unsubscribe();
+    }
+    if(this.storeFcmTokenCall){
+      this.storeFcmTokenCall.unsubscribe();
+    }
   }
 
 }

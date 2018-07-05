@@ -17,8 +17,9 @@
 	      </button>
 
 	      <button ion-button icon-only (click)="notificationsAlert()" >
-	        <ion-icon *ngIf="notificationsSubscribed" name="notifications"></ion-icon>
-	        <ion-icon *ngIf="!notificationsSubscribed" name="notifications-off"></ion-icon>
+	      	<ion-toggle [(ngModel)]="notificationsSubscribed" class="notify"></ion-toggle>
+	        <!-- <ion-icon *ngIf="notificationsSubscribed" name="notifications"></ion-icon>
+	        <ion-icon *ngIf="!notificationsSubscribed" name="notifications-off"></ion-icon> -->
 	      </button>
 
 	    </ion-buttons>

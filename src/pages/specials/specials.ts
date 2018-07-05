@@ -86,8 +86,10 @@ export class SpecialsPage {
               this.noSpecialOrders = false;
               this.sortSpecials();
             }
-            else{
-              this.noSpecialOrders = true;
+            else{ 
+              if(!this.specials){
+                this.noSpecialOrders = true;
+              }              
             }   
           }      
           this.appservice.dismissLoader();

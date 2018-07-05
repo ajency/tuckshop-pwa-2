@@ -40,6 +40,7 @@ export class SearchPage {
   private itemfound : boolean;
   types = [];
   notificationsSubscribed : boolean = false;
+  notificationsSubscriptionToast : any;
 
 	constructor(private popoverCtrl: PopoverController,
               public navCtrl: NavController,
@@ -443,32 +444,47 @@ public callFilter(){
 
 
   notificationsAlert() {
-    console.log("get active page ==>", this.navCtrl.getActive());
-    let alert = this.alertCtrl.create({
-      title: 'Tuckshop would like to send you notifications',
-      message: 'Allow Tuckshop to send notifications',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => {
-            this.firebasemessaging.disableNotifications();
-            this.notificationsSubscribed = false;
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            this.firebasemessaging.enableNotifications();
-            console.log('Yes clicked');
-          }
-        }
-      ]
-    });
-    alert.present();
+    // console.log("get active page ==>", this.navCtrl.getActive());
+    // let alert = this.alertCtrl.create({
+    //   title: 'Would you like Tuckshop to send you notifications?',
+    //   // message: 'Allow Tuckshop to send notifications',
+    //   cssClass: 'notify-alert',
+    //   buttons: [
+    //     {
+    //       text: 'No',
+    //       handler: () => {
+    //         this.firebasemessaging.disableNotifications();
+    //         this.notificationsSubscribed = false;
+    //         console.log('Cancel clicked');
+    //       }
+    //     },
+    //     {
+    //       text: 'Yes',
+    //       handler: () => {
+    //         this.firebasemessaging.enableNotifications();
+    //         console.log('Yes clicked');
+    //       }
+    //     }
+    //   ]
+    // });
+    // alert.present();
+    // this.dismissToast()
+    if(this.notificationsSubscribed){
+        this.firebasemessaging.disableNotifications();
+        this.notificationsSubscribed = false;
+        this.notificationsSubscriptionToast = this.appservice.presentToast("You have turned off the notifications",'error',3000,false,'bottom','');
+    }
+    else{
+      this.firebasemessaging.enableNotifications();
+      this.notificationsSubscriptionToast = this.appservice.presentToast("Awesome! You will receive notifications from Tuckshop ",'error',3000,false,'bottom','');
+    }
   }
 
+  dismissToast(){
+    if(this.notificationsSubscriptionToast){
+      this.notificationsSubscriptionToast.dismiss();
+    }
+  }
 
 
 

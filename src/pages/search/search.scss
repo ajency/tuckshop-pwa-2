@@ -42,5 +42,40 @@ page-search {
     			background-color: color($colors, ajency, base);
     		}
 		}
+	    position: sticky;
+	    top: 0;
+	    z-index: 10;
+	}
+	.notify{
+		.toggle-icon{
+			background-color: rgba(10, 10, 10, 0.47);
+		}
+		.toggle-inner{
+			background-color: #3e3c3c;
+			color: #fff;
+			top: -3px;
+			&:before{
+				content: "\f1d1";
+				font-family: "Ionicons";
+				font-size: 1.75em;
+			}
+		}
+		&.toggle-checked{
+			.toggle-icon{
+				background-color: rgba(10, 10, 10, 0.47);
+			}
+			.toggle-inner{
+				&:before{
+					content: "\f1d3";
+				}
+			}
+		}
 	}
 }
+
+.notify-alert{
+	.alert-message{
+		overflow: auto;
+	}
+}
+

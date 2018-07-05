@@ -71,7 +71,13 @@ export class FirebaseMessagingProvider {
         // token might change - we need to listen for changes to it and update it
         this.setupOnTokenRefresh();
         return this.updateToken();
-      });
+      })
+      .catch((error)=>{
+        console.log("error in requestPermission permission", error);
+        if(Notification.permission == 'denied'){
+          let toast = this.appservice.presentToast("You have blocked Notifications for Tuckshop",'error',5000,false,'bottom','');
+        }
+      })
   }
 
   public disableNotifications() {
