@@ -29,15 +29,15 @@ export class HomePage {
               private events: Events,) {
     this.loc = l;
 
-    this.notificationUpdate = (data)=>{
-      console.log("inside notification update event");
-      this.notificationsSubscribed = true;
-    }
+    // this.notificationUpdate = (data)=>{
+    //   console.log("inside notification update event");
+    //   this.notificationsSubscribed = true;
+    // }
 
-    this.events.subscribe('notification:subscribed',this.notificationUpdate);
+    // this.events.subscribe('notification:subscribed',this.notificationUpdate);
   }
 
-  private notificationUpdate : Function;
+  // private notificationUpdate : Function;
 
   ionViewDidLoad() {
 		console.log('ionViewDidLoad HomePage');
@@ -48,7 +48,7 @@ export class HomePage {
 
   ionViewWillLeave(){
     console.log("inside ionViewWillLeave function");
-    this.events.unsubscribe('notification:subscribed',this.notificationUpdate);
+    // this.events.unsubscribe('notification:subscribed',this.notificationUpdate);
   }
 
   ngOnInit(){
@@ -85,31 +85,31 @@ export class HomePage {
     console.log('Navigating to another module');
   }
 
-  notificationsAlert() {
-    let alert = this.alertCtrl.create({
-      title: 'Tuckshop would like to send you notifications',
-      message: 'Allow Tuckshop to send notifications',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => {
-            this.firebasemessaging.disableNotifications();
-            this.notificationsSubscribed = false;
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            this.firebasemessaging.enableNotifications();
-            console.log('Yes clicked');
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+  // notificationsAlert() {
+  //   let alert = this.alertCtrl.create({
+  //     title: 'Tuckshop would like to send you notifications',
+  //     message: 'Allow Tuckshop to send notifications',
+  //     buttons: [
+  //       {
+  //         text: 'No',
+  //         role: 'cancel',
+  //         handler: () => {
+  //           this.firebasemessaging.disableNotifications();
+  //           this.notificationsSubscribed = false;
+  //           console.log('Cancel clicked');
+  //         }
+  //       },
+  //       {
+  //         text: 'Yes',
+  //         handler: () => {
+  //           this.firebasemessaging.enableNotifications();
+  //           console.log('Yes clicked');
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   alert.present();
+  // }
 
 
 }
