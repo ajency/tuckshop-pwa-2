@@ -34,7 +34,7 @@
 
 <ion-content>
 
-	<ion-refresher (ionRefresh)="callScriptFunction($event)">
+	<ion-refresher (ionRefresh)="callScriptFunction($event)" pullMin=150>
 	    <ion-refresher-content
 	      pullingText="Pull to refresh"
 	      refreshingText="Refreshing...">
