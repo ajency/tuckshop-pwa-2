@@ -6,6 +6,7 @@ import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/fi
 import { Storage } from '@ionic/storage';
 import { PlatformLocation, Location } from '@angular/common';
 
+declare var window : any;
 
 @IonicPage({
   name : 'SearchPage',
@@ -15,6 +16,7 @@ import { PlatformLocation, Location } from '@angular/common';
   selector: 'page-search',
   templateUrl: 'search.html',
 })
+
 export class SearchPage {
 
 
@@ -61,14 +63,22 @@ export class SearchPage {
       this.notificationsSubscribed = true;
     }
 
+    this.notificationReceived = (data)=>{
+      console.log("inside notification received event", data);
+      window.open(data.url);  
+    }
+
     this.events.subscribe('notification:subscribed',this.notificationUpdate);
+    this.events.subscribe('searchPage:notification', this.notificationReceived)
 	}
 
   private notificationUpdate : Function;
+  private notificationReceived : Function;
 
   ionViewWillLeave(){
     console.log("inside ionViewWillLeave function");
     this.events.unsubscribe('notification:subscribed',this.notificationUpdate);
+    this.events.unsubscribe('searchPage:notification',this.notificationReceived);
   }
 
   ngOnInit(){
@@ -418,6 +428,7 @@ public callFilter(){
 
 
   notificationsAlert() {
+    console.log("get active page ==>", this.navCtrl.getActive());
     let alert = this.alertCtrl.create({
       title: 'Tuckshop would like to send you notifications',
       message: 'Allow Tuckshop to send notifications',
