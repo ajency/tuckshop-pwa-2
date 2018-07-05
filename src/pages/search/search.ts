@@ -86,7 +86,7 @@ export class SearchPage {
     // this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
     this.storage.get('notificationsSubscribed').then((res)=>{
       console.log("local storage data ==>", res);
-      if(res.subscribed && Notification.permission == 'granted'){
+      if(res && res.subscribed && Notification.permission == 'granted'){
         this.notificationsSubscribed = true;
       }
       else{
