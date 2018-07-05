@@ -86,7 +86,7 @@ export class SearchPage {
     // this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
     this.storage.get('notificationsSubscribed').then((res)=>{
       console.log("local storage data ==>", res);
-      if(res.notificationsSubscribed){
+      if(res.subscribed && Notification.permission == 'granted'){
         this.notificationsSubscribed = true;
       }
       else{
@@ -97,7 +97,7 @@ export class SearchPage {
       console.log("error in getting local storage data ==>",error)
       this.notificationsSubscribed = false;
     })
-    
+
     console.log("ngOnInit search page");
     this.storage.get('this.data').then((data) => {     
 
