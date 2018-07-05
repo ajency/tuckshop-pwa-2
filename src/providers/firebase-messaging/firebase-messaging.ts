@@ -66,6 +66,8 @@ export class FirebaseMessagingProvider {
         console.log('Permission granted');
         this.notificationsSubscribed = true;
         this.events.publish("notification:subscribed", {notificationsSubscribed : true});
+
+        this.storage.set('notificationsSubscribed', {subscribed : true});
         // token might change - we need to listen for changes to it and update it
         this.setupOnTokenRefresh();
         return this.updateToken();
@@ -80,6 +82,7 @@ export class FirebaseMessagingProvider {
     this.messaging.getToken().then((currentToken)=>{
       console.log("FCM token : ", currentToken);
       this.appservice.unsubscribeTopic(currentToken);
+      this.storage.set('notificationsSubscribed', {subscribed : false});
     })
   }
 

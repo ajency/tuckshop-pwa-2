@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { PlatformLocation, Location } from '@angular/common';
 
 declare var window : any;
+declare var Notification: any;
 
 @IonicPage({
   name : 'SearchPage',
@@ -82,7 +83,21 @@ export class SearchPage {
   }
 
   ngOnInit(){
-    this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
+    // this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
+    this.storage.get('notificationsSubscribed').then((res)=>{
+      console.log("local storage data ==>", res);
+      if(res.notificationsSubscribed){
+        this.notificationsSubscribed = true;
+      }
+      else{
+        this.notificationsSubscribed = false;
+      }
+    })
+    .catch((error)=>{
+      console.log("error in getting local storage data ==>",error)
+      this.notificationsSubscribed = false;
+    })
+    
     console.log("ngOnInit search page");
     this.storage.get('this.data').then((data) => {     
 
