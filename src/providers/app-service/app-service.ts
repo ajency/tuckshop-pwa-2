@@ -220,7 +220,8 @@ export class AppServiceProvider {
   storeFcmToken(){
   	console.log("inside store storeFcmToken function");
   	if(this.user_fcm_token && this.user_email && this.user_name && this.user_profile_pic){
-  		let url = "https://us-central1-tuckshop-9efa0.cloudfunctions.net/storeToken"
+  		let url = "https://us-central1-tuckshop-9efa0.cloudfunctions.net/storeToken" // live 
+      // let url = "http://localhost:5000/tuckshop-9efa0/us-central1/storeToken" // for testing
   		let body = {
   			name : this.user_name,
   			email : this.user_email,
@@ -236,6 +237,24 @@ export class AppServiceProvider {
   			console.log("error from storeFcmToken api ==>", error);
   		})
   	}
+  }
+
+  unsubscribeTopic(token){
+    console.log("inside unsubscribeTopic function");
+    let url = "https://us-central1-tuckshop-9efa0.cloudfunctions.net/unsubscribeTopic"
+    // let url = "http://localhost:5000/tuckshop-9efa0/us-central1/unsubscribeTopic" // for testing
+    let body = {
+      fcm_token : token
+    }
+    let headers = new Headers({'Content-Type': 'application/json'});
+    console.log("unsubscribeTopic request ==>", url, body, headers);
+    this.request(url,'post', body, headers, true, 'promise')
+      .then((res)=>{
+       console.log("response from unsubscribeTopic api ==>", res);
+      })
+      .catch((error)=>{
+        console.log("Error from unsubscribeTopic api ==>",error);
+      })
   }
 
 }
