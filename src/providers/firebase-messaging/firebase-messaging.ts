@@ -28,7 +28,7 @@ export class FirebaseMessagingProvider {
   						private storage : Storage,
   						private app : FirebaseApp,
               public appservice : AppServiceProvider,
-              private events: Events,) {
+              private events: Events) {
 
     console.log('Hello FirebaseMessagingProvider Provider');
     this.messaging = app.messaging();
@@ -54,11 +54,13 @@ export class FirebaseMessagingProvider {
         this.notificationsSubscribed = false;
       }
 	    this.receiveMessage();
-      this.handleNotificationClick();
+      // this.handleNotificationClick();
 		});
   }
 
   public enableNotifications() {
+    // console.log("get active page ==>", this.navCtrl.getActive());
+    // this.events.publish("searchPage:notification", {url : 'https://tuckshop.ajency.in/#/search/400136'});
     console.log('Requesting permission...');
     return this.messaging.requestPermission().then(() => {
         console.log('Permission granted');
@@ -75,7 +77,10 @@ export class FirebaseMessagingProvider {
     this.unsubscribeOnTokenRefresh();
     this.unsubscribeOnTokenRefresh = () => {console.log("notifications unsubscribed")};
     this.notificationsSubscribed = false;
-    return this.storage.set('fcmToken','').then();
+    this.messaging.getToken().then((currentToken)=>{
+      console.log("FCM token : ", currentToken);
+      this.appservice.unsubscribeTopic(currentToken);
+    })
   }
 
   private updateToken() {
@@ -110,17 +115,25 @@ export class FirebaseMessagingProvider {
             url : payload.data.url
           }
         };
-        new Notification(payload.data.title, notificationOptions);
+        let pn = new Notification(payload.data.title, notificationOptions);
+
+        this.events.publish("searchPage : notification", {url : payload.data.url});
+        // window.open(payload.data.url);  
+        // pn.onclick((event)=>{
+        //   console.log("Notification clicked", event);        
+        //   window.open(event.notification.data.url);  
+        //   pn.close();        
+        // })
         this.currentMessage.next(payload)
       });
 
   }
-  handleNotificationClick(){
-    Notification.onclick((event)=>{
-      console.log("Notification clicked", event);
-      window.open(event.notification.data.url);
-    })
-  }
+  // handleNotificationClick(){
+  //   Notification.onclick((event)=>{
+  //     console.log("Notification clicked", event);
+  //     window.open(event.notification.data.url);
+  //   })
+  // }
 	    
 
 }
