@@ -108,13 +108,16 @@ export class SearchPage {
       if(data){
         data.sort(this.sortItems);
 
+        let temp = [];
         for(let i =0; i<data.length; i++){
           if(data[i].type == "Special"){
             let item = data[i];
             data.splice(i,1);
-            data.unshift(item);
+            i-=1;
+            temp.push(item);
           }
         }
+        data = temp.concat(data);
       }
 
 
@@ -314,13 +317,17 @@ processResponse(resp: any) {
     console.log("############# Items Refreshed ##################");
       this.pulledToRefresh = false;
       this.response.sort(this.sortItems);
+      let temp = [];
       for(let i =0; i<this.response.length; i++){
         if(this.response[i].type == "Special"){
           let item = this.response[i];
           this.response.splice(i,1);
-          this.response.unshift(item);
+          i-=1;
+          temp.push(item);
         }
       }
+      this.response  = temp.concat(this.response)
+
       this.items = this.response;
 
       setTimeout(()=>{
@@ -340,13 +347,16 @@ processResponse(resp: any) {
   // To avoid only one item or no item to be stored in items1 and local storage
   if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0){
       this.response.sort(this.sortItems);
+      let temp = [];
       for(let i =0; i<this.response.length; i++){
         if(this.response[i].type == "Special"){
           let item = this.response[i];
           this.response.splice(i,1);
-          this.response.unshift(item);
+          i-=1;
+          temp.push(item);
         }
       }
+      this.response  = temp.concat(this.response)
       this.items1 = this.response;
       this.storage.set('this.data', this.items1).then( () => {
         console.log("storage set function");
@@ -450,12 +460,16 @@ public callFilter(){
   }
 
   sortItems(a,b){
-    if(a.type < b.type)
-      return -1
-    if(a.type > b. type)
-      return 1
+    if(a.type == b.type){
+      return a.itemName < b.itemName ? -1 : 1;
+    }
+    return a.type < b.type ? -1 : 1;
+    // if(a.type < b.type)
+    //   return -1
+    // if(a.type > b. type)
+    //   return 1
 
-    return 0;
+    // return 0;
   }
 
 
