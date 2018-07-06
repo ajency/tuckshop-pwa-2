@@ -41,6 +41,8 @@ export class SearchPage {
   types = [];
   notificationsSubscribed : boolean = false;
   notificationsSubscriptionToast : any;
+  pulledToRefresh : boolean = false;
+
 
 	constructor(private popoverCtrl: PopoverController,
               public navCtrl: NavController,
@@ -245,6 +247,9 @@ callScriptFunction(refresher) {
       'function': 'search',
       'parameters': ""
       };
+    if(refresher){
+        this.pulledToRefresh = true;        
+    }
   }
   else if(refresher == ""){
     console.log('only one result');
@@ -260,6 +265,9 @@ callScriptFunction(refresher) {
           'function': 'search',
           'parameters': ""
       };
+      if(refresher){
+        this.pulledToRefresh = true;        
+      }
   }
       // Make the request.
   let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`
@@ -278,6 +286,7 @@ callScriptFunction(refresher) {
       refresher.complete();
     }
     this.loadingItems = false;
+    this.pulledToRefresh = false;
     this.requestFailedToast();
   })
 }
@@ -299,7 +308,11 @@ processResponse(resp: any) {
   this.response = resp.response.result;
 
   //  If data is not present in local storage store repsonse in items
-  if(!this.items){
+  this.findTypes(this.response);
+
+  if(!this.items || this.pulledToRefresh){
+    console.log("############# Items Refreshed ##################");
+      this.pulledToRefresh = false;
       this.response.sort(this.sortItems);
       for(let i =0; i<this.response.length; i++){
         if(this.response[i].type == "Special"){
@@ -309,12 +322,14 @@ processResponse(resp: any) {
         }
       }
       this.items = this.response;
+
       setTimeout(()=>{
+          for(let i=0;i<this.types.length;i++){
+            document.getElementById(this.types[i]).classList.remove("active");
+          }
             document.getElementById('All').classList.add('active');
       },100)
   } 
-
-  this.findTypes(this.response);
 
   //  Function to store the data locally i.e. in cache
   if(Object.keys(this.response).length ==1){
