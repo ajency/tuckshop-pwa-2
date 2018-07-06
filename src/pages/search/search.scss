@@ -19,4 +19,63 @@ page-search {
 	.refresher-pulling-icon, .refresher-refreshing-icon{
 		color: color($colors, ajency, base);
 	}
+	.searchbar-input-container .searchbar-input{
+		height: 70px;
+	}
+	.searchbar-md .searchbar-search-icon{
+		top:25px;
+	}
+
+	.tuck-lists {
+		display: flex;
+		background-color: #e8e8e8;
+		padding: 0.8em 0;
+		width: 100%;
+		overflow: auto;
+		.button{
+			min-width: 80px;
+			margin: 0 1em;
+			background-color: #fff;
+    		color: #000;
+    		border-radius: 5px;
+    		&:hover,&.active{
+    			background-color: color($colors, ajency, base);
+    		}
+		}
+	    position: sticky;
+	    top: 0;
+	    z-index: 10;
+	}
+	.notify{
+		.toggle-icon{
+			background-color: rgba(10, 10, 10, 0.47);
+		}
+		.toggle-inner{
+			background-color: #3e3c3c;
+			color: #fff;
+			top: -3px;
+			&:before{
+				content: "\f1d1";
+				font-family: "Ionicons";
+				font-size: 1.75em;
+			}
+		}
+		&.toggle-checked{
+			.toggle-icon{
+				background-color: rgba(10, 10, 10, 0.47);
+			}
+			.toggle-inner{
+				&:before{
+					content: "\f1d3";
+				}
+			}
+		}
+	}
 }
+
+.notify-alert{
+	.alert-message{
+		overflow: auto;
+	}
+}
+

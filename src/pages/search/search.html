@@ -15,6 +15,13 @@
 		      <img src={{image}} width="30" height="30" class="avatar-img">
 		    </ion-avatar>
 	      </button>
+
+	      <button ion-button icon-only (click)="notificationsAlert()" >
+	      	<ion-toggle [(ngModel)]="notificationsSubscribed" class="notify"></ion-toggle>
+	        <!-- <ion-icon *ngIf="notificationsSubscribed" name="notifications"></ion-icon>
+	        <ion-icon *ngIf="!notificationsSubscribed" name="notifications-off"></ion-icon> -->
+	      </button>
+
 	    </ion-buttons>
 	</ion-navbar>
 
@@ -28,7 +35,7 @@
 
 <ion-content>
 
-	<ion-refresher (ionRefresh)="callScriptFunction($event)">
+	<ion-refresher (ionRefresh)="callScriptFunction($event)" pullMin=150>
 	    <ion-refresher-content
 	      pullingText="Pull to refresh"
 	      refreshingText="Refreshing...">
@@ -39,6 +46,9 @@
 		<ion-spinner margin color="ajency"></ion-spinner>
 	</div>
 
+	<div class="tuck-lists">
+	  <button *ngFor="let type of types" ion-button id={{type}} (click)="filterItems(type)" >{{type}}</button>
+	</div>
 	<ion-list >
 		<ion-item *ngFor="let item of items" (click)="confirmPurchase(item)" class="fadeInUp">
 			{{ item.itemName }}

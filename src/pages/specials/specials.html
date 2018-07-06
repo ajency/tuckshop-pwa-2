@@ -1,0 +1,65 @@
+<!--
+  Generated template for the SpecialsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+	<ion-navbar align="center" color="ajency">
+		<ion-title>Tuckshop</ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<div *ngIf="specials" class="specials">
+		<div *ngIf="morning_special && morning_special.length != 0" class="specials__holder">
+			<div class="specials__heading">
+				<b>{{morning_special[0].item}}</b>
+				<span>{{morning_special[0].date_of_order}}</span>
+			</div>
+			<div class="specials__lists">
+				<ion-list *ngFor="let user of morning_special; let i = index">
+					<!-- {{user.avatar}}<br> -->
+					 <ion-avatar item-start (click)="closeOrder(user,'morning',i)" [ngClass]="{active : user.order_status == 'closed'}" style="cursor: pointer;" [attr.title]="user.order_status == 'open' ? 'Mark item served' : ''">
+					      <img src={{user.avatar}} width="70" class="avatar-img">
+					      <ion-icon name="checkmark" class="checkmark"></ion-icon>
+					      <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filter">
+						    <defs>
+						        <filter id="svgfilter" x="0%" y="0%" width="100%" height="100%">
+						            <feColorMatrix result="original" id="svgcolormatrix" type="matrix" values="-0.8 0.1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0.04"></feColorMatrix>
+						        </filter>
+						    </defs>
+						</svg>
+				    </ion-avatar>
+				</ion-list>
+			</div>
+		</div>
+
+		<div *ngIf="evening_special && evening_special.length != 0" class="specials__holder">
+			<div class="specials__heading">
+				<b>{{evening_special[0].item}}</b>
+				<span>{{evening_special[0].date_of_order}}</span>
+			</div>
+			<div class="specials__lists">
+				<ion-list *ngFor="let user of evening_special; let i = index">
+					<ion-avatar item-start (click)="closeOrder(user, 'evening', i)" [ngClass]="{active : user.order_status == 'closed'}" style="cursor: pointer;" [attr.title]="user.order_status == 'open' ? 'Mark item served' : ''">
+						<img src={{user.avatar}} width="70" class="avatar-img">
+						<ion-icon name="checkmark" class="checkmark"></ion-icon>
+						<svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filter">
+						    <defs>
+						        <filter id="svgfilter" x="0%" y="0%" width="100%" height="100%">
+						            <feColorMatrix result="original" id="svgcolormatrix" type="matrix" values="-0.8 0.1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0.04"></feColorMatrix>
+						        </filter>
+						    </defs>
+						</svg>
+					</ion-avatar>
+				</ion-list>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="noSpecialOrders" style="position: absolute;top: 30%;left: 35%;font-size: 30px;">
+		No special orders yet
+	</div>
+</ion-content>
