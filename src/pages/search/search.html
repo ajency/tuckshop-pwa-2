@@ -33,7 +33,7 @@
 
 
 
-<ion-content>
+<ion-content class="spotlight">
 
 	<ion-refresher (ionRefresh)="callScriptFunction($event)" pullMin=150>
 	    <ion-refresher-content
@@ -59,4 +59,13 @@
 	<div margin text-center *ngIf="loadError">
 		No Results
 	</div>
+
 </ion-content>
+
+<!-- Notification walkthrough -->
+
+<div class="ntf-walkthrough">
+	<h4 class="ntf-walkthrough__title">Get updates on <br> tuckshop for each day.</h4>
+	<button ion-button color="light" outline>Got it!</button>
+	<button ion-fab color="ajency" class="notifyIcon pulse"><ion-icon name="notifications"></ion-icon></button>
+</div>
