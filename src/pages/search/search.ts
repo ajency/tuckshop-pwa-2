@@ -95,7 +95,6 @@ export class SearchPage {
 
     console.log("ngOnInit search page");
     this.storage.get('this.data').then((data) => {     
-
       if(data){
         data.sort(this.sortItems);
 
@@ -108,18 +107,17 @@ export class SearchPage {
             temp.push(item);
           }
         }
+
         data = temp.concat(data);
-      }
 
+        this.items=data;  
+        this.items1=data;
 
-      this.items=data;  
-      this.items1=data;
-      
-      if(data){
-          this.findTypes(data);
-          setTimeout(()=>{
+        this.findTypes(data);
+        
+        setTimeout(()=>{
             document.getElementById('All').classList.add('active');
-          },100)
+        },100)
       }
       else{
         this.loadingItems = true;
