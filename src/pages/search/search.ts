@@ -43,6 +43,7 @@ export class SearchPage {
   notificationsSubscribed : boolean = false;
   notificationsSubscriptionToast : any;
   pulledToRefresh : boolean = false;
+  showNotificationsWalkthrough : boolean = false;
 
 
 	constructor(private popoverCtrl: PopoverController,
@@ -89,23 +90,12 @@ export class SearchPage {
 
   ngOnInit(){
     // this.notificationsSubscribed = this.firebasemessaging.notificationsSubscribed;
-    this.storage.get('notificationsSubscribed').then((res)=>{
-      console.log("local storage data ==>", res);
-      if(res && res.subscribed && Notification.permission == 'granted'){
-        this.notificationsSubscribed = true;
-      }
-      else{
-        this.notificationsSubscribed = false;
-      }
-    })
-    .catch((error)=>{
-      console.log("error in getting local storage data ==>",error)
-      this.notificationsSubscribed = false;
-    })
+    this.checkNotificationSubscription();
+
+    this.checkWalkthrogh();
 
     console.log("ngOnInit search page");
     this.storage.get('this.data').then((data) => {     
-
       if(data){
         data.sort(this.sortItems);
 
@@ -118,18 +108,17 @@ export class SearchPage {
             temp.push(item);
           }
         }
+
         data = temp.concat(data);
-      }
 
+        this.items=data;  
+        this.items1=data;
 
-      this.items=data;  
-      this.items1=data;
-      
-      if(data){
-          this.findTypes(data);
-          setTimeout(()=>{
+        this.findTypes(data);
+        
+        setTimeout(()=>{
             document.getElementById('All').classList.add('active');
-          },100)
+        },100)
       }
       else{
         this.loadingItems = true;
@@ -233,194 +222,194 @@ export class SearchPage {
 
 //search and display part
 
-callScriptFunction(refresher) {
+  callScriptFunction(refresher) {
 
-	this.loadError = false;
-	console.log("callScriptFunction");
+  	this.loadError = false;
+  	console.log("callScriptFunction");
 
-  // Get the profile image of the user
-  this.image = this.appservice.user_profile_pic
-  console.log(this.image);
+    // Get the profile image of the user
+    this.image = this.appservice.user_profile_pic
+    console.log(this.image);
 
-  let that = this;
-  var request;
-  // Create execution request.
-  if(that.code == ""){
-    console.log('youll get all results' );
-    request = {
-      'function': 'search',
-      'parameters': ""
-      };
-    if(refresher){
-        this.pulledToRefresh = true;        
-    }
-  }
-  else if(refresher == ""){
-    console.log('only one result');
-    request = {
-          'function': 'search',
-          'parameters': that.code
-      };
-
-  }
-  else{
-    console.log('youll get all resultsss' );
+    let that = this;
+    var request;
+    // Create execution request.
+    if(that.code == ""){
+      console.log('youll get all results' );
       request = {
-          'function': 'search',
-          'parameters': ""
-      };
+        'function': 'search',
+        'parameters': ""
+        };
       if(refresher){
-        this.pulledToRefresh = true;        
+          this.pulledToRefresh = true;        
       }
-  }
-      // Make the request.
-  let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`
-
-  this.appservice.request(url,'post',request,{},false,'promise').then((res)=>{
-    console.log("response from search api ==>", res);
-    this.processResponse(res);
-    if (refresher!=""){
-      refresher.complete();
-      console.log("referesh complete");
     }
-  })
-  .catch((error)=>{
-    console.log("error from search api", error);
-    if (refresher!=""){
-      refresher.complete();
+    else if(refresher == ""){
+      console.log('only one result');
+      request = {
+            'function': 'search',
+            'parameters': that.code
+        };
+
     }
-    this.loadingItems = false;
-    this.pulledToRefresh = false;
-    this.requestFailedToast();
-  })
-}
+    else{
+      console.log('youll get all resultsss' );
+        request = {
+            'function': 'search',
+            'parameters': ""
+        };
+        if(refresher){
+          this.pulledToRefresh = true;        
+        }
+    }
+        // Make the request.
+    let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`
 
-requestFailedToast() {
-  let toast = this.toastCtrl.create({
-    message: 'Request failed!   Please check your internet connection',
-    position: 'bottom',
-    showCloseButton : true
-  });
-
-
-  toast.present();
-}
-
-processResponse(resp: any) {
-  //  store the respose in items1
-
-  this.response = resp.response.result;
-
-  //  If data is not present in local storage store repsonse in items
-  this.findTypes(this.response);
-
-  if(!this.items || this.pulledToRefresh){
-    console.log("############# Items Refreshed ##################");
+    this.appservice.request(url,'post',request,{},false,'promise').then((res)=>{
+      console.log("response from search api ==>", res);
+      this.processResponse(res);
+      if (refresher!=""){
+        refresher.complete();
+        console.log("referesh complete");
+      }
+    })
+    .catch((error)=>{
+      console.log("error from search api", error);
+      if (refresher!=""){
+        refresher.complete();
+      }
+      this.loadingItems = false;
       this.pulledToRefresh = false;
-      this.response.sort(this.sortItems);
-      let temp = [];
-      for(let i =0; i<this.response.length; i++){
-        if(this.response[i].type == "Special"){
-          let item = this.response[i];
-          this.response.splice(i,1);
-          i-=1;
-          temp.push(item);
-        }
-      }
-      this.response  = temp.concat(this.response)
-
-      this.items = this.response;
-
-      setTimeout(()=>{
-          for(let i=0;i<this.types.length;i++){
-            document.getElementById(this.types[i]).classList.remove("active");
-          }
-            document.getElementById('All').classList.add('active');
-      },100)
-  } 
-
-  //  Function to store the data locally i.e. in cache
-  if(Object.keys(this.response).length ==1){
-    this.confirmPurchase(this.response[0]);
-    this.loadingItems = false;
+      this.requestFailedToast();
+    })
   }
 
-  // To avoid only one item or no item to be stored in items1 and local storage
-  if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0){
-      this.response.sort(this.sortItems);
-      let temp = [];
-      for(let i =0; i<this.response.length; i++){
-        if(this.response[i].type == "Special"){
-          let item = this.response[i];
-          this.response.splice(i,1);
-          i-=1;
-          temp.push(item);
-        }
-      }
-      this.response  = temp.concat(this.response)
-      this.items1 = this.response;
-      this.storage.set('this.data', this.items1).then( () => {
-        console.log("storage set function");
-      });
-  }
-  if(Object.keys(this.response).length ==0){
-    // If there is no response set loadError to true
-    if(Object.keys(this.response).length !=0){
-      this.loadError = true;
-    }   
-    this.itemnotfoundToast();
-  }
-
-  this.loadingItems = false;
-  this.zone.run(() => {});
-
-}
-
-confirmPurchase(item) {
-    console.log("inside confirmPurchase", item);
-		let product = [];
-		product = item;
-		let modal = this.modalCtrl.create('BuyPage',{item: product});
-		console.log(item.itemName);
-		modal.present();
-
-    // change the URL based on the item clicked
-    var stateObj = [];
-    this.loc.pushState(stateObj, "BuyPage", "/#/search/" + item.itemCode);
-    this.zone.run(() => {});
-}
-
-onCancel(){
-		console.log("cancel button");
-}
-
-public callFilter(){
-    // console.log(this.items);
-    // console.log(this.items1);
-  console.log("inside filter function");
-  this.loadError = false;
-  console.log(this.myInput);
-  //if the value is an empty string don't filter the items
-  for(let i=0;i<this.types.length;i++){
-    document.getElementById(this.types[i]).classList.remove("active");
-  }
-  document.getElementById('All').classList.add('active');
-  if (this.myInput && this.myInput.trim() != '') {
-    this.items = this.items1.filter((i) => {
-       return (i.itemName.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1);
+  requestFailedToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Request failed!   Please check your internet connection',
+      position: 'bottom',
+      showCloseButton : true
     });
 
-    console.log(this.items);
-    if(Object.keys(this.items).length ==0){
-        this.loadError = true;
-    }
-  }
-  else{
-    this.items = this.items1;
+
+    toast.present();
   }
 
-  this.zone.run(() => {});
-}
+  processResponse(resp: any) {
+    //  store the respose in items1
+
+    this.response = resp.response.result;
+
+    //  If data is not present in local storage store repsonse in items
+    this.findTypes(this.response);
+
+    if(!this.items || this.pulledToRefresh){
+      console.log("############# Items Refreshed ##################");
+        this.pulledToRefresh = false;
+        this.response.sort(this.sortItems);
+        let temp = [];
+        for(let i =0; i<this.response.length; i++){
+          if(this.response[i].type == "Special"){
+            let item = this.response[i];
+            this.response.splice(i,1);
+            i-=1;
+            temp.push(item);
+          }
+        }
+        this.response  = temp.concat(this.response)
+
+        this.items = this.response;
+
+        setTimeout(()=>{
+            for(let i=0;i<this.types.length;i++){
+              document.getElementById(this.types[i]).classList.remove("active");
+            }
+              document.getElementById('All').classList.add('active');
+        },100)
+    } 
+
+    //  Function to store the data locally i.e. in cache
+    if(Object.keys(this.response).length ==1){
+      this.confirmPurchase(this.response[0]);
+      this.loadingItems = false;
+    }
+
+    // To avoid only one item or no item to be stored in items1 and local storage
+    if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0){
+        this.response.sort(this.sortItems);
+        let temp = [];
+        for(let i =0; i<this.response.length; i++){
+          if(this.response[i].type == "Special"){
+            let item = this.response[i];
+            this.response.splice(i,1);
+            i-=1;
+            temp.push(item);
+          }
+        }
+        this.response  = temp.concat(this.response)
+        this.items1 = this.response;
+        this.storage.set('this.data', this.items1).then( () => {
+          console.log("storage set function");
+        });
+    }
+    if(Object.keys(this.response).length ==0){
+      // If there is no response set loadError to true
+      if(Object.keys(this.response).length !=0){
+        this.loadError = true;
+      }   
+      this.itemnotfoundToast();
+    }
+
+    this.loadingItems = false;
+    this.zone.run(() => {});
+
+  }
+
+  confirmPurchase(item) {
+      console.log("inside confirmPurchase", item);
+  		let product = [];
+  		product = item;
+  		let modal = this.modalCtrl.create('BuyPage',{item: product});
+  		console.log(item.itemName);
+  		modal.present();
+
+      // change the URL based on the item clicked
+      var stateObj = [];
+      this.loc.pushState(stateObj, "BuyPage", "/#/search/" + item.itemCode);
+      this.zone.run(() => {});
+  }
+
+  onCancel(){
+  		console.log("cancel button");
+  }
+
+  public callFilter(){
+      // console.log(this.items);
+      // console.log(this.items1);
+    console.log("inside filter function");
+    this.loadError = false;
+    console.log(this.myInput);
+    //if the value is an empty string don't filter the items
+    for(let i=0;i<this.types.length;i++){
+      document.getElementById(this.types[i]).classList.remove("active");
+    }
+    document.getElementById('All').classList.add('active');
+    if (this.myInput && this.myInput.trim() != '') {
+      this.items = this.items1.filter((i) => {
+         return (i.itemName.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1);
+      });
+
+      console.log(this.items);
+      if(Object.keys(this.items).length ==0){
+          this.loadError = true;
+      }
+    }
+    else{
+      this.items = this.items1;
+    }
+
+    this.zone.run(() => {});
+  }
 
 
 
@@ -475,39 +464,13 @@ public callFilter(){
 
 
   notificationsAlert() {
-    // console.log("get active page ==>", this.navCtrl.getActive());
-    // let alert = this.alertCtrl.create({
-    //   title: 'Would you like Tuckshop to send you notifications?',
-    //   // message: 'Allow Tuckshop to send notifications',
-    //   cssClass: 'notify-alert',
-    //   buttons: [
-    //     {
-    //       text: 'No',
-    //       handler: () => {
-    //         this.firebasemessaging.disableNotifications();
-    //         this.notificationsSubscribed = false;
-    //         console.log('Cancel clicked');
-    //       }
-    //     },
-    //     {
-    //       text: 'Yes',
-    //       handler: () => {
-    //         this.firebasemessaging.enableNotifications();
-    //         console.log('Yes clicked');
-    //       }
-    //     }
-    //   ]
-    // });
-    // alert.present();
-    // this.dismissToast()
     if(this.notificationsSubscribed){
         this.firebasemessaging.disableNotifications();
         this.notificationsSubscribed = false;
         this.notificationsSubscriptionToast = this.appservice.presentToast("You have turned off the notifications",'error',3000,false,'bottom','');
     }
     else{
-      this.firebasemessaging.enableNotifications();
-      
+      this.firebasemessaging.enableNotifications();      
     }
   }
 
@@ -515,6 +478,54 @@ public callFilter(){
     if(this.notificationsSubscriptionToast){
       this.notificationsSubscriptionToast.dismiss();
     }
+  }
+
+  checkWalkthrogh(){
+    this.storage.get('walkthrough').then((res)=>{
+      console.log("walkthrough data",res);
+      if(res){
+        this.showNotificationsWalkthrough = !res.notifications.walkthrough_seen;
+      }
+      else{
+        this.showNotificationsWalkthrough = true;
+      }      
+    })
+    .catch((error)=>{
+      console.log("error in getting local storage data ==>",error);
+    })
+  }
+
+  checkNotificationSubscription(){
+    this.storage.get('notificationsSubscribed').then((res)=>{
+      console.log("local storage data ==>", res);
+      if(res && res.subscribed && Notification.permission == 'granted'){
+        this.notificationsSubscribed = true;
+      }
+      else{
+        this.notificationsSubscribed = false;
+      }
+    })
+    .catch((error)=>{
+      console.log("error in getting local storage data ==>",error)
+      this.notificationsSubscribed = false;
+    })
+  }
+
+  notificationWalkthroughSeen(){
+    this.showNotificationsWalkthrough = false;
+
+    let walkthrough = {
+      notifications : {
+        walkthrough_seen : true
+      }
+    }
+
+    this.storage.set('walkthrough', walkthrough).then((res)=>{
+      console.log("walkthrough updated", res);
+    })
+    .catch((error)=>{
+      console.log("error in updating walkthrough ==>", error)
+    })
   }
 
 
