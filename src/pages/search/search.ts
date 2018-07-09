@@ -1,4 +1,4 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage, AlertController, Events } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
@@ -19,9 +19,6 @@ declare var Notification: any;
 })
 
 export class SearchPage {
-  @ViewChild("search_content") search_content;
-  @ViewChild("walkthrough") walkthrough;
-
 	private loadingItems: any;
 	// private loadResults = false;
 	private loadError = false;

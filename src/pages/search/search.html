@@ -33,7 +33,7 @@
 
 
 
-<ion-content #search_content >
+<ion-content [ngClass]="{'spotlight' : showNotificationsWalkthrough}">
 
 	<ion-refresher (ionRefresh)="callScriptFunction($event)" pullMin=150>
 	    <ion-refresher-content
@@ -64,8 +64,8 @@
 
 <!-- Notification walkthrough -->
 
-<div #walkthrough>
+<div [ngClass]="{'ntf-walkthrough' : showNotificationsWalkthrough}">
 	<h4 class="ntf-walkthrough__title">Get updates on <br> tuckshop for each day.</h4>
-	<button ion-button color="light" outline>Got it!</button>
+	<button  (click)="notificationWalkthroughSeen()" ion-button color="light" outline>Got it!</button>
 	<button ion-fab color="ajency" class="notifyIcon pulse"><ion-icon name="notifications"></ion-icon></button>
 </div>
