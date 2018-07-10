@@ -15,6 +15,7 @@ import { Events } from 'ionic-angular';
 */
 declare var Notification: any;
 declare var window : any;
+// navigator.serviceWorker.register('sw.js'); 
 
 @Injectable()
 export class FirebaseMessagingProvider {
@@ -55,6 +56,7 @@ export class FirebaseMessagingProvider {
       }
 	    this.receiveMessage();
       // this.handleNotificationClick();
+
 		});
   }
 
@@ -124,7 +126,12 @@ export class FirebaseMessagingProvider {
             url : payload.data.url
           }
         };
-        let pn = new Notification(payload.data.title, notificationOptions);
+        // let pn = new Notification(payload.data.title, notificationOptions);
+        // this.messaging.showNotification(payload.data.title, notificationOptions)
+        navigator.serviceWorker.ready.then(function(registration) {
+          let pn =  registration.showNotification(payload.data.title, notificationOptions)
+        });
+        
 
         this.events.publish("searchPage:notification", {url : payload.data.url});
         // window.open(payload.data.url);  
@@ -138,9 +145,25 @@ export class FirebaseMessagingProvider {
 
   }
   // handleNotificationClick(){
-  //   Notification.onclick((event)=>{
-  //     console.log("Notification clicked", event);
-  //     window.open(event.notification.data.url);
+
+  //   // navigator.serviceWorker.ready.then(function(registration) {
+  //   //     self.addEventListener('notificationclick', function(event) {
+  //   //     console.log('Notification click Received.',event);
+
+  //   //     // event.notification.close();
+
+  //   //     // event.waitUntil(
+  //   //     //   clients.openWindow(event.notification.data.url)
+  //   //     // );
+  //   //   });
+  //   // });
+  //   // Notification.onclick((event)=>{
+  //   //   console.log("Notification clicked", event);
+  //   //   window.open(event.notification.data.url);
+  //   // })
+
+  //   this.messaging.addEventListener('notificationclick', (event)=>{
+  //     console.log("notificationclick event received", event);
   //   })
   // }
 	    
