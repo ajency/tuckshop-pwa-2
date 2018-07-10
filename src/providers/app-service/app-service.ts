@@ -35,6 +35,7 @@ export class AppServiceProvider {
 	loader : any;
   unsubscribeTopicCall : any;
   storeFcmTokenCall : any;
+  itemCode : any;
 
   constructor(public http: Http,
 			  public toastCtrl: ToastController,

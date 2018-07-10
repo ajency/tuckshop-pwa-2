@@ -81,7 +81,10 @@ export class HomePage {
 
   navigateToSearch() {
     // Navigate to the search page and send a empty parameter to search page
-    this.navCtrl.push('SearchPage', {code : ''});
+    let itemCode = this.appservice.itemCode ? this.appservice.itemCode : '';
+    console.log("itemCode ==>", this.appservice.itemCode);
+    this.appservice.itemCode = '';
+    this.navCtrl.push('SearchPage', {code : itemCode});
     console.log('Navigating to another module');
   }
 

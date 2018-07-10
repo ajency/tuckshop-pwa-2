@@ -298,10 +298,11 @@ export class SearchPage {
     this.response = resp.response.result;
 
     //  If data is not present in local storage store repsonse in items
-    this.findTypes(this.response);
+    
 
     if(!this.items || this.pulledToRefresh){
       console.log("############# Items Refreshed ##################");
+        this.findTypes(this.response);
         this.pulledToRefresh = false;
         this.response.sort(this.sortItems);
         let temp = [];
@@ -333,6 +334,7 @@ export class SearchPage {
 
     // To avoid only one item or no item to be stored in items1 and local storage
     if(Object.keys(this.response).length !=1 && Object.keys(this.response).length !=0){
+        this.findTypes(this.response);
         this.response.sort(this.sortItems);
         let temp = [];
         for(let i =0; i<this.response.length; i++){
