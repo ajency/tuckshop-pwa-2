@@ -133,7 +133,7 @@ export class FirebaseMessagingProvider {
         });
         
 
-        this.events.publish("searchPage:notification", {url : payload.data.url});
+        // this.events.publish("searchPage:notification", {url : payload.data.url});
         // window.open(payload.data.url);  
         // pn.onclick((event)=>{
         //   console.log("Notification clicked", event);        
