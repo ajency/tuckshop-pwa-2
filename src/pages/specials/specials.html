@@ -16,7 +16,7 @@
 	<div *ngIf="specials" class="specials">
 		<div *ngIf="morning_special && morning_special.length != 0" class="specials__holder">
 			<div class="specials__heading">
-				<b>{{morning_special[0].item}}</b>
+				<b>{{morning_special[0].item}}  -  {{morning_special.length}}</b>
 				<span>{{morning_special[0].date_of_order}}</span>
 			</div>
 			<div class="specials__lists">
@@ -39,7 +39,7 @@
 
 		<div *ngIf="evening_special && evening_special.length != 0" class="specials__holder">
 			<div class="specials__heading">
-				<b>{{evening_special[0].item}}</b>
+				<b>{{evening_special[0].item}}  -  {{evening_special.length}}</b>
 				<span>{{evening_special[0].date_of_order}}</span>
 			</div>
 			<div class="specials__lists">
