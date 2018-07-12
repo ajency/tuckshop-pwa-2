@@ -422,12 +422,24 @@ export class SearchPage {
 
   findTypes(data){
     console.log("inside findTypes function");
-    var flags = [], output = ["All"];
+    var flags = [], output = [], SpecialFlag = 0;
     for(let i=0;i<data.length;i++){
       if( flags[data[i].type]) continue;
       flags[data[i].type]=true;
       output.push(data[i].type);
     }
+    for(let i =0; i<output.length; i++){
+      if(output[i] == "Special"){
+        output.splice(i, 1);
+        SpecialFlag = 1;
+        break;
+        // output.unshift("Special")
+      }
+    }
+    if(SpecialFlag){
+      output.unshift("Special")
+    }
+    output.unshift("All");
     this.types = output;
     console.log("types ===>", this.types)
   }
