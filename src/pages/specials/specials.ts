@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 /**
  * Generated class for the SpecialsPage page.
@@ -159,7 +159,7 @@ export class SpecialsPage {
             }
           }
           else{
-            let toast = this.appservice.presentToast("Something unexpected happened",'error',5000,false,'bottom',''); 
+            this.appservice.presentToast("Something unexpected happened",'error',5000,false,'bottom',''); 
           }
           this.closeOrderInProgress = false;
           this.appservice.dismissLoader(); 

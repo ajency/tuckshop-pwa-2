@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage, AlertController, Events } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, ToastController, PopoverController, IonicPage, Events } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
@@ -55,7 +55,6 @@ export class SearchPage {
               l : PlatformLocation,
               location : Location,
               public appservice : AppServiceProvider,
-              private alertCtrl: AlertController,
               public firebasemessaging : FirebaseMessagingProvider,
               private events: Events,) {
     this.code = this.navParams.get('code');

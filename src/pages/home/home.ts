@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, ToastController, IonicPage, ViewController, AlertController, Events } from 'ionic-angular';
+import { NavController, ToastController, IonicPage, ViewController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { PlatformLocation } from '@angular/common';
 import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
@@ -24,9 +24,7 @@ export class HomePage {
               public zone: NgZone, 
               public toastCtrl: ToastController,
               public appservice : AppServiceProvider,
-              public firebasemessaging : FirebaseMessagingProvider,
-              private alertCtrl: AlertController,
-              private events: Events,) {
+              public firebasemessaging : FirebaseMessagingProvider) {
     this.loc = l;
 
     // this.notificationUpdate = (data)=>{

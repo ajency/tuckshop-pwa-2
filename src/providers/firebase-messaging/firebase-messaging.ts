@@ -14,7 +14,7 @@ import { Events } from 'ionic-angular';
   for more info on providers and Angular DI.
 */
 declare var Notification: any;
-declare var window : any;
+// declare var window : any;
 // navigator.serviceWorker.register('sw.js'); 
 
 @Injectable()
@@ -77,7 +77,7 @@ export class FirebaseMessagingProvider {
       .catch((error)=>{
         console.log("error in requestPermission permission", error);
         if(Notification.permission == 'denied'){
-          let toast = this.appservice.presentToast("You have blocked Notifications for Tuckshop",'error',5000,false,'bottom','');
+          this.appservice.presentToast("You have blocked Notifications for Tuckshop",'error',5000,false,'bottom','');
         }
       })
   }
@@ -129,7 +129,7 @@ export class FirebaseMessagingProvider {
         // let pn = new Notification(payload.data.title, notificationOptions);
         // this.messaging.showNotification(payload.data.title, notificationOptions)
         navigator.serviceWorker.ready.then(function(registration) {
-          let pn =  registration.showNotification(payload.data.title, notificationOptions)
+           registration.showNotification(payload.data.title, notificationOptions)
         });
         
 

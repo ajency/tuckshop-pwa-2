@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, Nav } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FirebaseMessagingProvider } from '../providers/firebase-messaging/firebase-messaging';
+// import { FirebaseMessagingProvider } from '../providers/firebase-messaging/firebase-messaging';
 import { AppServiceProvider } from '../providers/app-service/app-service';
 import { Location } from '@angular/common';
 
@@ -16,7 +16,6 @@ export class MyApp {
   rootPage:any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-              private firebasemessaging : FirebaseMessagingProvider,
               private appservice : AppServiceProvider,
               private location: Location) {
     platform.ready().then(() => {
