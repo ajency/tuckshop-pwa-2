@@ -51,6 +51,14 @@ export class SpecialsPage {
   	
   }
 
+  ionViewWillLeave(){
+    console.log("inside ionview will leave function");
+    this.unsubscribeSpecialOrdersCall();
+    if(this.specialsCallTimeInterval){
+      clearInterval(this.specialsCallTimeInterval);
+    }
+  }
+
   unsubscribeSpecialOrdersCall(){
     console.log("unsubscribing specials order call");
     if(this.specialOrdersCall){
