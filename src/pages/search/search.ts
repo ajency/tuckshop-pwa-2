@@ -315,9 +315,10 @@ export class SearchPage {
           }
         }
         console.log("check concat function ==>", temp.concat(this.response));
+        this.items = temp.concat(this.response);
         this.response  = temp.concat(this.response)
         console.log("this.response ==>", this.response, temp);
-        this.items = temp.concat(this.response);
+        
         this.zone.run(() => {});
         setTimeout(()=>{
             for(let i=0;i<this.types.length;i++){
