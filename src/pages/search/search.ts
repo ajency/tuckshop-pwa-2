@@ -41,6 +41,7 @@ export class SearchPage {
   notificationsSubscriptionToast : any;
   pulledToRefresh : boolean = false;
   showNotificationsWalkthrough : boolean = false;
+  searchApiCall : any;
 
 
 	constructor(private popoverCtrl: PopoverController,
@@ -260,17 +261,18 @@ export class SearchPage {
         }
     }
         // Make the request.
-    let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`
+    let url = `https://content-script.googleapis.com/v1/scripts/${this.appservice.script_id}:run`;
 
-    this.appservice.request(url,'post',request,{},false,'promise').then((res)=>{
+    this.unsubscribeSearchApiCall();
+
+    this.searchApiCall = this.appservice.request(url,'post',request,{},false,'observable').subscribe((res)=>{
       console.log("response from search api ==>", res);
       this.processResponse(res);
       if (refresher!=""){
         refresher.complete();
         console.log("referesh complete");
       }
-    })
-    .catch((error)=>{
+    }, (error)=>{
       console.log("error from search api", error);
       if (refresher!=""){
         refresher.complete();
@@ -278,7 +280,7 @@ export class SearchPage {
       this.loadingItems = false;
       this.pulledToRefresh = false;
       this.requestFailedToast();
-    })
+    });
   }
 
   requestFailedToast() {
@@ -539,6 +541,12 @@ export class SearchPage {
     .catch((error)=>{
       console.log("error in updating walkthrough ==>", error)
     })
+  }
+
+  unsubscribeSearchApiCall(){
+    if(this.searchApiCall){
+      this.searchApiCall.unsubscribe();
+    }
   }
 
 
