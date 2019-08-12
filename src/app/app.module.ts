@@ -26,7 +26,9 @@ import { AppServiceProvider } from '../providers/app-service/app-service';
 import { FirebaseMessagingProvider } from '../providers/firebase-messaging/firebase-messaging';
 
 import { AngularFireModule } from 'angularfire2';
-import 'firebase/messaging'; 
+import 'firebase/messaging';
+import { ItemServiceProvider } from '../providers/item-service/item-service';
+import { OrderServiceProvider } from '../providers/order-service/order-service'; 
 
 
 const firebaseConfig = {
@@ -66,7 +68,9 @@ const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AppServiceProvider,
-    FirebaseMessagingProvider
+    FirebaseMessagingProvider,
+    ItemServiceProvider,
+    OrderServiceProvider
   ]
 })
 export class AppModule {}
