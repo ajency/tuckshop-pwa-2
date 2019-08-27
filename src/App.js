@@ -1,16 +1,11 @@
 import React from 'react';
-import logo from './assets/img/tuckshop.jpg';
-import './App.css';
-
+import 'bootstrap/dist/css/bootstrap.css';
+import Home from './components/home/home.js';
+import List from './components/list-page/list-page.js';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Tuckshop React App
-        </p>
-      </header>
+    <div>
+      <List/>
     </div>
   );
 }
