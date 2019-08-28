@@ -1,6 +1,4 @@
 .filter-btn {
-    min-width: 100px;
-    margin: 0 1em;
     background-color: #fff;
     color: #000;
     border-radius: 3px;
@@ -27,3 +25,102 @@
     background-color: #F6CE1E;
     border-color: #F6CE1E;   
 }
+
+.tuck-lists {
+    display: flex;
+    background-color: #e8e8e8;
+    padding: 0.8em 0;
+    width: 100%;
+    overflow: auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    .button{
+        min-width: 100px;
+        margin: 0 1em;
+        background-color: #fff;
+        color: #000;
+        border-radius: 3px;
+        height: auto;
+        padding: 0.3em 1.1em;
+        box-shadow: none;
+        border: 2px solid #fff;
+        .button-inner{
+            flex-direction: column;
+        }
+        &.active{
+            /*border-color: color($colors, ajency, base);*/
+            /*color: color($colors, ajency, base);*/
+        }
+        &:hover{
+            background-color: #fff;
+        }
+    }
+    .specialIcons{
+        display: block;
+        background-image: url('../../assets/img/filter-sprite.png');
+        background-repeat: no-repeat;
+        /*width: 48px;*/
+        height: 43px;
+        background-size: 800%;
+    }
+    .All-icon{
+        background-position: -321px -13px;
+    }
+    .Special-icon{
+        background-position: -193px -14px;
+    }
+    .Drink-icon{
+        background-position: -13px -13px;
+    }
+    .Biscuit-icon{
+        background-position: -70px -13px;
+    }
+    .Sweets-icon{
+        background-position: -258px -12px;
+    }
+    .Chips-icon{
+        background-position: -128px -13px;
+    }
+}
+
+.cancel-btn {
+    color: #f53d3d;
+    background-color: transparent;
+    border: none;
+}
+
+.buy-btn {
+    color: #222;
+    background-color: transparent;
+    border: none;
+}
+
+.modal-header {
+     background-color: #F6CE1E;
+}
+
+.modal-body {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.modal-footer {
+    border-color: #b2b2b2;
+    background: #f8f8f8;
+}
+
+.list-group-item {
+    cursor:pointer;
+}
+
+@media only screen and (min-height: 768px) and (min-width: 768px),
+only screen and (min-height: 600px) and (min-width: 768px){
+    .modal-wrapper {
+        left: calc(50% - (500px/2));
+        top: calc(50% - (300px/2));
+        width: 500px;
+        height: 300px;
+        overflow-y: hidden !important; 
+    }
+ }

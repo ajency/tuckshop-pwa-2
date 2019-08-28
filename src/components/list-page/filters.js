@@ -5,10 +5,10 @@ import './list.scss'
 class Filters extends Component {
 	render() {
 		const filterBtns = this.props.filters.map((filter) =>
-			<Button size="lg" className={"mr-2 filter-btn " + (filter.isSelected ? 'active' : '')} key={filter.type} onClick={()=>this.props.onFilterSelect(filter.type)} >{filter.type}</Button>
+			<Button size="lg" className={"mr-2 filter-btn specialIcons " + filter.type + "-icon " + (filter.isSelected ? 'active' : '')} key={filter.type} onClick={()=>this.props.onFilterSelect(filter.type)} >{filter.type}</Button>
 		);
 		return (
-			<div>
+			<div className="tuck-lists">
 				{filterBtns}
 			</div>
 		);

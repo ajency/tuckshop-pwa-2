@@ -5,6 +5,8 @@ import Filters from './filters.js';
 import Item from './item.js';
 import ItemModal from './item-modal.js';
 import axios from 'axios';
+import db from '../firebase/firebase.js';
+import { Route, Link } from 'react-router-dom'
 
 class List extends Component {
 
@@ -29,7 +31,7 @@ class List extends Component {
 		if(this.state.isLoaded)
 			if(this.state.items.length)
 				listContainer = this.state.items.map((item) =>
-			    	<Item key={item.itemCode} item={item} handleClick={(item) => this.handleItemClick(item)} />
+			    	<Item key={item.item_code} item={item} handleClick={(item) => this.handleItemClick(item)} />
 				);
 			else
 				listContainer = <div> No Results </div>
@@ -60,28 +62,27 @@ class List extends Component {
 	}
 
 	fetchItems() {
-		axios.get(`https://demo8558685.mockable.io/get-items`)
-			.then((res) => {
-				let items = res.data.response.result.sort(this.sortItems)
-				let temp = [];
-				for(let i =0; i<items.length; i++){
-					if(items[i].type === "Special"){
-						temp.push(items[i]);
-						items.splice(i,1);
-						i-=1;
+		db.collection("items").onSnapshot(querySnapshot => {
+			  		let items = querySnapshot.docs.map(doc => doc.data());
+			  		items = items.sort(this.sortItems)
+					let temp = [];
+					for(let i =0; i<items.length; i++){
+						if(items[i].type === "Special"){
+							temp.push(items[i]);
+							items.splice(i,1);
+							i-=1;
+						}
 					}
-				}
-				items = temp.concat(items);
-				this.setState({items : items, isLoaded : true, itemsCopy : items});
-				this.findTypes(items)
-			});
-			
+					items = temp.concat(items);
+					this.setState({items : items, isLoaded : true, itemsCopy : items});
+					this.findTypes(items)
+	    });
 	}
 
 	searchItem(searchText){
 		if (searchText && searchText.trim() !== '') {
 			let items = this.state.itemsCopy.filter((i) => {
-				return (i.itemName.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
+				return (i.item_name.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
 			});
 			this.setState({items : items });
 		}
@@ -103,7 +104,7 @@ class List extends Component {
 
 	sortItems(a,b){
 	    if(a.type === b.type){
-	    	return a.itemName < b.itemName ? -1 : 1;
+	    	return a.item_name < b.item_name ? -1 : 1;
 	    }
 	    return a.type < b.type ? -1 : 1;
   	}
