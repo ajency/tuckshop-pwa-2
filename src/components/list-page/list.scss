@@ -17,12 +17,13 @@
 
 .btn-primary:active{
     color: #F6CE1E;
-    background-color: #F6CE1E;
+    background-color: #fff;
+    border-color: #F6CE1E;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active {
     color: #000;
-    background-color: #F6CE1E;
+    background-color: #fff;
     border-color: #F6CE1E;   
 }
 

@@ -18,7 +18,9 @@ class List extends Component {
 			itemsCopy : [],
 			itemTypes : [],
 			showModal : false,
-			modalItem : {}
+			modalItem : {},
+			searchText : '',
+			selectedFilter : 'All'
 		};
 	}
 
@@ -34,9 +36,9 @@ class List extends Component {
 			    	<Item key={item.item_code} item={item} handleClick={(item) => this.handleItemClick(item)} />
 				);
 			else
-				listContainer = <div> No Results </div>
+				listContainer = <div className="text-center mt-5"> <h4> No Results </h4>  </div>
 		else
-			listContainer = <div> Loading </div>
+			listContainer = <div className="text-center mt-5"> <h4> Loading... </h4>  </div>
 
 		return (
 			<div>
@@ -75,11 +77,16 @@ class List extends Component {
 					}
 					items = temp.concat(items);
 					this.setState({items : items, isLoaded : true, itemsCopy : items});
-					this.findTypes(items)
+					this.findTypes(items);
+					if(this.state.searchText)
+						this.searchItem(this.state.searchText);
+					else
+						this.filterItems(this.state.selectedFilter);
 	    });
 	}
 
 	searchItem(searchText){
+		this.setState({searchText : searchText});
 		if (searchText && searchText.trim() !== '') {
 			let items = this.state.itemsCopy.filter((i) => {
 				return (i.item_name.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
@@ -89,10 +96,23 @@ class List extends Component {
 		else{
 			this.setState({items : this.state.itemsCopy });
 		}
+		this.setState({selectedFilter : 'All'}, ()=>{
+			this.setSelectedFilter();
+		});
+	}
+
+	setSelectedFilter(){
+		let itemTypes = this.state.itemTypes;
+  		itemTypes.forEach((item) =>{
+  			item.isSelected = false;
+  			if(item.type === this.state.selectedFilter)
+  				item.isSelected = true;
+  		})
+  		this.setState({itemTypes : itemTypes});
 	}
 
 	findTypes(data){
-		let flags = [], itemTypes = [{type: 'All', isSelected : false}], type;
+		let flags = [], itemTypes = [{type: 'All', isSelected : true}], type;
 		for(let i=0;i<data.length;i++){
 		if( flags[data[i].type]) continue;
 			flags[data[i].type]=true;
@@ -110,15 +130,10 @@ class List extends Component {
   	}
 
   	filterItems(type){
-  		let itemTypes = this.state.itemTypes;
-  		itemTypes.forEach((item) =>{
-  			item.isSelected = false;
-  			if(item.type === type)
-  				item.isSelected = true;
-  		})
+  		this.setState({selectedFilter : type}, ()=>{
+  			this.setSelectedFilter();
+  		});
   		
-  		this.setState({itemTypes : itemTypes});
-  		console.log(this.state);
 		if(type === 'All'){
 			this.setState({items : this.state.itemsCopy });
 		}
@@ -127,7 +142,7 @@ class List extends Component {
 				return item.type === type;
 			});
 			this.setState({items : items });
-		}    
+		}
 	}
 }
 
