@@ -12,12 +12,12 @@ class Home extends Component {
 				<Navbar expand="xl" className="justify-content-center">
 					<Navbar.Brand >Welcome to Tuckshop</Navbar.Brand>
 				</Navbar>
-				<h2 className="mb-2">Grab some Tuck!</h2>
-				<img src={logo} className="App-logo" alt="logo" />
+				<h2 className="mt-2 mb-2">Grab some Tuck!</h2>
+				<img src={logo} className="App-logo img-fluid" width="280" alt="logo" />
 				<div className="p-3">
-						<Button variant="warning" className="login-btn" size="lg">
-							<Link to="/search">Sign In</Link>
-						</Button>
+						
+					<Link variant="warning" className="btn login-btn" size="lg" to="/search">Sign In</Link>
+						
 				</div>
 			</div>
 		);

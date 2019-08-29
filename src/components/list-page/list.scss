@@ -57,30 +57,70 @@
         }
     }
     .specialIcons{
-        display: block;
-        background-image: url('../../assets/img/filter-sprite.png');
-        background-repeat: no-repeat;
-        /*width: 48px;*/
-        height: 43px;
-        background-size: 800%;
+        min-width: 100px;
+        margin: 0 1em;
+        background-color: #fff;
+        color: #000;
+        border-radius: 3px;
+        height: auto;
+        padding: .3em 1.1em;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: 2px solid #fff;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        outline: 0;
+
+        &:hover,
+        &:focus {
+            outline: 0;
+            box-shadow: none !important;
+        }
+
+        .btn-icon {
+            display: block;
+            background-image: url('../../assets/img/filter-sprite.png');
+            background-repeat: no-repeat;
+            /*width: 48px;*/
+            height: 43px;
+            background-size: 700%;
+        }
     }
     .All-icon{
-        background-position: -321px -13px;
+        .btn-icon {
+            background-position: -376px -15px;
+        }
     }
     .Special-icon{
-        background-position: -193px -14px;
+        .btn-icon {
+            background-position: -228px -15px;
+        }
     }
     .Drink-icon{
-        background-position: -13px -13px;
+        .btn-icon {
+            background-position: -13px -15px;
+        }
     }
     .Biscuit-icon{
-        background-position: -70px -13px;
+        .btn-icon {
+            background-position: -84px -15px;
+        }
     }
     .Sweets-icon{
-        background-position: -258px -12px;
+        .btn-icon {
+            background-position: -303px -15px;
+        }
     }
     .Chips-icon{
-        background-position: -128px -13px;
+        .btn-icon {
+            background-position: -146px -15px;
+        }
+    }
+    .Consumables-icon{
+        .btn-icon {
+            background-position: -364px -43px;
+        }
     }
 }
 
@@ -114,7 +154,51 @@
     cursor:pointer;
 }
 
-@media only screen and (min-height: 768px) and (min-width: 768px),
+.search-wrapper {
+    background-color: #f6ce32;
+    padding: 4px;
+    min-height: 56px;
+    .inner-wrap {
+        -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);       
+    }
+
+    .global-search {
+        background-image: url("data:image/svg+xml;charset=utf-8,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'><path%20fill='%235b5b5b'%20d='M337.509,305.372h-17.501l-6.571-5.486c20.791-25.232,33.922-57.054,33.922-93.257C347.358,127.632,283.896,64,205.135,64C127.452,64,64,127.632,64,206.629s63.452,142.628,142.225,142.628c35.011,0,67.831-13.167,92.991-34.008l6.561,5.487v17.551L415.18,448L448,415.086L337.509,305.372z%20M206.225,305.372c-54.702,0-98.463-43.887-98.463-98.743c0-54.858,43.761-98.742,98.463-98.742c54.7,0,98.462,43.884,98.462,98.742C304.687,261.485,260.925,305.372,206.225,305.372z'/></svg>");
+        background-size: 21px 21px;
+        background-repeat: no-repeat;
+
+        height: 70px;
+        padding: 6px 55px;
+        border-radius: 2px;
+        background-position: left 8px center;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 3rem;
+        color: #141414;
+        background-color: #fff;
+
+        &:focus,&:hover {
+            outline: 0;
+            box-shadow: none !important;
+            border-color: transparent !important;
+        }
+    }
+}
+
+.modal {
+    &-content {
+        border-radius: 0;
+        background-color: transparent;
+    }
+    &-body {
+        background-color: #fff;
+    }
+}
+
+.centered-modal.show { display: flex !important; } .centered-modal .modal-dialog { margin: auto; }
+
+/*@media only screen and (min-height: 768px) and (min-width: 768px),
 only screen and (min-height: 600px) and (min-width: 768px){
     .modal-wrapper {
         left: calc(50% - (500px/2));
@@ -123,4 +207,4 @@ only screen and (min-height: 600px) and (min-width: 768px){
         height: 300px;
         overflow-y: hidden !important; 
     }
- }
+ }*/

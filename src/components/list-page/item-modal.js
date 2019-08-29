@@ -8,7 +8,7 @@ class ItemModal extends Component {
 	render() {
 		return (
 			<div>
-		      <Modal className="modal-wrapper" show={this.props.showModal} onHide={()=>this.props.handleModalClose()}>
+		      <Modal className="modal-wrapper centered-modal" show={this.props.showModal} onHide={()=>this.props.handleModalClose()}>
 		        <Modal.Header className="modal-header">
 		          <Modal.Title>Are you sure you want to buy?</Modal.Title>
 		        </Modal.Header>

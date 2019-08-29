@@ -9,8 +9,10 @@ class SearchBar extends Component {
 
 	render() {
 		return (
-			<div>
-				<FormControl size="lg" type="text" placeholder="Search" className="mr-sm-2" onChange={this.handleChange} />
+			<div className="search-wrapper">
+				<div className="inner-wrap">
+					<FormControl size="lg" type="text" placeholder="Search" className="mr-sm-2 global-search" onChange={this.handleChange} />
+				</div>
 			</div>
 		);
 	}
