@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 import './list.scss'
 
 class ItemModal extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
+		}
+	}
 
 	render() {
 		return (
@@ -36,13 +43,31 @@ class ItemModal extends Component {
 		          <button className="cancel-btn" onClick={()=>this.props.handleModalClose()}>
 		            Cancel
 		          </button>
-		          <button className="buy-btn" onClick={()=>this.props.handleModalClose()}>
+		          <button className="buy-btn" onClick={()=>this.buyItem()}>
 		            Buy
 		          </button>
 		        </Modal.Footer>
 		      </Modal>
 		    </div>
 		);
+	}
+
+	buyItem(){
+		console.log("inside buyItem function");
+		this.props.handleModalClose();
+		const url = this.state.apiEndpoint + '/place-order';
+		let body = {
+	      user_email : 'sujit@ajency.in',
+	      item_code : this.props.item.item_code,
+	      quantity : 1,
+	    }
+		axios.post(url, body)
+			.then((res) => {
+				console.log("place order response ==>", res);
+			})
+			.catch((error)=>{
+				console.log("error in place order ==>", error);
+			})
 	}
 }
 
