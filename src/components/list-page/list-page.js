@@ -30,7 +30,12 @@ class List extends Component {
 
 	componentDidMount(){
 		this.fetchItems();
-		window.history.replaceState({}, "search", "search");
+		if(window.location.pathname !== '/search')
+			window.history.replaceState({}, "search", "search");
+		if(window.location.hash){
+			console.log(window.location.hash);
+			
+		}
 	}
 
 	render() {
@@ -55,7 +60,7 @@ class List extends Component {
 				<div className="list-group">
 					{listContainer}
 				</div>
-				<ItemModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()} orderSuccess={()=>this.showOrderSuccessToast()} orderFailure={()=>this.showOrderFailureToast()}/>
+				<ItemModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()} orderSuccess={()=>this.showOrderSuccessToast()} orderFailure={()=>this.showOrderFailureToast()} showLoaderToast={()=>this.showLoaderToast()} />
 				<ToastContainer autoClose={false} hideProgressBar={true} closeOnClick={false} position={toast.POSITION.BOTTOM_CENTER} />
 			</div>
 		);
@@ -67,11 +72,15 @@ class List extends Component {
 
 	handleModalClose(){
 		this.setState({showModal : false});
+	}
+
+	showLoaderToast(){
+		console.log("inside showLoaderToast")
+		toast.dismiss();
 		toast("Please wait ...");
 	}
 
 	showOrderSuccessToast(){
-		console.log("showOrderSuccessToast");
 		toast.dismiss();
 		toast("Order placed successfully", {autoClose : 3000});	
 	}

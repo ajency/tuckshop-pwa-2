@@ -58,6 +58,7 @@ class ItemModal extends Component {
 	buyItem(){
 		console.log("inside buyItem function");
 		this.props.handleModalClose();
+		this.props.showLoaderToast()
 		const url = this.state.apiEndpoint + '/place-order';
 		let body = {
 	      user_email : firebaseApp.auth().currentUser.email,
