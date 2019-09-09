@@ -3,7 +3,12 @@ import logo from '../../assets/img/tuckshop.jpg';
 import './home.scss';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
+import * as firebase from 'firebase/app';
+import firebaseApp from '../firebase/firebase.js';
+
+var provider = new firebase.auth.GoogleAuthProvider();
+provider.addScope('https://www.googleapis.com/auth/spreadsheets');
 
 class Home extends Component {
 	render() {
@@ -16,11 +21,26 @@ class Home extends Component {
 				<img src={logo} className="App-logo img-fluid" width="280" alt="logo" />
 				<div className="p-3">
 						
-					<Link variant="warning" className="btn login-btn" size="lg" to="/search">Sign In</Link>
+					<button variant="warning" className="btn login-btn" size="lg" onClick={()=>this.singInWithGoogle()}>Sing In</button>
 						
 				</div>
+				 
 			</div>
 		);
+	}
+
+	singInWithGoogle(){
+		let { history } = this.props;
+		console.log("inside sing in with google function")
+		firebase.auth().signInWithPopup(provider).then(function(result) {
+		  var token = result.credential.accessToken;
+		  var user = result.user;
+		  history.push({
+		   pathname: '/search'
+		  });
+		}).catch(function(error) {
+		  console.log("error in google login ==>", error);
+		});
 	}
 }
 

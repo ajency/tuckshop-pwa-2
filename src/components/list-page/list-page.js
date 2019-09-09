@@ -5,7 +5,7 @@ import Filters from './filters.js';
 import Item from './item.js';
 import ItemModal from './item-modal.js';
 import axios from 'axios';
-import db from '../firebase/firebase.js';
+import firebaseApp from '../firebase/firebase.js';
 import { Route, Link } from 'react-router-dom'
 
 class List extends Component {
@@ -20,7 +20,8 @@ class List extends Component {
 			showModal : false,
 			modalItem : {},
 			searchText : '',
-			selectedFilter : 'All'
+			selectedFilter : 'All',
+			db : firebaseApp.firestore()
 		};
 	}
 
@@ -64,7 +65,7 @@ class List extends Component {
 	}
 
 	fetchItems() {
-		db.collection("items").onSnapshot(querySnapshot => {
+		this.state.db.collection("items").onSnapshot(querySnapshot => {
 			  		let items = querySnapshot.docs.map(doc => doc.data());
 			  		items = items.sort(this.sortItems)
 					let temp = [];
