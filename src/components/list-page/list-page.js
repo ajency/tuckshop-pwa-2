@@ -27,6 +27,7 @@ class List extends Component {
 
 	componentDidMount(){
 		this.fetchItems();
+		window.history.replaceState({}, "search", "search");
 	}
 
 	render() {

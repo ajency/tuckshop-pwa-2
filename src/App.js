@@ -1,17 +1,28 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import { BrowserRouter, Router, Route, Link, Switch, Redirect } from "react-router-dom";
+// import firebaseApp from './components/firebase/firebase.js';
+// import Auth from './services/auth';
 import Home from './components/home/home.js';
-import List from './components/list-page/list-page.js';
+// import List from './components/list-page/list-page.js';
 
-const App = () => (
-	<Router>
-		<div>
-			<Route exact path="/" component={Home} />
-			<Route path="/search" component={List} />
-		</div>
-	</Router>
+
+const App = (props) => (
+	<BrowserRouter>
+		<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/search" component={Home} />
+		</Switch>
+	</BrowserRouter>
 )
+
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+// 	<Route {...rest} render={props =>
+// 			Auth.getAuth() 
+// 			? ( <Component {...props} />) 
+// 			: ( <Redirect to={{ pathname: "/" }}/>)
+// 		}
+// 	/>
+// );
 
 export default App;
