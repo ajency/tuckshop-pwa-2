@@ -6,7 +6,10 @@ import Item from './item.js';
 import ItemModal from './item-modal.js';
 import axios from 'axios';
 import firebaseApp from '../firebase/firebase.js';
-import { Route, Link } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class List extends Component {
 
@@ -52,7 +55,8 @@ class List extends Component {
 				<div className="list-group">
 					{listContainer}
 				</div>
-				<ItemModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()}/>
+				<ItemModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()} orderSuccess={()=>this.showOrderSuccessToast()} orderFailure={()=>this.showOrderFailureToast()}/>
+				<ToastContainer autoClose={false} hideProgressBar={true} closeOnClick={false} position={toast.POSITION.BOTTOM_CENTER} />
 			</div>
 		);
 	}
@@ -62,7 +66,19 @@ class List extends Component {
 	}
 
 	handleModalClose(){
-		this.setState({showModal : false})
+		this.setState({showModal : false});
+		toast("Please wait ...");
+	}
+
+	showOrderSuccessToast(){
+		console.log("showOrderSuccessToast");
+		toast.dismiss();
+		toast("Order placed successfully", {autoClose : 3000});	
+	}
+
+	showOrderFailureToast(){
+		toast.dismiss();
+		toast("Something went wrong. Please try again.", {autoClose : 3000});
 	}
 
 	fetchItems() {

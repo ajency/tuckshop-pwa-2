@@ -69,9 +69,11 @@ class ItemModal extends Component {
 		axios.post(url, body)
 			.then((res) => {
 				console.log("place order response ==>", res);
+				this.props.orderSuccess();
 			})
 			.catch((error)=>{
 				console.log("error in place order ==>", error);
+				this.props.orderFailure();
 			})
 	}
 }

@@ -209,3 +209,29 @@ only screen and (min-height: 600px) and (min-width: 768px){
         overflow-y: hidden !important; 
     }
  }*/
+
+ .Toastify {
+    &__toast-container {
+        bottom: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0;
+        width: 500px !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
+    &__toast {
+        margin-bottom: 0 !important;
+        box-shadow: none !important;
+        background-color: #333 !important;
+        color: #fff !important;
+        min-height: inherit !important;
+        padding: 12px 15px !important
+    }
+    &__toast-body {
+        margin: 0 !important;
+    }
+    &__close-button {
+        display: none !important;
+    }
+ }
