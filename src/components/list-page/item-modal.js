@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import './list.scss'
+import firebaseApp from '../firebase/firebase.js';
 
 class ItemModal extends Component {
 	constructor(props) {
@@ -10,6 +11,8 @@ class ItemModal extends Component {
 		this.state = {
 			apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
 		}
+
+		console.log("firebase.auth().currentUser ==>", firebaseApp.auth())
 	}
 
 	render() {
@@ -57,9 +60,11 @@ class ItemModal extends Component {
 		this.props.handleModalClose();
 		const url = this.state.apiEndpoint + '/place-order';
 		let body = {
-	      user_email : 'sujit@ajency.in',
+	      user_email : firebaseApp.auth().currentUser.email,
 	      item_code : this.props.item.item_code,
 	      quantity : 1,
+	      photoURL : firebaseApp.auth().currentUser.photoURL,
+	      uid : firebaseApp.auth().currentUser.uid
 	    }
 		axios.post(url, body)
 			.then((res) => {
