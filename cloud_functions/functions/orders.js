@@ -78,6 +78,9 @@ let Orders = {
 		newOrderData.item_code	= data.item_code;
 		newOrderData.item_name	= data.item_name;
 		newOrderData.item_price	= data.item_price;
+		newOrderData.uid 		= data.uid;
+		newOrderData.photoURL 	= data.photoURL;
+
 
 		newOrderData.quantity = data.quantity;
 
