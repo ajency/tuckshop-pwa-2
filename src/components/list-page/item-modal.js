@@ -9,7 +9,7 @@ class ItemModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
+			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
 		}
 
 		console.log("firebase.auth().currentUser ==>", firebaseApp.auth())
