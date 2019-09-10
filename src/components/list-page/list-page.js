@@ -97,7 +97,7 @@ class List extends Component {
 	fetchItems() {
 		this.state.db.collection("items").onSnapshot(querySnapshot => {
 			  		let items = querySnapshot.docs.map(doc => doc.data());
-			  		items = items.filter((item) => item.buyable && item.in_stock)
+			  		items = items.filter((item) => item.buyable && item.in_stock && item.stock > 0)
 			  		items = items.sort(this.sortItems)
 					let temp = [];
 					for(let i =0; i<items.length; i++){
