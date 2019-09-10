@@ -24,17 +24,20 @@ class List extends Component {
 			modalItem : {},
 			searchText : '',
 			selectedFilter : 'All',
-			db : firebaseApp.firestore()
+			db : firebaseApp.firestore(),
+			itemCode : ''
 		};
 	}
 
 	componentDidMount(){
 		this.fetchItems();
-		if(window.location.pathname !== '/search')
-			window.history.replaceState({}, "search", "search");
-		if(window.location.hash){
-			console.log(window.location.hash);
-			
+		let path = window.location.pathname;
+		if(!path.includes('/search'))
+			window.history.replaceState({}, "search", "/search");
+		if(path.includes('/search/')){
+			let item_code = path.split("/")[2]
+			console.log("item code ==>", item_code);
+			this.setState({itemCode : item_code});
 		}
 	}
 
@@ -60,8 +63,9 @@ class List extends Component {
 				<div className="list-group">
 					{listContainer}
 				</div>
-				<ItemModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()} orderSuccess={()=>this.showOrderSuccessToast()} orderFailure={()=>this.showOrderFailureToast()} showLoaderToast={()=>this.showLoaderToast()} />
 				<ToastContainer hideProgressBar={true} closeOnClick={false} position={toast.POSITION.BOTTOM_CENTER} />
+
+				<Route path='/search/:item_code' render={() => <ItemModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()} orderSuccess={()=>this.showOrderSuccessToast()} orderFailure={()=>this.showOrderFailureToast()} showLoaderToast={()=>this.showLoaderToast()} /> } />
 			</div>
 		);
 	}
@@ -72,6 +76,7 @@ class List extends Component {
 
 	handleModalClose(){
 		this.setState({showModal : false});
+		window.history.replaceState({}, "search", "/search");
 	}
 
 	showLoaderToast(){
@@ -104,12 +109,25 @@ class List extends Component {
 					}
 					items = temp.concat(items);
 					this.setState({items : items, isLoaded : true, itemsCopy : items});
+					if(this.state.itemCode)
+						this.findItem()
 					this.findTypes(items);
 					if(this.state.searchText)
 						this.searchItem(this.state.searchText);
 					else
 						this.filterItems(this.state.selectedFilter);
 	    });
+	}
+
+	findItem(){
+		let item = this.state.items.find((item)=>{ return item.item_code === this.state.itemCode})
+		if(item)
+			this.handleItemClick(item);
+		else{
+			toast.dismiss();
+			toast("Item not found", {autoClose : 3000});
+			window.history.replaceState({}, "search", "/search");
+		}
 	}
 
 	searchItem(searchText){
