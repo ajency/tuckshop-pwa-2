@@ -70,7 +70,11 @@ class ItemModal extends Component {
 		axios.post(url, body)
 			.then((res) => {
 				console.log("place order response ==>", res);
-				this.props.orderSuccess();
+				if(res.data.message_code === "SUCCESS")
+					this.props.orderSuccess();
+				else
+					this.props.orderFailure();
+
 			})
 			.catch((error)=>{
 				console.log("error in place order ==>", error);

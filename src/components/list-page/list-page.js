@@ -61,7 +61,7 @@ class List extends Component {
 					{listContainer}
 				</div>
 				<ItemModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()} orderSuccess={()=>this.showOrderSuccessToast()} orderFailure={()=>this.showOrderFailureToast()} showLoaderToast={()=>this.showLoaderToast()} />
-				<ToastContainer autoClose={false} hideProgressBar={true} closeOnClick={false} position={toast.POSITION.BOTTOM_CENTER} />
+				<ToastContainer hideProgressBar={true} closeOnClick={false} position={toast.POSITION.BOTTOM_CENTER} />
 			</div>
 		);
 	}
@@ -75,9 +75,8 @@ class List extends Component {
 	}
 
 	showLoaderToast(){
-		console.log("inside showLoaderToast")
 		toast.dismiss();
-		toast("Please wait ...");
+		toast("Please wait ...", {autoClose : false});
 	}
 
 	showOrderSuccessToast(){

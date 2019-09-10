@@ -11,7 +11,7 @@ const App = (props) => (
 	<BrowserRouter>
 		<Switch>
 				<Route exact path="/" component={Home} />
-				<Route exact path="/search" component={Home} />
+				<Route path="/search" component={Home} />
 		</Switch>
 	</BrowserRouter>
 )

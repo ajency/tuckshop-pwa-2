@@ -37,7 +37,7 @@ class Home extends Component {
 	render() {
 		let btnContent;
 		if(this.state.isAuthenticationChecked)
-			btnContent = <button variant="warning" className="btn login-btn" size="lg" onClick={()=>this.singInWithGoogle()}>Sing In</button>
+			btnContent = <button variant="warning" className="btn login-btn" size="lg" onClick={()=>this.singInWithGoogle()}>Sign In</button>
 
 		let pageContent;
 		if(this.state.isLoggedIn)
