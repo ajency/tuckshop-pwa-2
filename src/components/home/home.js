@@ -25,7 +25,7 @@ class Home extends Component {
 	componentDidMount(){
 		firebaseApp.auth().onAuthStateChanged( (user)=> {
 		  if (user) {
-		  	console.log("check user componentDidMount==>", user);
+		  	console.log("check user ==>", user);
 		  	this.setState({isLoggedIn : true, isAuthenticationChecked : true});
 		  } 
 		  else {
