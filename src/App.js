@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { BrowserRouter, Router, Route, Link, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import firebaseApp from './components/firebase/firebase.js';
 // import Auth from './services/auth';
 import Home from './components/home/home.js';
@@ -8,12 +8,10 @@ import Home from './components/home/home.js';
 
 
 const App = (props) => (
-	<BrowserRouter>
-		<Switch>
-				<Route exact path="/" component={Home} />
-				<Route path="/search" component={Home} />
-		</Switch>
-	</BrowserRouter>
+	<Router>
+			<Route exact path="/" component={Home} />
+			<Route path="/search" component={Home} />
+	</Router>
 )
 
 // const PrivateRoute = ({ component: Component, ...rest }) => (
