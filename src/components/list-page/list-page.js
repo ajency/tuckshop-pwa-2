@@ -75,7 +75,7 @@ class List extends Component {
 	}
 
 	handleModalClose(){
-		this.setState({showModal : false});
+		this.setState({showModal : false, itemCode : ''});
 		window.history.replaceState({}, "search", "/search");
 	}
 
