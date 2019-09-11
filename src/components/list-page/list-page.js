@@ -71,7 +71,7 @@ class List extends Component {
 	}
 
 	handleItemClick(item){
-		this.setState({showModal : true, modalItem : item})
+		this.setState({showModal : true, modalItem : item, itemCode : item.item_code})
 	}
 
 	handleModalClose(){
@@ -127,6 +127,7 @@ class List extends Component {
 			toast.dismiss();
 			toast("Item not found", {autoClose : 3000});
 			window.history.replaceState({}, "search", "/search");
+			this.setState({itemCode : ''});
 		}
 	}
 
