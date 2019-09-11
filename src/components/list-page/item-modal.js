@@ -11,9 +11,14 @@ class ItemModal extends Component {
 		this.state = {
 			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
 			// apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
+			quantity : 1
 		}
 
-		console.log("firebase.auth().currentUser ==>", firebaseApp.auth())
+		this.onQantityChange = this.onQantityChange.bind(this);
+	}
+
+	onQantityChange(event) {
+		this.setState({quantity: event.target.value});
 	}
 
 	render() {
@@ -36,7 +41,7 @@ class ItemModal extends Component {
 
 						<div className="d-flex justify-content-between">
 							<label>Quantity</label>
-							<select >
+							<select value={this.state.quantity} onChange={this.onQantityChange}>
 								<option value="1" >1</option>
 								<option value="2">2</option>
 							</select>
@@ -64,10 +69,11 @@ class ItemModal extends Component {
 		let body = {
 	      user_email : firebaseApp.auth().currentUser.email,
 	      item_code : this.props.item.item_code,
-	      quantity : 1,
+	      quantity : this.state.quantity,
 	      photoURL : firebaseApp.auth().currentUser.photoURL,
 	      uid : firebaseApp.auth().currentUser.uid
 	    }
+
 		axios.post(url, body)
 			.then((res) => {
 				console.log("place order response ==>", res);
@@ -75,11 +81,12 @@ class ItemModal extends Component {
 					this.props.orderSuccess();
 				else
 					this.props.orderFailure();
-
+				this.setState({quantity : 1});
 			})
 			.catch((error)=>{
 				console.log("error in place order ==>", error);
 				this.props.orderFailure();
+				this.setState({quantity : 1});
 			})
 	}
 }
