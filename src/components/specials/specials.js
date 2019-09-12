@@ -38,7 +38,7 @@ class Specials extends Component {
 		this.state.db.collection("orders").onSnapshot(querySnapshot => {
 			  		let orders = querySnapshot.docs.map(doc => doc.data());
 			  		console.log("orders ==>", orders)
-			  		orders = orders.filter((order) => order.item_code === "400195")
+			  		orders = orders.filter((order) => order.item_code === "400159")
 			  		orders.sort((a,b)=>{
 			  			return a.created.seconds - b.created.seconds;
 			  		})
