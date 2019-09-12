@@ -71,7 +71,9 @@ class ItemModal extends Component {
 	      item_code : this.props.item.item_code,
 	      quantity : this.state.quantity,
 	      photoURL : firebaseApp.auth().currentUser.photoURL,
-	      uid : firebaseApp.auth().currentUser.uid
+	      uid : firebaseApp.auth().currentUser.uid,
+	      name : firebaseApp.auth().currentUser.displayName,
+	      type : this.props.item.type
 	    }
 
 		axios.post(url, body)
