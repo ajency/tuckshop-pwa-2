@@ -1,8 +1,11 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 const axios = require('axios');
+var { google } = require('googleapis');
+const sheets = google.sheets('v4');
+const spreadsheetId = '15ggzO3fN-o5FhG7UN3z9QYuNwbqFYv28-0T57q614-E';
 
-
+let serviceAccount = require('./tuckshop-3-firebase-adminsdk-ng72y-add169fc72.json');
 // If on cloud functions
 if (process.env.X_GOOGLE_FUNCTION_IDENTITY) {
 	admin.initializeApp(functions.config().firebase);
@@ -10,13 +13,20 @@ if (process.env.X_GOOGLE_FUNCTION_IDENTITY) {
 }
 //if running locally
 else {
-	let serviceAccount = require('../tuckshop-3-firebase-adminsdk-ng72y-add169fc72.json');
 	admin.initializeApp({
 		credential: admin.credential.cert(serviceAccount),
 		databaseURL: "https://tuckshop-3.firebaseio.com"
 	});
 	//console.log('Running locally');
 }
+
+
+const jwtClient = new google.auth.JWT({
+    email: serviceAccount.client_email,
+    key: serviceAccount.private_key,
+    scopes: [ 'https://www.googleapis.com/auth/spreadsheets' ],  // read and write sheets
+})
+const jwtAuthPromise = jwtClient.authorize();
 
 //let User = require('./user.js');
 let Items = require('./items.js');
@@ -32,7 +42,10 @@ const placeOrder = async data =>{
 		"user_email": data.user_email,
 		"quantity" : data.quantity,
 		"uid" : data.uid,
-		"photoURL" : data.photoURL
+		"photoURL" : data.photoURL,
+		"name" : data.name,
+		"type" : data.type,
+		"status" : data.status
 	}
 	//TODO: add user info
 
@@ -58,35 +71,6 @@ const placeOrder = async data =>{
 	}else {
 		throw new Error("Item Not Found")							//THROW_ERROR
 	}
-
-
-	// const url = 'https://content-script.googleapis.com/v1/scripts/MlsyhBA8pahmwC5fFTXUFT6AvZzphd5k5:run';
-	// let body = {
-	// 	"function": "log",
-	// 	"parameters": [
-	// 		"100124",
-	// 		"sujit@ajency.in",
-	// 		1,
-	// 		"https://lh3.googleusercontent.com/a-/AAuE7mDAwNexBKeZA3rLmgCNJRfQ909fxWcP546HHDej=s96-c"
-	// 	]
-	// }
-
-	//  const config = {
-	//       headers: {
-	//           "Authorization": 'Bearer ya29.Glx-B9oJA5Pp_xWLck0FHm4geDOgxPsK9R95gUdnHR2lbQVVoy-4AAQwqCO-HAGOueLa9L75RJAlQ4G94LDxa_6MAo3NtFDK5eMbZsBG3TKUPqavo90Ys4reskKJSQ',
-	//           "content-type": 'application/json'
-	//       }
-	//   };
-
-	// console.log("axios api call");
-	// axios.post(url, body, config)
-	// 	.then((res) => {
-	// 		console.log("place order response ==>", res);
-	// 	})
-	// 	.catch((error)=>{
-	// 		console.log("error in place order ==>", error);
-	// 	})
-
 
 
 	//place order
@@ -152,4 +136,83 @@ exports.api = functions.https.onRequest(app);
 exports.helloWorld = functions.https.onRequest((request, response) => {
 	//OTP.genOTP();
 	response.send("Hello from Firebase!");
+});
+
+// Listen for changes in all documents in the 'orders' collection
+exports.onOrderCreate = functions.firestore
+	.document('orders/{orderId}')
+		.onCreate( async (snap, context) => {
+    		let orderData = snap.data();
+    		let date = new Date();
+    		let data = [
+    			[ 
+    				"", 
+    				"", 
+    				orderData.name, 
+    				orderData.user_email, 
+    				orderData.item_code, 
+    				orderData.item_name, 
+    				orderData.type, 
+    				orderData.item_price, 
+    				date.toLocaleDateString(), 
+    				date.toLocaleDateString("en-US", {month : 'short', year: 'numeric'}), 
+    				date.toLocaleDateString("en-US", {weekday : 'short'}), 
+    				((date.toLocaleDateString("en-US", {hour : '2-digit', minute : '2-digit', second : '2-digit'})).split(',')[1]).substring(1)]
+    		];
+
+		    await jwtAuthPromise
+
+		    let request = {
+		    	spreadsheetId: spreadsheetId,
+		        range: 'Team member',
+		        auth: jwtClient
+		    }
+		    await sheets.spreadsheets.values.get(request, (err, res) => {
+		    	if(err){
+		    		console.log("error in reading team member sheet");
+		    		return;
+		    	}
+
+		    	res.data.values.forEach((row)=>{
+		    		if(row[2] === orderData.user_email){
+		    			data[0][1] = row[0];
+		    		}
+		    	})
+
+		    		console.log("data ==>", data);
+
+		    		//entry in logs
+	    			request = {
+				        spreadsheetId: spreadsheetId,
+				        range: 'Log',
+				        valueInputOption: 'RAW',
+				        resource: { values: data },
+				        auth: jwtClient
+				    }
+				    
+				    // Send the request
+				     sheets.spreadsheets.values.append(request, (err, response) => {
+				        if (err) {
+				            console.log("error ==>",err)
+				            return
+				        }
+				    })
+
+				     //entry in persistent logs
+				     request = {
+				        spreadsheetId: spreadsheetId,
+				        range: 'Persistent_logs',
+				        valueInputOption: 'RAW',
+				        resource: { values: data },
+				        auth: jwtClient
+				    }
+				    
+				    // Send the request
+				     sheets.spreadsheets.values.append(request, (err, response) => {
+				        if (err) {
+				            console.log("error ==>",err)
+				            return
+				        }
+				    })
+		    })
 });

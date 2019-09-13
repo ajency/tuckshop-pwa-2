@@ -74,6 +74,9 @@ let Orders = {
 		newOrderData.user_email = data.user_email;
 		if(data.user_id)	newOrderData.user_id	= data.user_id;
 		if(data.user_name)	newOrderData.user_name	= data.user_name;
+		if(data.name) newOrderData.name 	= data.name;
+		if(data.type) newOrderData.type 	= data.type;
+		if(data.status) newOrderData.status 	= data.status;
 		
 		newOrderData.item_code	= data.item_code;
 		newOrderData.item_name	= data.item_name;
