@@ -179,40 +179,46 @@ exports.onOrderCreate = functions.firestore
 		    		}
 		    	})
 
-		    		console.log("data ==>", data);
+	    		console.log("data ==>", data);
 
-		    		//entry in logs
-	    			request = {
-				        spreadsheetId: spreadsheetId,
-				        range: 'Log',
-				        valueInputOption: 'RAW',
-				        resource: { values: data },
-				        auth: jwtClient
-				    }
-				    
-				    // Send the request
-				     sheets.spreadsheets.values.append(request, (err, response) => {
-				        if (err) {
-				            console.log("error ==>",err)
-				            return
-				        }
-				    })
+	    		for(let i = 1; i < orderData.quantity; i++){
+	    			data[i] = data[0]
+	    		}
 
-				     //entry in persistent logs
-				     request = {
-				        spreadsheetId: spreadsheetId,
-				        range: 'Persistent_logs',
-				        valueInputOption: 'RAW',
-				        resource: { values: data },
-				        auth: jwtClient
-				    }
-				    
-				    // Send the request
-				     sheets.spreadsheets.values.append(request, (err, response) => {
-				        if (err) {
-				            console.log("error ==>",err)
-				            return
-				        }
-				    })
+	    		//entry in logs
+    			request = {
+			        spreadsheetId: spreadsheetId,
+			        range: 'Log',
+			        valueInputOption: 'RAW',
+			        resource: { values: data },
+			        auth: jwtClient
+			    }
+			    
+			    // Send the request
+			     sheets.spreadsheets.values.append(request, (err, response) => {
+			        if (err) {
+			            console.log("error ==>",err)
+			            return
+			        }
+			        console.log("entry in log success");
+			    })
+
+			     //entry in persistent logs
+			     request = {
+			        spreadsheetId: spreadsheetId,
+			        range: 'Persistent_logs',
+			        valueInputOption: 'RAW',
+			        resource: { values: data },
+			        auth: jwtClient
+			    }
+			    
+			    // Send the request
+			    sheets.spreadsheets.values.append(request, (err, response) => {
+			        if (err) {
+			            console.log("error ==>",err)
+			            return
+			        }
+			        console.log("entry in persistent success");
+			    })
 		    })
 });
