@@ -5,6 +5,7 @@ var { google } = require('googleapis');
 const sheets = google.sheets('v4');
 const spreadsheetId = '15ggzO3fN-o5FhG7UN3z9QYuNwbqFYv28-0T57q614-E';
 
+
 let serviceAccount = require('./tuckshop-3-firebase-adminsdk-ng72y-add169fc72.json');
 // If on cloud functions
 if (process.env.X_GOOGLE_FUNCTION_IDENTITY) {
@@ -20,6 +21,7 @@ else {
 	//console.log('Running locally');
 }
 
+const firestore = admin.firestore();
 
 const jwtClient = new google.auth.JWT({
     email: serviceAccount.client_email,
@@ -222,3 +224,28 @@ exports.onOrderCreate = functions.firestore
 			    })
 		    })
 });
+
+// listen when a new doc is created in stocks collection
+exports.onStockEntry = functions.firestore
+		.document('stock_entry/{stock_id}')
+			.onCreate( async (snap, context) => {
+				let stockData = snap.data();
+				console.log("Stock data ==>", stockData);
+
+				let item = await Items.getItemByCode(stockData.item_code)
+				item = item[0];
+				console.log("item ==>",item)
+				if(item){
+					console.log("item found ==>", item)
+					let itemRef = firestore.collection('items').doc(stockData.item_code);
+					itemRef.update({
+						stock : item.stock + stockData.purchase_quantity
+					})
+					.then((res)=>{
+						console.log("Doc updated successfully");
+					})
+					.catch((error)=>{
+						console.error("Error updating document: ", error);
+					})
+				}
+			})

@@ -135,6 +135,18 @@ Items = {
 			return { 'error': err };
 		}
 	},
+
+	// for stock entry
+	getItemByCode: async (code) => {
+		let firestore = admin.firestore();
+		let items = await firestore.collection('items')
+		.where('item_code', "==", code)
+		.get();
+		let result = items.docs.map(doc => {
+			return doc.data()
+		})
+		return result;
+	}
 }
 
 module.exports = Items;
