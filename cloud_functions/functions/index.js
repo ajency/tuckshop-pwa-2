@@ -145,7 +145,7 @@ exports.onOrderCreate = functions.firestore
 	.document('orders/{orderId}')
 		.onCreate( async (snap, context) => {
     		let orderData = snap.data();
-    		let date = new Date();
+    		let date = orderData.created.toDate();
     		let data = [
     			[ 
     				"", 
@@ -187,43 +187,53 @@ exports.onOrderCreate = functions.firestore
 	    			data[i] = data[0]
 	    		}
 
-	    		//entry in logs
-    			request = {
-			        spreadsheetId: spreadsheetId,
-			        range: 'Log',
-			        valueInputOption: 'RAW',
-			        resource: { values: data },
-			        auth: jwtClient
-			    }
-			    
-			    // Send the request
-			     sheets.spreadsheets.values.append(request, (err, response) => {
-			        if (err) {
-			            console.log("error ==>",err)
-			            return
-			        }
-			        console.log("entry in log success");
-			    })
-
-			     //entry in persistent logs
-			     request = {
-			        spreadsheetId: spreadsheetId,
-			        range: 'Persistent_logs',
-			        valueInputOption: 'RAW',
-			        resource: { values: data },
-			        auth: jwtClient
-			    }
-			    
-			    // Send the request
-			    sheets.spreadsheets.values.append(request, (err, response) => {
-			        if (err) {
-			            console.log("error ==>",err)
-			            return
-			        }
-			        console.log("entry in persistent success");
-			    })
+	    		writeToLogSheet(data);
+	    		writeToPersistentLogs(data);
+			   
 		    })
 });
+
+
+function writeToLogSheet(data){
+	//entry in logs
+	request = {
+        spreadsheetId: spreadsheetId,
+        range: 'Log',
+        valueInputOption: 'RAW',
+        resource: { values: data },
+        auth: jwtClient
+    }
+    
+    // Send the request
+     sheets.spreadsheets.values.append(request, (err, response) => {
+        if (err) {
+            console.log("error ==>",err)
+            return
+        }
+        console.log("entry in log success");
+    })
+}
+
+
+function writeToPersistentLogs(data){
+	//entry in persistent logs
+    request = {
+        spreadsheetId: spreadsheetId,
+        range: 'Persistent_logs',
+        valueInputOption: 'RAW',
+        resource: { values: data },
+        auth: jwtClient
+    }
+    
+    // Send the request
+    sheets.spreadsheets.values.append(request, (err, response) => {
+        if (err) {
+            console.log("error ==>",err)
+            return
+        }
+        console.log("entry in persistent success");
+    })
+}
 
 // listen when a new doc is created in stocks collection
 exports.onStockEntry = functions.firestore
