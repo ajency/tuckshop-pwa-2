@@ -69,7 +69,7 @@ class ItemModal extends Component {
 		let body = {
 	      user_email : firebaseApp.auth().currentUser.email,
 	      item_code : this.props.item.item_code,
-	      quantity : this.state.quantity,
+	      quantity : parseInt(this.state.quantity),
 	      photoURL : firebaseApp.auth().currentUser.photoURL,
 	      uid : firebaseApp.auth().currentUser.uid,
 	      name : firebaseApp.auth().currentUser.displayName,
