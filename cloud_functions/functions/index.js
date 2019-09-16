@@ -147,6 +147,14 @@ exports.onOrderCreate = functions.firestore
     		let orderData = snap.data();
     		let date = orderData.created.toDate();
     		console.log("date ==>", date.toLocaleDateString());
+			
+			let dd = date.getDate();
+			let mm = date.getMonth() + 1; //January is 0!
+			let yyyy = date.getFullYear();
+
+    		let foramtted_date = dd + '-' + mm + '-' + yyyy;
+
+    		console.log("fomatted date ==>", foramtted_date)
     		let data = [
     			[ 
     				"", 
@@ -157,7 +165,7 @@ exports.onOrderCreate = functions.firestore
     				orderData.item_name, 
     				orderData.type, 
     				orderData.item_price, 
-    				date.toLocaleDateString(), 
+    				foramtted_date,
     				date.toLocaleDateString("en-US", {month : 'short', year: 'numeric'}), 
     				date.toLocaleDateString("en-US", {weekday : 'short'}), 
     				((date.toLocaleDateString("en-US", {hour : '2-digit', minute : '2-digit', second : '2-digit'})).split(',')[1]).substring(1)]
