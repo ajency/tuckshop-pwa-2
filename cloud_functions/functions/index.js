@@ -146,6 +146,7 @@ exports.onOrderCreate = functions.firestore
 		.onCreate( async (snap, context) => {
     		let orderData = snap.data();
     		let date = orderData.created.toDate();
+    		console.log("date ==>", date.toLocaleDateString());
     		let data = [
     			[ 
     				"", 
@@ -237,25 +238,64 @@ function writeToPersistentLogs(data){
 
 // listen when a new doc is created in stocks collection
 exports.onStockEntry = functions.firestore
-		.document('stock_entry/{stock_id}')
-			.onCreate( async (snap, context) => {
-				let stockData = snap.data();
-				console.log("Stock data ==>", stockData);
+	.document('stock_entry/{stock_id}')
+		.onCreate( async (snap, context) => {
+			let stockData = snap.data();
+			console.log("Stock data ==>", stockData);
 
-				let item = await Items.getItemByCode(stockData.item_code)
-				item = item[0];
-				console.log("item ==>",item)
-				if(item){
-					console.log("item found ==>", item)
-					let itemRef = firestore.collection('items').doc(stockData.item_code);
-					itemRef.update({
-						stock : item.stock + stockData.purchase_quantity
-					})
-					.then((res)=>{
-						console.log("Doc updated successfully");
-					})
-					.catch((error)=>{
-						console.error("Error updating document: ", error);
-					})
-				}
-			})
+			let item = await Items.getItemByCode(stockData.item_code)
+			item = item[0];
+			console.log("item ==>",item)
+			if(item){
+				console.log("item found ==>", item)
+				let itemRef = firestore.collection('items').doc(stockData.item_code);
+				itemRef.update({
+					stock : item.stock + stockData.purchase_quantity
+				})
+				.then((res)=>{
+					console.log("Doc updated successfully");
+				})
+				.catch((error)=>{
+					console.error("Error updating document: ", error);
+				})
+			}
+		})
+
+
+
+exports.onNewItemCreate = functions.firestore
+	.document('items/{item_id}')
+		.onCreate( async (snap, context) => {
+			let item = snap.data();
+
+			let data = [
+				[
+					item.item_code, item.item_name, item.type, item.price, item.description, item.in_stock, item.buyable, 0, 0 , 0
+				]
+			];
+
+			await jwtAuthPromise
+
+			writeToSheet(data, 'Item master');
+
+		})
+
+function writeToSheet(data, sheet_name){
+	//entry in persistent logs
+    let request = {
+        spreadsheetId: spreadsheetId,
+        range: sheet_name,
+        valueInputOption: 'RAW',
+        resource: { values: data },
+        auth: jwtClient
+    }
+    
+    // Send the request
+    sheets.spreadsheets.values.append(request, (err, response) => {
+        if (err) {
+            console.log("error ==>",err)
+            return
+        }
+        console.log("entry in sheet success");
+    })
+}
