@@ -111,7 +111,7 @@ class Orders extends Component {
 			  		let month_year = month ? (new Date(month)).toLocaleDateString("en-US", {month : 'short', year: 'numeric'}) : new Date().toLocaleDateString("en-US", {month : 'short', year: 'numeric'})
 			  		orders = orders.filter((order) =>  (order.created.toDate()).toLocaleDateString("en-US", {month : 'short', year: 'numeric'}) == month_year)
 			  		orders.sort((a,b)=>{
-			  			return a.created.seconds - b.created.seconds;
+			  			return b.created.seconds - a.created.seconds;
 			  		})
 			  		this.setState({orders : orders})
 	    });
