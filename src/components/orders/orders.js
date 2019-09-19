@@ -76,7 +76,7 @@ class Orders extends Component {
 			                <label className="mr-2">Select Month : </label>
 							  <button className="btn btn-dark mr-1" onClick={this.decreaseMonth}>{'< '}</button>
 							  <button className="btn btn-dark month-selected">{this.state.month.format('MMM YYYY')}</button>
-							  <button className="btn btn-dark ml-1" onClick={this.increaseMonth}>
+							  <button disabled={this.state.month.clone().add(1, 'hour') > moment()} className="btn btn-dark ml-1" onClick={this.increaseMonth}>
 							    {'>'}
 							  </button>
 							</div>
