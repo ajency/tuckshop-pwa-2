@@ -47,3 +47,19 @@
     	}
     }
 }
+
+
+.popover-body {
+	a {
+		padding: 11px 10px;
+		display: block;
+		text-align: center;
+		color: #000;
+
+		&:hover,
+		&:focus {
+			text-decoration: none;
+			color: #000;
+		}
+	}
+}

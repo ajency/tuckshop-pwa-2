@@ -8,6 +8,7 @@ import * as firebase from 'firebase/app';
 import firebaseApp from '../firebase/firebase.js';
 
 import List from '../list-page/list-page.js';
+import Orders from '../orders/orders.js';
 
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope('https://www.googleapis.com/auth/spreadsheets');
@@ -40,8 +41,12 @@ class Home extends Component {
 			btnContent = <button variant="warning" className="btn login-btn" size="lg" onClick={()=>this.singInWithGoogle()}>Sign In</button>
 
 		let pageContent;
-		if(this.state.isLoggedIn)
-			pageContent = <List/>
+		if(this.state.isLoggedIn){
+			if(window.location.pathname == '/orders')
+				pageContent = <Orders/>
+			else
+				pageContent = <List/>
+		}
 		else
 			pageContent = (<div className="App">
 					<Navbar expand="xl" className="justify-content-center">

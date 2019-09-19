@@ -25,12 +25,7 @@ class List extends Component {
 			searchText : '',
 			selectedFilter : 'All',
 			db : firebaseApp.firestore(),
-			itemCode : '',
-			userInfo : {
-				name : firebaseApp.auth().currentUser.displayName,
-				email : firebaseApp.auth().currentUser.email,
-				photoURL : firebaseApp.auth().currentUser.photoURL
-			}
+			itemCode : ''
 		};
 	}
 
@@ -60,7 +55,7 @@ class List extends Component {
 
 		return (
 			<div>
-				<Header userInfo={this.state.userInfo} />
+				<Header />
 				<SearchBar onSearchChange={(searchText)=> this.searchItem(searchText)}/>
 				<div className="mt-2 border">
 					<Filters filters={this.state.itemTypes} onFilterSelect={(type)=> this.filterItems(type)}/>
