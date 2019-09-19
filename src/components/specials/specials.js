@@ -56,7 +56,7 @@ class Specials extends Component {
 	fetchOrders() {
 		this.state.db.collection("orders").onSnapshot(querySnapshot => {
 			  		let orders = querySnapshot.docs.map(doc => doc.data());
-			  		console.log("orders ==>", orders, (orders[0].created.toDate()).toLocaleDateString(), new Date().toLocaleDateString() );
+			  		// console.log("orders ==>", orders, (orders[0].created.toDate()).toLocaleDateString(), new Date().toLocaleDateString() );
 			  		orders = orders.filter((order) => order.type === "Special" && (order.created.toDate()).toLocaleDateString() == new Date().toLocaleDateString())
 			  		orders.sort((a,b)=>{
 			  			return a.created.seconds - b.created.seconds;
@@ -76,7 +76,7 @@ class Specials extends Component {
 		for (var key in grouped_obj) {
 			grouped_array.push(grouped_obj[key]);
 		}
-		console.log("group by ==>", grouped_array);
+		// console.log("group by ==>", grouped_array);
 		this.setState({specialsOrders : grouped_array});
 	}
 }

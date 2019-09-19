@@ -11,17 +11,18 @@ import * as firebase from 'firebase/app';
 class Header extends Component {
 	constructor(props){
 		super(props);
-		this.state = { 
-			userInfo : {
-				name : firebaseApp.auth().currentUser.displayName,
-				email : firebaseApp.auth().currentUser.email,
-				photoURL : firebaseApp.auth().currentUser.photoURL
-			}
-		};
+		if(firebaseApp.auth().currentUser)
+			this.state = { 
+				userInfo : {
+					name : firebaseApp.auth().currentUser.displayName,
+					email : firebaseApp.auth().currentUser.email,
+					photoURL : firebaseApp.auth().currentUser.photoURL
+				}
+			};
 	}
 	render() {
 		let popover;
-		if(this.state.userInfo)
+		if(this.state && this.state.userInfo && this.state.userInfo.name)
 			popover = <OverlayTrigger ref="overlay" trigger="click" className="popover-modal" rootClose={true} placement="bottom" overlay={
 								<Popover id="popover-basic">
 								    <Popover.Title as="h3">{this.state.userInfo.name}</Popover.Title>
@@ -33,7 +34,7 @@ class Header extends Component {
 								</Popover>
 							}>
 							    <button variant="success" className="btn-profile">
-							    <img src="https://lh3.googleusercontent.com/a-/AAuE7mDAwNexBKeZA3rLmgCNJRfQ909fxWcP546HHDej=s96-c" width="40" className="avatar-img rounded-circle"/></button>
+							    <img src={this.state.userInfo.photoURL} width="40" className="avatar-img rounded-circle"/></button>
 							 </OverlayTrigger>
 
 		return (
