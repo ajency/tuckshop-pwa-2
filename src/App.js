@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from './components/home/home.js';
 // import List from './components/list-page/list-page.js';
 import Specials from './components/specials/specials.js';
+import StocksSummary from './components/stocks-summary/stocks.js';
 
 const App = (props) => (
 	<Router>
@@ -11,6 +12,7 @@ const App = (props) => (
 			<Route path="/search" component={Home} />
 			<Route path="/specials" component={Specials} />
 			<Route path="/orders" component={Home} />
+			<Route path="/stock-summary" component={StocksSummary} />
 	</Router>
 )
 
