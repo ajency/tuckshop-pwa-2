@@ -10,7 +10,8 @@ class StocksSummary extends Component {
 		this.state = {
 			db : firebaseApp.firestore(),
 			orders : [],
-			items : []
+			items : [],
+			loaded : false
 		};
 	}
 
@@ -45,7 +46,9 @@ class StocksSummary extends Component {
 
 	render() {
 		let orderContainer;
-		if(Object.keys(this.state.orders).length){
+		if(!this.state.loaded)
+			orderContainer = <div className="text-center mt-5"> <h4> Loading... </h4>  </div>
+		else if(Object.keys(this.state.orders).length){
 			orderContainer = 
 			<Table striped bordered hover>
 			  	<thead>
@@ -103,7 +106,7 @@ class StocksSummary extends Component {
 				objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
 				return objectsByKeyValue;
 			}, {});
-		this.setState({orders : grouped_obj})
+		this.setState({orders : grouped_obj, loaded : true})
 		console.log(grouped_obj);
 	}
 }
