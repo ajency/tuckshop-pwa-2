@@ -258,7 +258,7 @@ exports.onStockEntry = functions.firestore
 				console.log("item found ==>", item)
 				let itemRef = firestore.collection('items').doc(stockData.item_code);
 				itemRef.update({
-					stock : item.stock + stockData.purchase_quantity
+					stock : stockData.adjustment == "positive" ? item.stock + stockData.purchase_quantity : item.stock - stockData.purchase_quantity
 				})
 				.then((res)=>{
 					console.log("Doc updated successfully");
