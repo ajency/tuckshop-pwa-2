@@ -7,6 +7,7 @@ const spreadsheetId = '15ggzO3fN-o5FhG7UN3z9QYuNwbqFYv28-0T57q614-E';
 
 
 let serviceAccount = require('./tuckshop-3-firebase-adminsdk-ng72y-add169fc72.json');
+// let serviceAccount = require('./tuckshop-3-dev-a9451679694e.json');
 // If on cloud functions
 if (process.env.X_GOOGLE_FUNCTION_IDENTITY) {
 	admin.initializeApp(functions.config().firebase);
@@ -283,7 +284,7 @@ exports.onStockEntry = functions.firestore
 				console.log("item found ==>", item)
 				let itemRef = firestore.collection('items').doc(stockData.item_code);
 				itemRef.update({
-					stock : stockData.adjustment == "positive" ? item.stock + stockData.quantity : item.stock - stockData.quantity
+					stock : stockData.adjustment_type == "positive" ? item.stock + stockData.quantity : item.stock - stockData.quantity
 				})
 				.then((res)=>{
 					console.log("Doc updated successfully");

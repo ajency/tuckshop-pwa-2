@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "tuckshop-3"
+    "default": "tuckshop-3",
+    "staging": "tuckshop-3-dev"
   }
 }

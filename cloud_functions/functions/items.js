@@ -160,13 +160,11 @@ Items = {
 		let adj_type = adjustment > parseInt(item.stock)? "positive": "negative";
 
 		let diff = 0;
-		if(adjustment) {
-			if (adj_type == "positive") {
+		if (adj_type == "positive") {
 			diff =  adjustment - parseInt(item.stock);
-			} else {
+		} else {
 			diff =  parseInt(item.stock) - adjustment;
-			}
-		}	
+		}
 		try {
 			let adj_doc = await firestore.collection('stock_entry').add({
 				date: new Date().toISOString(),
