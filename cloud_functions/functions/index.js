@@ -150,6 +150,14 @@ app.post('/close-special-order', async(req, res) =>{
 	})
 })
 
+app.post('/adjust-stock',async(req, res)=> {
+	if(req.body["item_code"]!=null && req.body["item_code"]!=undefined && req.body["item_code"].length!=0  ){
+		res.send({"result": await Items.createStockEntry(req.body["item_code"], req.body["adjustment"])} )
+    } else {
+		res.send({"error":"invalid request"})
+	}
+})
+
 exports.api = functions.https.onRequest(app);
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
@@ -275,7 +283,7 @@ exports.onStockEntry = functions.firestore
 				console.log("item found ==>", item)
 				let itemRef = firestore.collection('items').doc(stockData.item_code);
 				itemRef.update({
-					stock : stockData.adjustment == "positive" ? item.stock + stockData.purchase_quantity : item.stock - stockData.purchase_quantity
+					stock : stockData.adjustment == "positive" ? item.stock + stockData.quantity : item.stock - stockData.quantity
 				})
 				.then((res)=>{
 					console.log("Doc updated successfully");
