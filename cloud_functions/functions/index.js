@@ -133,6 +133,33 @@ app.post('/get-items',	async (req, res) =>{
     }
 });
 
+app.post('/close-special-order', async(req, res) =>{
+	let response = {
+		"message_code":"",
+		"message":""
+	}
+	let order = firestore.collection('orders').doc(req.body.id);
+	order.update({
+		status : "closed"
+	})
+	.then((resp)=>{
+		console.log("Doc updated successfully");
+		 response = {
+			"message_code"	: "SUCCESS",
+			"message"		: "Order closed successfully "
+		}
+        res.send(response);
+	})
+	.catch((error)=>{
+		console.error("Error updating document: ", error);
+		 response = {
+			"message_code"	: "ERROR",
+			"message"		: error.message
+		}
+		res.send(response);
+	})
+})
+
 exports.api = functions.https.onRequest(app);
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
