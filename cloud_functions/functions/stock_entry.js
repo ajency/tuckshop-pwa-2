@@ -1,22 +1,22 @@
 
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-let Items = require('./items.js');
 let StockEntry;
 
 StockEntry = {
     	//adjustStock
 	createStockEntry: async(code, adjustment) => {
-		adjustment = parseInt(adjustment);
-		let firestore = admin.firestore();
-		let item = await Items.getItemByCode(code);
-		if(!item.length) {
+        adjustment = parseInt(adjustment);        
+        let firestore = admin.firestore();
+    
+        let itemRef = await firestore.collection('items').doc(code).get();
+        let item = itemRef.data();
+		if(!item.exists) {
 			return {type: 'info', message: 'Item not found' };
 		}
 		if(isNaN(adjustment)) {
 			return {type: 'error', message: 'Invalid stock entry' };
 		}
-		item = item[0];
 		if (adjustment == parseInt(item.stock)) {
 			return {type:'info', message: 'No changes has been done'};
 		}
