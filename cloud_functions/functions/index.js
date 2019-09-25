@@ -6,7 +6,7 @@ const sheets = google.sheets('v4');
 const spreadsheetId = '15ggzO3fN-o5FhG7UN3z9QYuNwbqFYv28-0T57q614-E';
 
 
-let serviceAccount = require('./tuckshop-3-firebase-adminsdk-ng72y-add169fc72.json');
+ let serviceAccount = require('./tuckshop-3-firebase-adminsdk-ng72y-add169fc72.json');
 // let serviceAccount = require('./tuckshop-3-dev-a9451679694e.json');
 // If on cloud functions
 if (process.env.X_GOOGLE_FUNCTION_IDENTITY) {
@@ -33,6 +33,7 @@ const jwtAuthPromise = jwtClient.authorize();
 
 let Items = require('./items.js');
 let Orders = require('./orders.js');
+let StockEntry = require('./stock_entry.js');
 
 const express = require('express');
 const cors = require('cors');
@@ -153,9 +154,9 @@ app.post('/close-special-order', async(req, res) =>{
 
 app.post('/adjust-stock',async(req, res)=> {
 	if(req.body["item_code"]!=null && req.body["item_code"]!=undefined && req.body["item_code"].length!=0  ){
-		res.send({"result": await Items.createStockEntry(req.body["item_code"], req.body["adjustment"])} )
+		res.send({"result": await StockEntry.createStockEntry(req.body["item_code"], req.body["adjustment"])} )
     } else {
-		res.send({"error":"invalid request"})
+		res.send({"error":"Item not found"})
 	}
 })
 
