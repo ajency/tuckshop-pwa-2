@@ -12,7 +12,7 @@ Items = {
 		let firestore = admin.firestore();
 		let items = await firestore.collection('items')
 		.where("in_stock", "==", true)						//filter
-		.where("buyable", "==", true).where("stock",">",0)	//filter
+		.where("buyable", "==", true)	//filter
 		.get();
 		let result = items.docs.map(doc => {
 			return doc.data()
