@@ -3,59 +3,68 @@ import firebaseApp from '../firebase/firebase.js';
 import Header from '../header/header.js';
 import './stocks.scss'
 import Table from 'react-bootstrap/Table';
+import axios from 'axios';
+import ConfirmationModal from './confirmation_modal.js';
+import { ToastContainer, toast } from 'react-toastify';
 
 class StocksSummary extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			db : firebaseApp.firestore(),
-			orders : [],
 			items : [],
-			loaded : false
+			loaded : false,
+			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
+			// apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
+			showModal : false,
+			modalItem : {},
 		};
 	}
 
 	componentDidMount(){
-		this.fetchOrders();
+		this.fetchItems();
 	}
 
 	tableBody(){
-		return Object.keys(this.state.orders).map((key) => 
-			<tr key={key}>
-			    <td>{this.state.orders[key][0].item_code}</td>
-			    <td>{this.state.orders[key][0].item_name}</td>
-			    <td>{this.getTotalSold(this.state.orders[key])}</td>
-			    <td>{this.getCurrentStock(this.state.orders[key][0].item_code)}</td>
+		return this.state.items.map((item) => 
+			<tr key={item.item_code}>
+			    <td>{item.item_code}</td>
+			    <td>{item.item_name}</td>
+			    <td> <input type="number" value={item.stock} onChange={(e)=>this.changeStockValue(item, e.target.value)}/>
+			     {this.showUpdateButton(item)}
+			    </td>
 	    	</tr>
     	);
 	}
 
-	getTotalSold(array){
-		let quantity = 0;
-		array.forEach((order)=>{
-			quantity += parseInt(order.quantity);
-		})
-		return quantity;
+	showUpdateButton(item){
+		if(item.showApply && item.stock)
+			return <button onClick={()=>this.showModalPrompt(item)}>Update</button>
 	}
 
-	getCurrentStock(item_code){
-		let item = this.state.items.find((item) =>{ return item.item_code === item_code})
-		if(item)
-			return item.stock
+	showModalPrompt(item){
+		this.setState({showModal : true,  modalItem : item})
+	}
+
+	changeStockValue(item, value){
+		let index = this.state.items.findIndex((i) => i.item_code === item.item_code)
+		let items_copy  = this.state.items;
+		items_copy[index].stock = value;
+		items_copy[index].showApply = true;
+		this.setState({items : items_copy});
 	}
 
 	render() {
 		let orderContainer;
 		if(!this.state.loaded)
 			orderContainer = <div className="text-center mt-5"> <h4> Loading... </h4>  </div>
-		else if(Object.keys(this.state.orders).length){
+		else if(this.state.items.length){
 			orderContainer = 
 			<Table striped bordered hover>
 			  	<thead>
 				    <tr>
 						<th>Item Code</th>
 						<th>Item Name</th>
-						<th>Sold</th>
 						<th>In Stock</th>
 				    </tr>
 			    </thead>
@@ -81,33 +90,53 @@ class StocksSummary extends Component {
 						{orderContainer}
 				    </div>
 				</div>
+
+				<ToastContainer hideProgressBar={true} closeOnClick={false} position={toast.POSITION.BOTTOM_CENTER} />
+
+				<ConfirmationModal showModal={this.state.showModal} item={this.state.modalItem} handleModalClose={()=>this.handleModalClose()} updateSuccess={()=>this.showUpdateSuccessToast()} updateFailure={()=>this.showUpdateFailureToast()} showLoaderToast={()=>this.showLoaderToast()} noChangeToast={()=>this.showNoChangeToast()}/>
 			</div>
 		);
 	}
 
-	fetchOrders() {
-		this.state.db.collection("orders").onSnapshot(querySnapshot => {
-			  		let orders = querySnapshot.docs.map(doc => doc.data());
-			  		orders.sort((a,b)=>{
-			  			return a.created.seconds - b.created.seconds;
-			  		})
-			  		this.groupByItem(orders, 'item_code');
-	    });
-	    this.state.db.collection("items").onSnapshot(querySnapshot => {
-	    	let items = querySnapshot.docs.map(doc => doc.data());
-	    	this.setState({items : items})
-	    })
+	handleModalClose(){
+		this.setState({showModal : false, itemCode : ''});
 	}
 
-	groupByItem(array, key){
-		let grouped_obj = 
-			array.reduce((objectsByKeyValue, obj) => {
-				const value = obj[key];
-				objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-				return objectsByKeyValue;
-			}, {});
-		this.setState({orders : grouped_obj, loaded : true})
-		console.log(grouped_obj);
+	showLoaderToast(){
+		toast.dismiss();
+		toast("Please wait ...", {autoClose : false});
+	}
+
+	showNoChangeToast(){
+		toast.dismiss();
+		toast("No change in stock", {autoClose : 3000});	
+	}
+
+	showUpdateSuccessToast(){
+		let index = this.state.items.findIndex((i) => i.item_code === this.state.modalItem.item_code)
+		let items_copy  = this.state.items;
+		items_copy[index].showApply = false;
+		this.setState({items : items_copy});
+		toast.dismiss();
+		toast("Stock updated successfully", {autoClose : 3000});	
+	}
+
+	showUpdateFailureToast(){
+		toast.dismiss();
+		toast("Something went wrong. Please try again.", {autoClose : 3000});
+	}
+
+	fetchItems() {
+		let url = this.state.apiEndpoint + '/get-items';
+		axios.get(url)
+			.then((res) => {
+				console.log("get items response ==>", res);
+				let items = res.data;
+				this.setState({items : items, loaded : true})
+			})
+			.catch((error)=>{
+				console.log("error in place order ==>", error);
+			})
 	}
 }
 
