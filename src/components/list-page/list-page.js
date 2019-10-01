@@ -25,7 +25,8 @@ class List extends Component {
 			searchText : '',
 			selectedFilter : 'All',
 			db : firebaseApp.firestore(),
-			itemCode : ''
+			itemCode : '',
+			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
 		};
 	}
 
@@ -95,28 +96,56 @@ class List extends Component {
 	}
 
 	fetchItems() {
-		this.state.db.collection("items").onSnapshot(querySnapshot => {
-			  		let items = querySnapshot.docs.map(doc => doc.data());
-			  		items = items.filter((item) => item.buyable && item.in_stock && item.stock > 0)
-			  		items = items.sort(this.sortItems)
-					let temp = [];
-					for(let i =0; i<items.length; i++){
-						if(items[i].type === "Special"){
-							temp.push(items[i]);
-							items.splice(i,1);
-							i-=1;
-						}
+		let url = this.state.apiEndpoint + '/get-items';
+		axios.get(url)
+			.then((res) => {
+				console.log("get items response ==>", res);
+				let items = res.data;
+				items = items.filter((item) => item.buyable && item.in_stock && item.stock > 0)
+		  		items = items.sort(this.sortItems)
+				let temp = [];
+				for(let i =0; i<items.length; i++){
+					if(items[i].type === "Special"){
+						temp.push(items[i]);
+						items.splice(i,1);
+						i-=1;
 					}
-					items = temp.concat(items);
-					this.setState({items : items, isLoaded : true, itemsCopy : items});
-					if(this.state.itemCode)
-						this.findItem()
-					this.findTypes(items);
-					if(this.state.searchText)
-						this.searchItem(this.state.searchText);
-					else
-						this.filterItems(this.state.selectedFilter);
-	    });
+				}
+				items = temp.concat(items);
+				this.setState({items : items, isLoaded : true, itemsCopy : items});
+				if(this.state.itemCode)
+					this.findItem()
+				this.findTypes(items);
+				if(this.state.searchText)
+					this.searchItem(this.state.searchText);
+				else
+					this.filterItems(this.state.selectedFilter);
+			})
+			.catch((error)=>{
+				console.log("error in place order ==>", error);
+			})
+		// this.state.db.collection("items").onSnapshot(querySnapshot => {
+		// 	  		let items = querySnapshot.docs.map(doc => doc.data());
+		// 	  		items = items.filter((item) => item.buyable && item.in_stock && item.stock > 0)
+		// 	  		items = items.sort(this.sortItems)
+		// 			let temp = [];
+		// 			for(let i =0; i<items.length; i++){
+		// 				if(items[i].type === "Special"){
+		// 					temp.push(items[i]);
+		// 					items.splice(i,1);
+		// 					i-=1;
+		// 				}
+		// 			}
+		// 			items = temp.concat(items);
+		// 			this.setState({items : items, isLoaded : true, itemsCopy : items});
+		// 			if(this.state.itemCode)
+		// 				this.findItem()
+		// 			this.findTypes(items);
+		// 			if(this.state.searchText)
+		// 				this.searchItem(this.state.searchText);
+		// 			else
+		// 				this.filterItems(this.state.selectedFilter);
+	 //    });
 	}
 
 	findItem(){
