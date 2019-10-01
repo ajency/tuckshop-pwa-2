@@ -24,7 +24,7 @@ class List extends Component {
 			modalItem : {},
 			searchText : '',
 			selectedFilter : 'All',
-			db : firebaseApp.firestore(),
+			// db : firebaseApp.firestore(),
 			itemCode : '',
 			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
 		};

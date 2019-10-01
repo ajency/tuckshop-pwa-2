@@ -11,7 +11,6 @@ class StocksSummary extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			db : firebaseApp.firestore(),
 			items : [],
 			loaded : false,
 			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",

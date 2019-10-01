@@ -4,6 +4,8 @@ import Header from '../header/header.js';
 import './specials.scss'
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
+const CancelToken = axios.CancelToken;
+let cancel;
 
 class Specials extends Component {
 	constructor(props) {
@@ -11,19 +13,23 @@ class Specials extends Component {
 		this.state = {
 			db : firebaseApp.firestore(),
 			specialsOrders : [],
-			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
-			// apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
+			// apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
+			apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
 			closeRequestInProgress : false,
 		}
 	}
 
 	componentDidMount(){
 		this.fetchOrders();
+		setInterval(()=>{
+			console.log("calling fetchOrders");
+			this.fetchOrders();
+		},60000)
 	}
 
 	getUserImage(special){
 		return special.map((order) =>
-				<div key={order.user_email + order.created} className={"m-2 text-center " + (order.status === 'closed' ? "disabled" : "cursor-pointer")} title={order.status === 'open' ? 'Mark as Served' : ''}>
+				<div key={order.user_email + order.created._seconds} className={"m-2 text-center " + (order.status === 'closed' ? "disabled" : "cursor-pointer")} title={order.status === 'open' ? 'Mark as Served' : ''}>
     				<img onClick={()=>this.closeSpecialOrder(order)}  src={order.photoURL} width="70" className="avatar-img rounded-circle " />
     			</div>
 			 )
@@ -64,19 +70,29 @@ class Specials extends Component {
 	}
 
 	fetchOrders() {
-		this.state.db.collection("orders").onSnapshot(querySnapshot => {
-			  		let orders = querySnapshot.docs.map(doc => {
-			  			let obj = doc.data();
-			  			obj.id = doc.id;
-			  			return obj;
-			  		});
-			  		// console.log("orders ==>", orders,  );
-			  		orders = orders.filter((order) => order.type === "Special" && (order.created.toDate()).toLocaleDateString() == new Date().toLocaleDateString())
-			  		orders.sort((a,b)=>{
-			  			return a.created.seconds - b.created.seconds;
+	 	let url = this.state.apiEndpoint + '/special-orders';
+	 		let date = new Date();
+	 		let month = date.getMonth() + 1;
+			let body = {
+		      date : month + '/' + date.getDate() + '/' + date.getFullYear()
+		    }
+
+			axios.post(url, body, {
+				cancelToken : new CancelToken((c) => {
+					cancel = c;
+				})
+			})
+				.then((res) => {
+					console.log("res ==>",res);
+					let orders = res.data.special_orders;
+					orders.sort((a,b)=>{
+			  			return a.created._seconds - b.created._seconds;
 			  		})
-			  		this.groupByItem(orders, 'item_code');			  		
-	    });
+			  		this.groupByItem(orders, 'item_code');	
+				})
+				.catch((error)=>{
+					console.log("error in get specials orders api ==>", error);
+				})
 	}
 
 	groupByItem(array, key){
@@ -90,12 +106,12 @@ class Specials extends Component {
 		for (var key in grouped_obj) {
 			grouped_array.push(grouped_obj[key]);
 		}
-		// console.log("group by ==>", grouped_array);
 		this.setState({specialsOrders : grouped_array});
 	}
 
 	closeSpecialOrder(order){
 		if(order.status == 'open' && !this.state.closeRequestInProgress){
+			cancel && cancel();
 			this.setState({closeRequestInProgress : true});
 			let url = this.state.apiEndpoint + '/close-special-order';
 			let body = {
