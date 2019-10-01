@@ -123,7 +123,7 @@ app.post('/place-order', async (req, res) => {
 
 app.get('/get-items', async (req, res) => res.send(await Items.list()))
 
-
+app.get('/get-stock', async (req, res) => res.send(await Items.getStock()))
 
 app.post('/close-special-order', async(req, res) =>{
 	let response = {
