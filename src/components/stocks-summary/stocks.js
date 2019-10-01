@@ -127,7 +127,7 @@ class StocksSummary extends Component {
 	}
 
 	fetchItems() {
-		let url = this.state.apiEndpoint + '/get-items';
+		let url = this.state.apiEndpoint + '/get-stock';
 		axios.get(url)
 			.then((res) => {
 				console.log("get items response ==>", res);
