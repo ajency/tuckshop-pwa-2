@@ -30,14 +30,16 @@ const jwtClient = new google.auth.JWT({
 })
 const jwtAuthPromise = jwtClient.authorize();
 
-//let User = require('./user.js');
 let Items = require('./items.js');
 let Orders = require('./orders.js');
 
-/**
- * gets item details and saves order details
- * @param {*} data 
- */
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+app.use(cors({ origin: true }));
+
 const placeOrder = async data =>{
 	console.log("param data: ", JSON.stringify(data))
 	let orderDetails = {
@@ -89,12 +91,7 @@ const placeOrder = async data =>{
 	
 }
 
-const express = require('express');
-const cors = require('cors');
 
-const app = express();
-
-app.use(cors({ origin: true }));
 
 app.post('/place-order', async (req, res) => {
 
@@ -123,15 +120,8 @@ app.post('/place-order', async (req, res) => {
 });
 
 app.get('/get-items', async (req, res) => res.send(await Items.list()))
-app.post('/get-items',	async (req, res) =>{
-	// console.log("body ",JSON.stringify(req.body["item_code"]==null))
 
-    if(req.body["item_code"]!=null && req.body["item_code"]!=undefined && req.body["item_code"].length!=0  ){
-        res.send({"result": await Items.getByCodes(req.body["item_code"])} )
-    }else{
-        res.send({"result":await Items.list() }) 
-    }
-});
+
 
 app.post('/close-special-order', async(req, res) =>{
 	let response = {
