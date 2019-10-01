@@ -10,10 +10,11 @@ StockEntry = {
         let firestore = admin.firestore();
     
         let itemRef = await firestore.collection('items').doc(code).get();
-        let item = itemRef.data();
-		if(!item.exists) {
+        if(!itemRef.exists) {
 			return {type: 'info', message: 'Item not found' };
 		}
+        let item = itemRef.data();
+		
 		if(isNaN(adjustment)) {
 			return {type: 'error', message: 'Invalid stock entry' };
 		}
