@@ -3,7 +3,10 @@ import firebaseApp from '../firebase/firebase.js';
 import Header from '../header/header.js';
 import './orders.scss'
 import Table from 'react-bootstrap/Table';
+import axios from 'axios';
 var moment = require('moment');
+const CancelToken = axios.CancelToken;
+let cancel;
 
 class Orders extends Component {
 	constructor(props) {
@@ -12,6 +15,9 @@ class Orders extends Component {
 			db : firebaseApp.firestore(),
 			orders : [],
 			month: moment(),
+			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
+			// apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
+			loading : true
 		};
 		this.pickAMonth = React.createRef();
 	}
@@ -22,10 +28,10 @@ class Orders extends Component {
 
 	tableBody(){
 		return this.state.orders.map((order) => 
-			<tr key={order.created.nanoseconds}>
+			<tr key={order.created._nanoseconds}>
 			    <td>{order.item_name}</td>
 			    <td>{order.quantity}</td>
-			    <td>{order.created.toDate().toLocaleDateString()}</td>
+			    <td>{(new Date(order.date)).toLocaleDateString()}</td>
 			    <td><small>Rs. </small> {order.item_price}</td>
 	    	</tr>
     	);
@@ -41,7 +47,9 @@ class Orders extends Component {
 
 	render() {
 		let orderContainer;
-		if(this.state.orders.length){
+		if(this.state.loading)
+			orderContainer = <div className="text-center mt-5"> <h4> Loading ... </h4>  </div>
+		else if(this.state.orders.length){
 			orderContainer = 
 
 			<Table striped bordered hover>
@@ -106,15 +114,46 @@ class Orders extends Component {
 	}
 
 	fetchOrders(month : any = null) {
-		this.state.db.collection("orders").where("user_email", "==", firebaseApp.auth().currentUser.email).onSnapshot(querySnapshot => {
-			  		let orders = querySnapshot.docs.map(doc => doc.data());
-			  		let month_year = month ? (new Date(month)).toLocaleDateString("en-US", {month : 'short', year: 'numeric'}) : new Date().toLocaleDateString("en-US", {month : 'short', year: 'numeric'})
-			  		orders = orders.filter((order) =>  (order.created.toDate()).toLocaleDateString("en-US", {month : 'short', year: 'numeric'}) == month_year)
-			  		orders.sort((a,b)=>{
-			  			return b.created.seconds - a.created.seconds;
-			  		})
-			  		this.setState({orders : orders})
-	    });
+		this.setState({loading : true, orders : []})
+		let date;
+		if(month){
+			date = new Date(month);
+		}
+		else{
+			date = new Date();
+		}
+		let mm = date.getMonth() + 1; //January is 0!
+		let yyyy = date.getFullYear();
+
+		let next_mm = mm == 12 ? 1 : mm + 1;
+		let next_yyyy = mm == 12 ? yyyy + 1 : yyyy;
+
+		let start_date = mm + '-1-' + yyyy;
+		let end_date = next_mm + '-1-' + next_yyyy;
+		console.log("check ==>", start_date, end_date);
+
+		let body = {
+			email : firebaseApp.auth().currentUser.email,
+			start_date : start_date,
+			end_date : end_date
+		}
+		cancel && cancel();
+		let url = this.state.apiEndpoint + '/get-user-orders';
+		axios.post(url, body, {
+				cancelToken : new CancelToken((c) => {
+					cancel = c;
+				})
+			})
+			.then((res) => {
+				let orders = res.data.orders;
+				orders.sort((a,b)=>{
+		  			return b.created._seconds - a.created._seconds;
+		  		})
+		  		this.setState({orders : orders, loading : false})
+			})
+			.catch((error)=>{
+				console.log("error in place order ==>", error);
+			})
 	}
 }
 

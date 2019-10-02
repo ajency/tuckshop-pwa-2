@@ -13,8 +13,8 @@ class Specials extends Component {
 		this.state = {
 			db : firebaseApp.firestore(),
 			specialsOrders : [],
-			// apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
-			apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
+			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
+			// apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
 			closeRequestInProgress : false,
 		}
 	}
