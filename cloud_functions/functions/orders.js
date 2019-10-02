@@ -24,18 +24,17 @@ let Orders = {
 		console.log("get by email params email:",email, " starttime: ", starttime, " endtime: ", endtime);
 		let firestore = admin.firestore();
 		let users = await firestore.collection('orders').where("user_email", "==", email);
-		if (starttime != null)
-			starttime = new Date(starttime);	// ("2017-07-18");
+		starttime = new Date(starttime);	// ("2017-07-18");
 		users = await users.where("created", ">=", starttime);
-		if (endtime != null)
-			endtime = new Date(endtime);		// ("2020-07-19");
+		endtime = new Date(endtime);		// ("2020-07-19");
 		users = await users.where("created", "<=", endtime);
 		users = await users.get();
 		// .where('name','==',"melwyn")
 		let result = [];
 		users.forEach(doc => {
-			result.push(doc.data());
-			// console.log(doc.id)
+			let obj = doc.data();
+			obj.date = obj.created.toDate();
+			result.push(obj);
 		})
 		return result;
 	},

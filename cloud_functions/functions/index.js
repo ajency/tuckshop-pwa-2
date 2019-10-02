@@ -135,6 +135,22 @@ app.post('/special-orders', async (req, res) => {
 	}
 })
 
+app.post('/get-user-orders', async (req, res) => {
+	try {
+		const { email, start_date, end_date } = req.body;
+
+		 //if params are missing
+		if (!email || !start_date || !end_date) {
+				return res.status(400).send({ message: 'Missing fields' })
+		}
+		let orders = await Orders.getByEmail(email,start_date,end_date);
+		return res.status(200).send({ success: true, orders : orders});
+	}
+	catch(error) {
+		return res.status(500).send({ message: `${error.code} - ${error.message}` });
+	}
+})
+
 app.post('/close-special-order', async(req, res) =>{
 	let response = {
 		"message_code":"",
