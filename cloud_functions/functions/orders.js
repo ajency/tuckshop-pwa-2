@@ -157,6 +157,21 @@ let Orders = {
 			return { 'error': err };
 		}
 	},
+
+	getSpecialsByDate : async () => {
+		let firestore = admin.firestore();
+		let today = new Date();
+		let specials = await firestore.collection('orders')
+				.where("type", "==", "Special")
+				.where("created", ">", today).get();
+		let result = [];
+		specials.forEach(doc => {
+			let obj = doc.data();
+			obj.id = doc.id;
+			result.push(obj);
+		})
+		return result;
+	}
 }
 
 module.exports = Orders;

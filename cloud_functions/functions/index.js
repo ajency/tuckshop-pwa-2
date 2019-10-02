@@ -125,6 +125,16 @@ app.get('/get-items', async (req, res) => res.send(await Items.list()))
 
 app.get('/get-stock', async (req, res) => res.send(await Items.getStock()))
 
+app.post('/special-orders', async (req, res) => {
+	try {
+		let special_orders = await Orders.getSpecialsByDate();
+		return res.status(200).send({ success: true, special_orders : special_orders});
+	}
+	catch(error) {
+		return res.status(500).send({ message: `${error.code} - ${error.message}` });
+	}
+})
+
 app.post('/close-special-order', async(req, res) =>{
 	let response = {
 		"message_code":"",
