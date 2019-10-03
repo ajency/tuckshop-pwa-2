@@ -12,7 +12,7 @@ class Orders extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			db : firebaseApp.firestore(),
+			// db : firebaseApp.firestore(),
 			orders : [],
 			month: moment(),
 			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",

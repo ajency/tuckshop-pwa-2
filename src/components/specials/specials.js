@@ -11,7 +11,7 @@ class Specials extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			db : firebaseApp.firestore(),
+			// db : firebaseApp.firestore(),
 			specialsOrders : [],
 			apiEndpoint : "https://us-central1-tuckshop-3.cloudfunctions.net/api",
 			// apiEndpoint : "http://localhost:5000/tuckshop-3/us-central1/api",
