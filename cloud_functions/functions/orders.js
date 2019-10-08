@@ -160,6 +160,7 @@ let Orders = {
 	getSpecialsByDate : async () => {
 		let firestore = admin.firestore();
 		let today = new Date();
+		today.setHours(0,0,0,0);
 		let specials = await firestore.collection('orders')
 				.where("type", "==", "Special")
 				.where("created", ">", today).get();
