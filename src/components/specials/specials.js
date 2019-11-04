@@ -27,12 +27,20 @@ class Specials extends Component {
 		},60000)
 	}
 
-	getUserImage(special){
+	getSpecial(special){
 		return special.map((order) =>
 				<div key={order.user_email + order.created._seconds} className={"m-2 text-center " + (order.status === 'closed' ? "disabled" : "cursor-pointer")} title={order.status === 'open' ? 'Mark as Served' : ''}>
-    				<img onClick={()=>this.closeSpecialOrder(order)}  src={order.photoURL} width="70" className="avatar-img rounded-circle " />
+						{this.getUserImage(order)}
     			</div>
 			 )
+	}
+
+	getUserImage(order){
+	let count = []
+	for(let i = 0; i < order.quantity; i++){
+			count.push(<img onClick={()=>this.closeSpecialOrder(order)}  src={order.photoURL} width="70" className="avatar-img rounded-circle m-1" />)
+	}
+	return count;
 	}
 
 	render() {
@@ -49,7 +57,7 @@ class Specials extends Component {
 						</div>
 					</div>
 					<div className="d-flex flex-wrap">
-						{this.getUserImage(special)}
+						{this.getSpecial(special)}
 			    	</div>
 			    </div>
 			);
