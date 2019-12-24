@@ -38,7 +38,7 @@ class Specials extends Component {
 	getUserImage(order){
 	let count = []
 	for(let i = 0; i < order.quantity; i++){
-			count.push(<img onClick={()=>this.closeSpecialOrder(order)}  src={order.photoURL} width="70" className="avatar-img rounded-circle m-1" />)
+			count.push(<img key={i} onClick={()=>this.closeSpecialOrder(order)}  src={order.photoURL} width="70" className="avatar-img rounded-circle m-1" />)
 	}
 	return count;
 	}
@@ -53,7 +53,7 @@ class Specials extends Component {
 							{special[0].item_name}
 						</div>
 						<div>
-							Order Count :{special.length}
+							Order Count :{this.getSpecialCount(special)}
 						</div>
 					</div>
 					<div className="d-flex flex-wrap">
@@ -75,6 +75,15 @@ class Specials extends Component {
 				</div>
 			</div>
 		);
+	}
+
+	getSpecialCount(special){
+		console.log(special);
+		let count = 0;
+		special.forEach((sp) => {
+			count += sp.quantity;
+		})
+		return count;
 	}
 
 	fetchOrders() {
