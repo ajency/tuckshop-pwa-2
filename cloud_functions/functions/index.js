@@ -206,7 +206,10 @@ exports.onOrderCreate = functions.firestore
 			let yyyy = date.getFullYear();
 
     		let foramtted_date = dd + '-' + mm + '-' + yyyy;
-
+    		let month_year = date.toLocaleDateString("en-US", {month : 'short', year: 'numeric'})
+    		month_year = month_year.replace(" ", "-");
+    		// month_year = month_year.slice(1);
+    		console.log("month_year ==>",month_year);
     		console.log("fomatted date ==>", foramtted_date)
     		let data = [
     			[ 
@@ -219,7 +222,7 @@ exports.onOrderCreate = functions.firestore
     				orderData.type, 
     				orderData.item_price, 
     				foramtted_date,
-    				date.toLocaleDateString("en-US", {month : 'short', year: 'numeric'}), 
+    				month_year, 
     				date.toLocaleDateString("en-US", {weekday : 'short'}), 
     				((date.toLocaleDateString("en-US", {hour : '2-digit', minute : '2-digit', second : '2-digit'})).split(',')[1]).substring(1)]
     		];
@@ -360,3 +363,91 @@ function writeToSheet(data, sheet_name){
         console.log("entry in sheet success");
     })
 }
+
+
+exports.report = functions.https.onRequest(async (request, response)  => {
+	let date = new Date('01-09-2019')
+	let orders = await firestore.collection('orders')
+				.where("created", ">", date).get();
+	let result = [];
+	orders.forEach(doc => {
+		let obj = doc.data();
+		result.push(obj);
+	})
+	let grouped_array = groupByItem(result, 'item_code');
+	let report_array = [];
+	for(let array of grouped_array){
+		let product = {
+			item_code : array[0].item_code,
+			item_name : array[0].item_name,
+			quantity : 0,
+			total_amount : 0
+		}
+		for (let item of array){
+			product.quantity += item.quantity;
+			product.total_amount += item.total; 
+		}
+		report_array.push(product);
+	}
+	let res = {
+		array : report_array
+	}
+	response.send(res);
+});
+
+
+function groupByItem(array, key){
+	let grouped_obj = 
+		array.reduce((objectsByKeyValue, obj) => {
+			const value = obj[key];
+			objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+			return objectsByKeyValue;
+		}, {});
+	let grouped_array = []
+	for (var key in grouped_obj) {
+		grouped_array.push(grouped_obj[key]);
+	}
+
+	return grouped_array;
+}
+
+exports.findOrderItem = functions.https.onRequest(async (request, response)=>{
+	let orders = await firestore.collection('orders')
+				.where("item_code", "==", "400195").get();
+	let result = [];
+	orders.forEach(doc => {
+		let obj = doc.data();
+		obj.id = doc.id;
+		result.push(obj);
+	})
+	response.send({result});
+})
+
+app.get('/get-all-users-monthly-total', async (req, res) => {
+	try {
+		const { start_date, end_date } = req.query;
+		admin.auth().listUsers(100)
+		    .then( async (listUsersResult)=> {
+			    console.log("list of users", listUsersResult.users.length)
+			    // listUsersResult.users.forEach(function(userRecord) {
+			    //     console.log('user', userRecord.toJSON().email);
+			    //     let orders = await Orders.getByEmail(email,start_date,end_date);
+			    // });
+			    result = [];
+			    for(let user of listUsersResult.users){
+			    	console.log('user', user.toJSON().email);
+			        let montly_total = await Orders.getTotalByEmail(user.toJSON().email,start_date,end_date);
+			        result.push({name : user.toJSON().displayName, email :user.toJSON().email, month_total : montly_total})
+			    }
+			    return res.status(200).send({ success: true, result : result});
+		    })
+		    .catch(function(error) {
+		      console.log('Error listing users:', error);
+		    });
+		// return res.status(200).send({ success: true, orders : orders});
+	}
+	catch(error) {
+		return res.status(500).send({ message: `${error.code} - ${error.message}` });
+	}
+})
+

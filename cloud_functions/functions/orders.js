@@ -59,7 +59,7 @@ let Orders = {
 			// console.log(doc.id)
 		})
 		return {
-			"list": result,
+			// "list": result,
 			"total": total
 		};
     },
